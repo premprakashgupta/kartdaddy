@@ -1,23 +1,35 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
+import '../api/auth.dart';
+
 class HomeController extends GetxController {
-   final PageController pageController = PageController();
-  final _searchBox = false.obs;
-  final _currentPage = 0.obs;
+  // page controller access by trending page
+  final PageController pageController = PageController();
+  final sections = [].obs;
+  final newProducts = [].obs;
+  final popularProducts = [].obs;
 
-  bool get searchBox => _searchBox.value;
-  get currentPage => _currentPage.value;
-  void toggleSearchBox() {
-    _searchBox.value = !_searchBox.value;
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    fetchData();
+    super.onInit();
   }
-  
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   pageController.addListener(() {
-  //     currentPage.value = pageController.page!.round();
-  //   });
-  // }
+  void fetchData() async {
+    try {
+      var response = await http.get(
+        Uri.parse(AuthApi.home),
+      );
+      if (response.statusCode == 200) {
+        var jsonData = json.decode(response.body) as Map<String, dynamic>;
+        sections.assignAll(jsonData['sections']);
+        print(sections);
+      }
+    } catch (e) {}
+  }
 }

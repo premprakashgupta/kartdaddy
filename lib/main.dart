@@ -7,6 +7,9 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/screens/auth/login_screen.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'controllers/auth/login_controller.dart';
+import 'screens/landing_screen.dart';
+
 void main() async {
   await GetStorage.init();
 
@@ -45,9 +48,7 @@ class MyApp extends StatelessWidget {
         Locale('en'),
         Locale('hi'),
       ],
-      home: Builder(
-        builder: (context) => const LoginScreen(),
-      ),
+      home: LandingScreen(),
     );
   }
 }

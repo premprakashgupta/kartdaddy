@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
             const Gap(10),
             IconButton(
               onPressed: () {
-                Get.to(() => const ProfileScreen());
+                Get.to(() => ProfileScreen());
               },
               icon: CustomIcons.person(),
             ),
@@ -135,75 +135,93 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   CustomSlider(),
                   const Gap(20),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: UnderlineContainer(
-                          color: Colors.amber,
-                          child: Heading(
-                              text: AppLocalizations.of(context)!
-                                  .trending_products)),
-                    ),
+
+                  Column(
+                    children:
+                        List.generate(_homeController.sections.length, (index) {
+                      var section = _homeController.sections[index];
+                      return Column(
+                        children: [
+                          const Gap(20),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: UnderlineContainer(
+                                  color: Colors.amber,
+                                  child: Heading(text: section['title'])),
+                            ),
+                          ),
+                          const Gap(20),
+                          Wrap(
+                            direction: Axis.horizontal,
+                            children: List.generate(section['products'].length,
+                                (idx) {
+                              var product = section['products'][idx];
+                              return Container(
+                                margin: const EdgeInsets.all(8),
+                                width: 180,
+                                child: BoxBorderContainer(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: NormalText(
+                                              text: product['category_name'])),
+                                      const Gap(8),
+                                      Heading(
+                                        text: product['title'],
+                                        maxLines: 2,
+                                      ),
+                                      Gap(20),
+                                      Image.network(
+                                        height: 100,
+                                        errorBuilder: (BuildContext context,
+                                            Object error,
+                                            StackTrace? stackTrace) {
+                                          return IconButton(
+                                            icon: Icon(Icons.refresh),
+                                            onPressed: () {
+                                              // Handle refresh action when image fails to load
+                                            },
+                                          );
+                                        },
+                                        DemoData.slideImage[idx],
+                                        fit: BoxFit.cover,
+                                      ),
+                                      Gap(20),
+                                      const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: SubHeading(text: "11000")),
+                                      const Gap(6),
+                                    ],
+                                  ),
+                                )),
+                              );
+                            }),
+                          ),
+                          const Gap(20),
+                          CustomButton(
+                            onPressed: () {
+                              Get.to(() => TrendingProductsScreen(
+                                    slug: section['slug'],
+                                  ));
+                            },
+                            child: const Text(
+                              "View All",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
                   ),
-                  const Gap(40),
-                  Wrap(
-                    direction: Axis.horizontal,
-                    children: List.generate(
-                        2,
-                        (index) => Container(
-                              margin: const EdgeInsets.all(8),
-                              width: 180,
-                              child: BoxBorderContainer(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Column(
-                                  children: [
-                                    const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: NormalText(text: "7 Products")),
-                                    const Gap(8),
-                                    const Heading(
-                                        text: "Mobile Phone Accesaries",maxLines: 2,),
-                                        Gap(20),
-                                    Image.network(
-                                      height: 100,
-                                      errorBuilder: (BuildContext context,
-                                          Object error,
-                                          StackTrace? stackTrace) {
-                                        return IconButton(
-                                          icon: Icon(Icons.refresh),
-                                          onPressed: () {
-                                            // Handle refresh action when image fails to load
-                                          },
-                                        );
-                                      },
-                                      DemoData.slideImage[index],
-                                      fit: BoxFit.cover,
-                                    ),
-                                    Gap(20),
-                                    const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: SubHeading(text: "11000")),
-                                    const Gap(6),
-                                  ],
-                                ),
-                              )),
-                            )),
-                  ),
-                  const Gap(20),
-                  CustomButton(
-                    onPressed: () {
-                      Get.to(() => TrendingProductsScreen(slug: 'trending-products',));
-                    },
-                    child: const Text(
-                      "View All",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
+
                   const Gap(30),
                   Card(
                     child: Container(
@@ -336,40 +354,41 @@ class HomeScreen extends StatelessWidget {
                             margin: const EdgeInsets.all(8),
                             width: 180,
                             child: BoxBorderContainer(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Column(
-                                  children: [
-                                    const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: NormalText(text: "7 Products")),
-                                    const Gap(8),
-                                    const Heading(
-                                        text: "Mobile Phone Accesaries",maxLines: 2,),
-                                        Gap(20),
-                                    Image.network(
-                                      height: 100,
-                                      errorBuilder: (BuildContext context,
-                                          Object error,
-                                          StackTrace? stackTrace) {
-                                        return IconButton(
-                                          icon: Icon(Icons.refresh),
-                                          onPressed: () {
-                                            // Handle refresh action when image fails to load
-                                          },
-                                        );
-                                      },
-                                      DemoData.slideImage[index],
-                                      fit: BoxFit.cover,
-                                    ),
-                                    Gap(20),
-                                    const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: SubHeading(text: "11000")),
-                                    const Gap(6),
-                                  ],
-                                ),
-                              )),
+                                child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                children: [
+                                  const Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: NormalText(text: "7 Products")),
+                                  const Gap(8),
+                                  const Heading(
+                                    text: "Mobile Phone Accesaries",
+                                    maxLines: 2,
+                                  ),
+                                  Gap(20),
+                                  Image.network(
+                                    height: 100,
+                                    errorBuilder: (BuildContext context,
+                                        Object error, StackTrace? stackTrace) {
+                                      return IconButton(
+                                        icon: Icon(Icons.refresh),
+                                        onPressed: () {
+                                          // Handle refresh action when image fails to load
+                                        },
+                                      );
+                                    },
+                                    DemoData.slideImage[index],
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Gap(20),
+                                  const Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: SubHeading(text: "11000")),
+                                  const Gap(6),
+                                ],
+                              ),
+                            )),
                           ),
                         ),
                       ),
@@ -455,40 +474,41 @@ class HomeScreen extends StatelessWidget {
                           margin: const EdgeInsets.all(8),
                           width: 180,
                           child: BoxBorderContainer(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Column(
-                                  children: [
-                                    const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: NormalText(text: "7 Products")),
-                                    const Gap(8),
-                                    const Heading(
-                                        text: "Mobile Phone Accesaries",maxLines: 2,),
-                                        Gap(20),
-                                    Image.network(
-                                      height: 100,
-                                      errorBuilder: (BuildContext context,
-                                          Object error,
-                                          StackTrace? stackTrace) {
-                                        return IconButton(
-                                          icon: Icon(Icons.refresh),
-                                          onPressed: () {
-                                            // Handle refresh action when image fails to load
-                                          },
-                                        );
-                                      },
-                                      DemoData.slideImage[index],
-                                      fit: BoxFit.cover,
-                                    ),
-                                    Gap(20),
-                                    const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: SubHeading(text: "11000")),
-                                    const Gap(6),
-                                  ],
+                              child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              children: [
+                                const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: NormalText(text: "7 Products")),
+                                const Gap(8),
+                                const Heading(
+                                  text: "Mobile Phone Accesaries",
+                                  maxLines: 2,
                                 ),
-                              )),
+                                Gap(20),
+                                Image.network(
+                                  height: 100,
+                                  errorBuilder: (BuildContext context,
+                                      Object error, StackTrace? stackTrace) {
+                                    return IconButton(
+                                      icon: Icon(Icons.refresh),
+                                      onPressed: () {
+                                        // Handle refresh action when image fails to load
+                                      },
+                                    );
+                                  },
+                                  DemoData.slideImage[index],
+                                  fit: BoxFit.cover,
+                                ),
+                                Gap(20),
+                                const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: SubHeading(text: "11000")),
+                                const Gap(6),
+                              ],
+                            ),
+                          )),
                         ),
                       ),
                     ),

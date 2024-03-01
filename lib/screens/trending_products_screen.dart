@@ -20,7 +20,7 @@ class TrendingProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ;
+    
     return Scaffold(
       appBar: AppBar(
         title: NormalText(
@@ -29,7 +29,8 @@ class TrendingProductsScreen extends StatelessWidget {
         elevation: 5,
       ),
       body: SingleChildScrollView(
-        child: Center(
+          child: Obx(
+        () => Center(
           child: _trendingProductsController.loading.value == true
               ? Center(child: CircularProgressIndicator())
               : Wrap(
@@ -46,9 +47,9 @@ class TrendingProductsScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(15.0),
                         child: Column(
                           children: [
-                            const Align(
+                            Align(
                                 alignment: Alignment.centerLeft,
-                                child: NormalText(text: "7 Products")),
+                                child: NormalText(text: data.category_name!)),
                             const Gap(8),
                             Heading(
                               text: data.title!,
@@ -70,9 +71,9 @@ class TrendingProductsScreen extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                             Gap(20),
-                            const Align(
+                            Align(
                                 alignment: Alignment.centerLeft,
-                                child: SubHeading(text: "11000")),
+                                child: SubHeading(text: data.sale_price!)),
                             const Gap(6),
                           ],
                         ),
@@ -81,7 +82,8 @@ class TrendingProductsScreen extends StatelessWidget {
                   }),
                 ),
         ),
-      ),
+      
+      )),
     );
   }
 }

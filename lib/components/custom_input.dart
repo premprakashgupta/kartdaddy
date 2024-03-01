@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomInput extends StatelessWidget {
+
+  final Key? uniqueKey;
+  final String? Function(String?)? validator;
   final TextEditingController? controller;
   final String hint;
   final Widget label;
@@ -12,7 +15,11 @@ class CustomInput extends StatelessWidget {
       this.controller,
       required this.hint,
       required this.label,
-      this.prefixIcon, this.keyboardType, this.obsecureText=false});
+      this.prefixIcon,
+      this.keyboardType,
+      this.obsecureText = false,
+      this.uniqueKey,
+      this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +27,8 @@ class CustomInput extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obsecureText,
+      validator: validator,
+      key: uniqueKey,
       decoration: InputDecoration(
         hintText: hint,
         prefixIcon: prefixIcon,

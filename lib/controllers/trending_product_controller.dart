@@ -13,14 +13,13 @@ class TrendingProductsController extends GetxController {
   @override
   onInit() {
     super.onInit();
-
+    print(slug);
     fetchData(slug: slug);
   }
 
   Future<void> fetchData({required String slug}) async {
     try {
-      final uri =
-          Uri.parse('https://kartdaddy.in/api/section/$slug');
+      final uri = Uri.parse('https://kartdaddy.in/api/section/$slug');
       var response = await http.get(uri);
       print(response.statusCode);
 
