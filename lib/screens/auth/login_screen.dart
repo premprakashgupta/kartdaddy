@@ -53,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: NormalText(
                         text: AppLocalizations.of(context)!.mobile_no_email),
                     prefixIcon: CustomIcons.phone(),
-                    keyboardType: TextInputType.number,
                     controller: _emailController,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -92,10 +91,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 AppLocalizations.of(context)!.forgot_password)),
                   ),
                   const Gap(30),
+                  Obx(
+                    () => 
                   CustomButton(
                       size: Size.fromWidth(
                           MediaQuery.of(context).size.width * .8),
-                      onPressed: () {
+                        onPressed: _loginController.disabled.value == true
+                            ? null
+                            : () {
                         if (_formKey.currentState!.validate()) {
                           // If the form is valid, navigate to HomeScreen
                           _loginController.loginUser(
@@ -107,6 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: NormalText(
                         text: AppLocalizations.of(context)!.login,
                       )),
+                  ),
+                  
                   const Gap(20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

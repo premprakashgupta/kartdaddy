@@ -12,6 +12,7 @@ class HomeController extends GetxController {
   final sections = [].obs;
   final newProducts = [].obs;
   final popularProducts = [].obs;
+  final loading = true.obs;
 
   @override
   void onInit() {
@@ -29,6 +30,7 @@ class HomeController extends GetxController {
         var jsonData = json.decode(response.body) as Map<String, dynamic>;
         sections.assignAll(jsonData['sections']);
         print(sections);
+        loading.value = false;
       }
     } catch (e) {}
   }

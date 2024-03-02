@@ -10,7 +10,7 @@ class SubHeading extends StatelessWidget {
   const SubHeading({
     super.key,
     required this.text,
-    this.size = 16,
+    this.size = 18,
     this.color, this.maxLines,
   });
 

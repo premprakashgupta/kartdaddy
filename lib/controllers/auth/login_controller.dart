@@ -7,14 +7,17 @@ import 'package:http/http.dart' as http;
 import '../../api/auth.dart';
 import '../../models/auth/user_model.dart';
 import '../../screens/home_screen.dart';
+import '../../services/token_refresh_service.dart';
 import '../../utility/custom_snackbar.dart';
 
 class LoginController extends GetxController {
+  final TokenRefreshService _tokenRefreshService = Get.find();
   final box = GetStorage();
   final _user = Rx<Usermodel?>(null);
 
   int _loginAt = 0;
   final loading = true.obs;
+  final disabled = false.obs;
 
   Usermodel? get user => _user.value;
   set setUser(Usermodel? value) => _user.value = value;
@@ -22,6 +25,7 @@ class LoginController extends GetxController {
   Future<void> loginUser(
       {required String email, required String password}) async {
     try {
+      disabled.value = true;
       var response = await http.post(
         Uri.parse(AuthApi.login),
         body: {'email': email, 'password': password},
@@ -34,6 +38,7 @@ class LoginController extends GetxController {
         var expiresIn = jsonData['expires_in'];
         _loginAt = DateTime.now().millisecondsSinceEpoch ~/ 1000;
         _user.value = Usermodel.fromMap(jsonData['user']);
+        print(_user.value);
 
         box.write('access_token', accessToken);
         box.write('expires_in', expiresIn);
@@ -41,13 +46,16 @@ class LoginController extends GetxController {
 
         CustomSnackbar.showSnackbar(title: 'Info', message: 'Login Successful');
 
-        loading.value = true;
-        Get.to(() => HomeScreen());
+        loading.value = false;
+        _tokenRefreshService.startTokenRefreshTimer(expireIn: expiresIn);
+        Get.off(() => HomeScreen());
       } else {
         print('Error: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      CustomSnackbar.showSnackbar(title: "Error", message: e.toString());
+    } finally {
+      disabled.value = false;
     }
   }
 

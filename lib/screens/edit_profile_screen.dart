@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,7 +20,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _profileData = {
     'username': 'John Doe',
     'email': 'johndoe@email.com',
-    'mobile': '1234567890',
     'profilePicture': 'https://kartdaddy.in/assets/img/400X400/img1.png',
   };
   XFile? _image;

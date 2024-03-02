@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'controllers/auth/login_controller.dart';
 import 'screens/landing_screen.dart';
+import 'services/token_refresh_service.dart';
 
 void main() async {
   await GetStorage.init();
@@ -19,6 +20,9 @@ void main() async {
   // Get the saved language preference
   String? savedLanguage = box.read('language');
 
+  // Initialize your services
+  Get.put(TokenRefreshService());
+  
   runApp(MyApp(savedLanguage: savedLanguage));
 }
 
