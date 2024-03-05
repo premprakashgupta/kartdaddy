@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class SectionProductsModel {
+class ProductsListModel {
   final int id;
 
   final String? category_name;
@@ -10,7 +10,7 @@ class SectionProductsModel {
   final String? buy_price;
   final String? sale_price;
 
-  SectionProductsModel({
+  ProductsListModel({
     required this.id,
     this.category_name,
     this.thumb_image,
@@ -19,7 +19,7 @@ class SectionProductsModel {
     this.sale_price,
   });
 
-  SectionProductsModel copyWith({
+  ProductsListModel copyWith({
     int? id,
     String? category_name,
     String? title,
@@ -27,7 +27,7 @@ class SectionProductsModel {
     String? buy_price,
     String? sale_price,
   }) {
-    return SectionProductsModel(
+    return ProductsListModel(
       id: id ?? this.id,
       category_name: category_name ?? this.category_name,
       thumb_image: thumb_image ?? this.thumb_image,
@@ -48,8 +48,8 @@ class SectionProductsModel {
     };
   }
 
-  factory SectionProductsModel.fromMap(Map<String, dynamic> map) {
-    return SectionProductsModel(
+  factory ProductsListModel.fromMap(Map<String, dynamic> map) {
+    return ProductsListModel(
       id: map['id'].toInt() as int,
       category_name: map['category_name'] as String,
       thumb_image: map['thumb_image'] as String,
@@ -61,12 +61,12 @@ class SectionProductsModel {
 
   String toJson() => json.encode(toMap());
 
-  factory SectionProductsModel.fromJson(String source) =>
-      SectionProductsModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ProductsListModel.fromJson(String source) =>
+      ProductsListModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'SectionProductsModel(id: $id, category_name: $category_name,  title: $title, buy_price: $buy_price, sale_price: $sale_price, ';
+    return 'ProductsListModel(id: $id, category_name: $category_name,  title: $title, buy_price: $buy_price, sale_price: $sale_price, ';
   }
 }
 

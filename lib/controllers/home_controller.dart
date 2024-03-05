@@ -12,6 +12,8 @@ class HomeController extends GetxController {
   final sections = [].obs;
   final newProducts = [].obs;
   final popularProducts = [].obs;
+  final bannerData = [].obs;
+  final categorySections = [].obs;
   final loading = true.obs;
 
   @override
@@ -29,7 +31,11 @@ class HomeController extends GetxController {
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body) as Map<String, dynamic>;
         sections.assignAll(jsonData['sections']);
-        print(sections);
+        newProducts.assignAll(jsonData['newProducts']);
+        popularProducts.assignAll(jsonData['popularProducts']);
+        bannerData.assignAll(jsonData['bannerData']);
+        categorySections.assignAll(jsonData['categorySections']);
+        
         loading.value = false;
       }
     } catch (e) {}

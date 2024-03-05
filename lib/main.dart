@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 import 'package:kartdaddy/screens/auth/login_screen.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:kartdaddy/shimmer/grid_shimmer.dart';
+import 'package:kartdaddy/shimmer/list_shimmer.dart';
 
 import 'controllers/auth/login_controller.dart';
 import 'screens/landing_screen.dart';
@@ -19,9 +21,6 @@ void main() async {
 
   // Get the saved language preference
   String? savedLanguage = box.read('language');
-
-  // Initialize your services
-  Get.put(TokenRefreshService());
   
   runApp(MyApp(savedLanguage: savedLanguage));
 }

@@ -57,38 +57,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // CircularAvatar with edit icon
-            InkWell(
-              onTap: _pickImage,
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  const Center(
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: 
-                           NetworkImage('https://kartdaddy.in/assets/img/400X400/img1.png'),
-                    ),
-                  ),
-                  Positioned(
-                    right: MediaQuery.of(context).size.width*.3,
-                    bottom: 0,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.amber,
-                      ),
-                      child: const Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Gap( 16),
+            
             // Text fields for other profile information
             TextField(
               controller: _usernameController,

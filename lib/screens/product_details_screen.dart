@@ -11,21 +11,21 @@ import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/screens/cart_screen.dart';
 import 'package:kartdaddy/screens/review_screen.dart';
 
-class ProductScreen extends StatefulWidget {
+class ProductDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> productData; // Replace this with your actual data
 
-  const ProductScreen({super.key, required this.productData});
+  const ProductDetailsScreen({super.key, required this.productData});
 
   @override
-  _ProductScreenState createState() => _ProductScreenState();
+  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const NormalText(text:'Product Details'),
+        title: const NormalText(text: 'Product Details'),
       ),
       bottomSheet: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -51,39 +51,49 @@ class _ProductScreenState extends State<ProductScreen> {
             Gap(20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [SubHeading(text:
-              widget.productData['category'],color: Colors.blue.shade300,
-              
-            ),Row(
               children: [
-                const Icon(Icons.star, color: Colors.yellow),
-                const Gap( 4),
-                NormalText(text:
-                    '${widget.productData['rating']} (${widget.productData['customerCount']} ratings)'),
+                SubHeading(
+                  text: widget.productData['category'],
+                  color: Colors.blue.shade300,
+                ),
+                Row(
+                  children: [
+                    const Icon(Icons.star, color: Colors.yellow),
+                    const Gap(4),
+                    NormalText(
+                        text:
+                            '${widget.productData['rating']} (${widget.productData['customerCount']} ratings)'),
+                  ],
+                ),
               ],
-            ),],
             ),
-            Heading(text:
-              widget.productData['productTitle'],
+            Heading(
+              text: widget.productData['productTitle'],
               maxLines: 4,
             ),
             Gap(30),
-            SlantRectangle(width: 150,),
+            SlantRectangle(
+              width: 150,
+            ),
             Gap(20),
             CarouselGrid(data: DemoData.slideImage),
-            const Gap( 16),
+            const Gap(16),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                NormalText(text:'Price: \$${widget.productData['price']}',size: 24,),
+                NormalText(
+                  text: 'Price: \$${widget.productData['price']}',
+                  size: 24,
+                ),
                 Gap(20),
-                NormalText(text:'${widget.productData['crossPrice']}'),
+                NormalText(text: '${widget.productData['crossPrice']}'),
               ],
             ),
-            const Gap( 16),
-            NormalText(text:
-                'Availability: ${widget.productData['availability']} in stock'),
-            const Gap( 8),
+            const Gap(16),
+            NormalText(
+                text:
+                    'Availability: ${widget.productData['availability']} in stock'),
+            const Gap(8),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -91,29 +101,39 @@ class _ProductScreenState extends State<ProductScreen> {
                   onPressed: () {
                     // Handle wishlist button click
                   },
-                  child: const NormalText(text:'Add to Wishlist'),
+                  child: const NormalText(text: 'Add to Wishlist'),
                 ),
                 TextButton(
                   onPressed: () {
                     // Handle compare button click
                   },
-                  child: const NormalText(text:'Compare'),
+                  child: const NormalText(text: 'Compare'),
                 ),
               ],
             ),
-            const Gap( 16),
-            const SubHeading(text:'Product Description',color: Colors.black,
-                ),
-            const Gap( 8),
-            NormalText(text:widget.productData['productDescription'],maxLines: 5,),
-            TextButton(onPressed: (){}, child: const SubHeading(text: "more",)),
-            const Gap( 16),
-            const SubHeading(text:'Available Offers',
-                color: Colors.black,),
-            const Gap( 8),
-            NormalText(text:widget.productData['offer1']),
-            NormalText(text:widget.productData['offer2']),
-            
+            const Gap(16),
+            const SubHeading(
+              text: 'Product Description',
+              color: Colors.black,
+            ),
+            const Gap(8),
+            NormalText(
+              text: widget.productData['productDescription'],
+              maxLines: 5,
+            ),
+            TextButton(
+                onPressed: () {},
+                child: const SubHeading(
+                  text: "more",
+                )),
+            const Gap(16),
+            const SubHeading(
+              text: 'Available Offers',
+              color: Colors.black,
+            ),
+            const Gap(8),
+            NormalText(text: widget.productData['offer1']),
+            NormalText(text: widget.productData['offer2']),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -129,48 +149,48 @@ class _ProductScreenState extends State<ProductScreen> {
                       .map<DropdownMenuItem<String>>((String color) {
                     return DropdownMenuItem<String>(
                       value: color,
-                      child: NormalText(text:color),
+                      child: NormalText(text: color),
                     );
                   }).toList(),
-                  hint: const NormalText(text:'Select Color'),
+                  hint: const NormalText(text: 'Select Color'),
                 ),
-            const Gap( 8),
-            Row(
-              children: [
-                const NormalText(text:'Quantity: '),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      // Handle quantity decrease
-                      if (widget.productData['quantity'] > 1) {
-                        widget.productData['quantity']--;
-                      }
-                    });
-                  },
-                  icon: const Icon(Icons.remove),
-                ),
-                NormalText(text:widget.productData['quantity'].toString()),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      // Handle quantity increase
-                      widget.productData['quantity']++;
-                    });
-                  },
-                  icon: const Icon(Icons.add),
+                const Gap(8),
+                Row(
+                  children: [
+                    const NormalText(text: 'Quantity: '),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          // Handle quantity decrease
+                          if (widget.productData['quantity'] > 1) {
+                            widget.productData['quantity']--;
+                          }
+                        });
+                      },
+                      icon: const Icon(Icons.remove),
+                    ),
+                    NormalText(text: widget.productData['quantity'].toString()),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          // Handle quantity increase
+                          widget.productData['quantity']++;
+                        });
+                      },
+                      icon: const Icon(Icons.add),
+                    ),
+                  ],
                 ),
               ],
             ),
-              ],
-            ),
-            const Gap( 16),
+            const Gap(16),
             CustomButton(
               onPressed: () {
                 // Handle add to cart button click
               },
-              child: const NormalText(text:'Add to Cart'),
+              child: const NormalText(text: 'Add to Cart'),
             ),
-            const Gap( 16),
+            const Gap(16),
             DefaultTabController(
               length: 4,
               child: Column(
@@ -183,15 +203,21 @@ class _ProductScreenState extends State<ProductScreen> {
                       Tab(text: 'Review'),
                     ],
                   ),
-                  const Gap( 8),
+                  const Gap(8),
                   SizedBox(
                     height: 400, // Adjust the height of the tab content
                     child: TabBarView(
                       children: [
                         // Implement the content for each tab as needed
-                        Container(child: const NormalText(text:'Accessories Tab Content')),
-                        Container(child: const NormalText(text:'Description Tab Content')),
-                        Container(child: const NormalText(text:'Specification Tab Content')),
+                        Container(
+                            child: const NormalText(
+                                text: 'Accessories Tab Content')),
+                        Container(
+                            child: const NormalText(
+                                text: 'Description Tab Content')),
+                        Container(
+                            child: const NormalText(
+                                text: 'Specification Tab Content')),
                         Container(child: const ReviewScreen()),
                       ],
                     ),

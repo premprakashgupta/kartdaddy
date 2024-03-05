@@ -6,18 +6,18 @@ import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
-import 'package:kartdaddy/models/section_products_model.dart';
+import 'package:kartdaddy/models/products_list_model.dart';
+import 'package:kartdaddy/shimmer/grid_shimmer.dart';
 
-import '../controllers/trending_product_controller.dart';
+import '../controllers/products_list_controller.dart';
 
-class SectionProductsScreen extends StatelessWidget {
+class ProductsListScreen extends StatelessWidget {
   final String slug;
   final String title;
-  final SectionProductsController _sectionProductsController;
+  final ProductsListController _ProductsListController;
 
-  SectionProductsScreen({required this.slug, required this.title})
-      : _sectionProductsController =
-            Get.put(SectionProductsController(slug: slug));
+  ProductsListScreen({required this.slug, required this.title})
+      : _ProductsListController = Get.put(ProductsListController(slug: slug));
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,8 @@ class SectionProductsScreen extends StatelessWidget {
         elevation: 5,
       ),
       body: Obx(
-        () => _sectionProductsController.loading.value == true
-            ? Center(child: CircularProgressIndicator())
+        () => _ProductsListController.loading.value == true
+            ? GridShimmer()
             : GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // Number of cards in one row
@@ -40,10 +40,10 @@ class SectionProductsScreen extends StatelessWidget {
                       8.0, // Adjust the spacing between cards vertically
                   childAspectRatio: 0.55, // Adjust the aspect ratio as needed
                 ),
-                itemCount: _sectionProductsController.trendingProducts.length,
+                itemCount: _ProductsListController.trendingProducts.length,
                 itemBuilder: (context, index) {
-                  SectionProductsModel data =
-                      _sectionProductsController.trendingProducts[index];
+                  ProductsListModel data =
+                      _ProductsListController.trendingProducts[index];
                   return Container(
                     margin: const EdgeInsets.all(8),
                     child: BoxBorderContainer(

@@ -9,16 +9,13 @@ import 'package:kartdaddy/screens/language_screen.dart';
 
 import '../components/normal_text_widget.dart';
 import '../controllers/auth/login_controller.dart';
-import '../services/token_refresh_service.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
   final LoginController _loginController = Get.find();
-  final TokenRefreshService _tokenRefreshService = Get.find();
   
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,12 +32,7 @@ class ProfileScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            radius: 50.0,
-                            // Add your avatar image here
-                            // backgroundImage: AssetImage('assets/avatar.jpg'),
-                          ),
-                          Gap(10.0),
+                          
                           Heading(
                             text: _loginController.user!.name,
                           ),
@@ -91,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () {
                       _loginController.logoutUser();
                       _loginController.loading.value = false;
-                      _tokenRefreshService.stopTokenRefreshTimer();
+                      
                       Get.offAll(() => LoginScreen());
             },
           ),

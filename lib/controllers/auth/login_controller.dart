@@ -7,11 +7,10 @@ import 'package:http/http.dart' as http;
 import '../../api/auth.dart';
 import '../../models/auth/user_model.dart';
 import '../../screens/home_screen.dart';
-import '../../services/token_refresh_service.dart';
+
 import '../../utility/custom_snackbar.dart';
 
 class LoginController extends GetxController {
-  final TokenRefreshService _tokenRefreshService = Get.find();
   final box = GetStorage();
   final _user = Rx<Usermodel?>(null);
 
@@ -47,7 +46,7 @@ class LoginController extends GetxController {
         CustomSnackbar.showSnackbar(title: 'Info', message: 'Login Successful');
 
         loading.value = false;
-        _tokenRefreshService.startTokenRefreshTimer(expireIn: expiresIn);
+        
         Get.off(() => HomeScreen());
       } else {
         print('Error: ${response.statusCode}');

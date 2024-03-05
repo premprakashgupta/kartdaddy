@@ -1,101 +1,98 @@
 import 'package:flutter/material.dart';
-import 'package:heroicons/heroicons.dart';
 
 class CustomIcons {
-  static HeroIcon search({double size = 27.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.magnifyingGlass,
-      style: HeroIconStyle.outline,
+  static Icon search({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.search,
       color: color,
       size: size,
     );
   }
 
-  static HeroIcon person({double size = 27.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.user,
-      style: HeroIconStyle.outline,
+  static Icon person({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.person,
       color: color,
       size: size,
     );
   }
 
-  static HeroIcon cart({double size = 27.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.shoppingCart,
-      style: HeroIconStyle.outline,
+  static Icon cart({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.shopping_cart,
       color: color,
       size: size,
     );
   }
-  static HeroIcon chevronRight({double size = 27.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.chevronRight,
-      style: HeroIconStyle.outline,
+
+  static Icon chevronRight({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.chevron_right,
       color: color,
       size: size,
     );
   }
-  static HeroIcon chevronLeft({double size = 27.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.chevronLeft,
-      style: HeroIconStyle.outline,
+
+  static Icon chevronLeft({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.chevron_left,
       color: color,
       size: size,
     );
   }
-  static HeroIcon phone({double size = 18.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.phone,
-      style: HeroIconStyle.outline,
+
+  static Icon phone({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.phone,
       color: color,
       size: size,
     );
   }
-  static HeroIcon password({double size = 18.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.lockClosed,
-      style: HeroIconStyle.outline,
+
+  static Icon password({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.lock,
       color: color,
       size: size,
     );
   }
-  static HeroIcon email({double size = 18.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.envelope,
-      style: HeroIconStyle.outline,
+
+  static Icon email({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.mail,
+      color: color,
+      weight: .5,
+      size: size,
+    );
+  }
+
+  static Icon key({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.vpn_key,
       color: color,
       size: size,
     );
   }
-  static HeroIcon key({double size = 18.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.key,
-      style: HeroIconStyle.outline,
+
+  static Icon refferal({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.share,
       color: color,
       size: size,
     );
   }
-  static HeroIcon refferal({double size = 18.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.share,
-      style: HeroIconStyle.outline,
+
+  static Icon share({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.share,
       color: color,
       size: size,
     );
   }
-  static HeroIcon share({double size = 18.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.share,
-      style: HeroIconStyle.outline,
-      color: color,
-      size: size,
-    );
-  }
-  static HeroIcon heart({double size = 18.0, Color color = Colors.black}) {
-    return HeroIcon(
-      HeroIcons.heart,
-      style: HeroIconStyle.outline,
+
+  static Icon heart({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.favorite,
       color: color,
       size: size,
     );

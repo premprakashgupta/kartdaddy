@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:kartdaddy/models/section_products_model.dart';
+import 'package:kartdaddy/models/products_list_model.dart';
 
-class SectionProductsController extends GetxController {
+class ProductsListController extends GetxController {
   final String slug;
-  SectionProductsController({required this.slug});
+  ProductsListController({required this.slug});
 
-  final trendingProducts = RxList<SectionProductsModel>();
+  final trendingProducts = RxList<ProductsListModel>();
   final loading = true.obs;
 
   @override
@@ -32,9 +32,9 @@ class SectionProductsController extends GetxController {
           // Assuming 'products' is a list, not a map
           List<dynamic> productsList = data['products']['data'];
 
-          // Map each product data to the SectionProductsModel
-          List<SectionProductsModel> products = productsList
-              .map((productData) => SectionProductsModel.fromMap(productData))
+          // Map each product data to the ProductsListModel
+          List<ProductsListModel> products = productsList
+              .map((productData) => ProductsListModel.fromMap(productData))
               .toList();
 
           // Update the observable data

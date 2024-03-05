@@ -6,6 +6,7 @@ import 'package:kartdaddy/components/box_shadow_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/footer_widget.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
+import 'package:kartdaddy/components/horizontal_row.dart';
 import 'package:kartdaddy/components/newsletter_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
@@ -15,6 +16,7 @@ import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/controllers/home_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:badges/badges.dart' as badges;
@@ -23,10 +25,10 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/screens/cart_screen.dart';
 import 'package:kartdaddy/screens/new_products_screen.dart';
 import 'package:kartdaddy/screens/popular_products_screen.dart';
-import 'package:kartdaddy/screens/product_screen.dart';
+import 'package:kartdaddy/screens/product_details_screen.dart';
 import 'package:kartdaddy/screens/profile_screen.dart';
 import 'package:kartdaddy/screens/search_screen.dart';
-import 'package:kartdaddy/screens/section_products_screen.dart';
+import 'package:kartdaddy/screens/products_list_screen.dart';
 
 import '../components/box_border_container.dart';
 
@@ -63,10 +65,10 @@ class HomeScreen extends StatelessWidget {
               },
               child: badges.Badge(
                 showBadge: true,
-                badgeStyle: const badges.BadgeStyle(badgeColor: Colors.white),
+                badgeStyle: const badges.BadgeStyle(badgeColor: Colors.amber),
                 badgeContent: const Text(
                   '3',
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(color: Colors.white),
                 ),
                 child: CustomIcons.cart(),
               ),
@@ -85,7 +87,9 @@ class HomeScreen extends StatelessWidget {
                       autoPlay: true,
                       viewportFraction: 1,
                     ),
-                    items: DemoData.slideImage.map((img) {
+                    items: [
+                      "https://kartdaddy.in/marketing/banner/${_homeController.bannerData[0]['first_image']}",
+                    ].map((img) {
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(
@@ -101,12 +105,13 @@ class HomeScreen extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Column(
+                                    Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
                                         NormalText(
-                                          text: 'LIMITED',
+                                          text: _homeController.bannerData[0]
+                                              ['banner_title'],
                                           size: 34,
                                         ),
                                         SubHeading(
@@ -115,7 +120,8 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                         Heading(
                                             text:
-                                                'Hurry Up\nBefore Offer\nwill End'),
+                                                _homeController.bannerData[0]
+                                                ['banner_description']),
                                       ],
                                     ),
                                     Image.network(img, height: 150,
@@ -146,102 +152,133 @@ class HomeScreen extends StatelessWidget {
                         const Gap(20),
 
                         Column(
+                          // section part
+                          //
+                          //
+                          //
+
                           children: List.generate(
                               _homeController.sections.length, (index) {
                             var section = _homeController.sections[index];
-                            return Column(
-                              children: [
-                                const Gap(20),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: UnderlineContainer(
-                                        color: Colors.amber,
-                                        child: Heading(text: section['title'])),
-                                  ),
-                                ),
-                                const Gap(20),
-                                Wrap(
-                                  direction: Axis.horizontal,
-                                  children: List.generate(
-                                      section['products'].length >=
-                                              section['count']
-                                          ? section['count']
-                                          : section['products'].length, (idx) {
-                                    var product = section['products'][idx];
-                                    return Container(
-                                      margin: const EdgeInsets.all(8),
-                                      width: Get.size.width / 2 - 30,
-                                      height: 340,
-                                      child: BoxBorderContainer(
-                                          child: Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: NormalText(
-                                                  text:
-                                                      product['category_name'],
-                                                  color: Colors.blue.shade300,
-                                                )),
-                                            const Gap(8),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: SubHeading(
-                                                text: product['title'],
-                                                maxLines: 2,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Gap(20),
-                                            CachedNetworkImage(
-                                              imageUrl:
-                                                  "https://kartdaddy.in/products/product/${product['thumb_image']}",
-                                              placeholder: (context, url) =>
-                                                  CircularProgressIndicator(),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
-                                            ),
-                                            Gap(20),
-                                            Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: SubHeading(
-                                                    text:
-                                                        product['sale_price'])),
-                                            const Gap(6),
-                                          ],
+                            // if attribute limitForApp is 0 (section['limitForApp'] < 1) or if there is not product in products array (section['products'].length < 1) the it will not display the category
+                            return section['limitForApp'] < 1 ||
+                                    section['products'].length < 1
+                                ? SizedBox()
+                                : Column(
+                                    children: [
+                                      const Gap(20),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: UnderlineContainer(
+                                              color: Colors.amber,
+                                              child: Heading(
+                                                  text: section['title'])),
                                         ),
-                                      )),
-                                    );
-                                  }),
-                                ),
-                                const Gap(20),
-                                CustomButton(
-                                  onPressed: () {
-                                    Get.to(() => SectionProductsScreen(
-                                          slug: section['slug'],
-                                          title: section['title'],
-                                        ));
-                                  },
-                                  child: const Text(
-                                    "View All",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
+                                      ),
+                                      const Gap(20),
+                                      Wrap(
+                                        direction: Axis.horizontal,
+                                        children: List.generate(
+                                            section['products'].length >=
+                                                    section['limitForApp']
+                                                ? section['limitForApp']
+                                                : section['products'].length,
+                                            (idx) {
+                                          var product =
+                                              section['products'][idx];
+                                          return Container(
+                                            margin: const EdgeInsets.all(8),
+                                            width: Get.size.width / 2 - 30,
+                                            height: 300,
+                                            child: BoxBorderContainer(
+                                                child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(15.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: NormalText(
+                                                        text: product[
+                                                            'category_name'],
+                                                        color: Colors
+                                                            .blue.shade300,
+                                                      )),
+                                                  const Gap(3),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: SubHeading(
+                                                      text: product['title'],
+                                                      maxLines: 2,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                  Gap(5),
+                                                  CachedNetworkImage(
+                                                    height: 120,
+                                                    imageUrl:
+                                                        "https://kartdaddy.in/products/product/${product['thumb_image']}",
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        CircularProgressIndicator(),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.error),
+                                                  ),
+                                                  Gap(5),
+                                                  Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: NormalText(
+                                                          text:
+                                                              "${product['discount_type_amount']} % off")),
+                                                  const Gap(3),
+                                                  Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: SubHeading(
+                                                          text:
+                                                              "${product['net_sale_amount']} INR")),
+                                                  const Gap(3),
+                                                ],
+                                              ),
+                                            )),
+                                          );
+                                        }),
+                                      ),
+                                      const Gap(20),
+                                      CustomButton(
+                                        onPressed: () {
+                                          Get.to(() => ProductsListScreen(
+                                                slug: section['slug'],
+                                                title: section['title'],
+                                              ));
+                                        },
+                                        child: const Text(
+                                          "View All",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
                           }),
                         ),
 
                         const Gap(30),
+                        // Banner
+                        //
+                        //
+                        //
                         Card(
                           child: Container(
                             height: 200,
@@ -350,74 +387,11 @@ class HomeScreen extends StatelessWidget {
                               text: AppLocalizations.of(context)!
                                   .popular_products,
                             )),
-                            TextButton(
-                                onPressed: () {
-                                  Get.to(() => PopularProductsScreen());
-                                },
-                                child: const NormalText(
-                                  text: "View All",
-                                  size: 20,
-                                ))
                           ],
                         ),
                         const Gap(40),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(
-                              DemoData.slideImage.length,
-                              (index) => InkWell(
-                                onTap: () {
-                                  Get.to(() => ProductScreen(
-                                        productData:
-                                            DemoData.demoProductData[0],
-                                      ));
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.all(8),
-                                  width: 180,
-                                  child: BoxBorderContainer(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Column(
-                                      children: [
-                                        const Align(
-                                            alignment: Alignment.centerLeft,
-                                            child:
-                                                NormalText(text: "7 Products")),
-                                        const Gap(8),
-                                        const Heading(
-                                          text: "Mobile Phone Accesaries",
-                                          maxLines: 2,
-                                        ),
-                                        Gap(20),
-                                        Image.network(
-                                          height: 100,
-                                          errorBuilder: (BuildContext context,
-                                              Object error,
-                                              StackTrace? stackTrace) {
-                                            return IconButton(
-                                              icon: Icon(Icons.refresh),
-                                              onPressed: () {
-                                                // Handle refresh action when image fails to load
-                                              },
-                                            );
-                                          },
-                                          DemoData.slideImage[index],
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Gap(20),
-                                        const Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: SubHeading(text: "11000")),
-                                        const Gap(6),
-                                      ],
-                                    ),
-                                  )),
-                                ),
-                              ),
-                            ),
-                          ),
+                        HorizontalRow(
+                          data: _homeController.popularProducts,
                         ),
                         const Gap(20),
                         Card(
@@ -481,66 +455,11 @@ class HomeScreen extends StatelessWidget {
                                 child: Heading(
                               text: AppLocalizations.of(context)!.new_products,
                             )),
-                            TextButton(
-                                onPressed: () {
-                                  Get.to(() => NewProductsScreen());
-                                },
-                                child: const NormalText(
-                                  text: "View All",
-                                  size: 20,
-                                ))
                           ],
                         ),
                         const Gap(40),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(
-                              DemoData.slideImage.length,
-                              (index) => Container(
-                                margin: const EdgeInsets.all(8),
-                                width: 180,
-                                child: BoxBorderContainer(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Column(
-                                    children: [
-                                      const Align(
-                                          alignment: Alignment.centerLeft,
-                                          child:
-                                              NormalText(text: "7 Products")),
-                                      const Gap(8),
-                                      const Heading(
-                                        text: "Mobile Phone Accesaries",
-                                        maxLines: 2,
-                                      ),
-                                      Gap(20),
-                                      Image.network(
-                                        height: 100,
-                                        errorBuilder: (BuildContext context,
-                                            Object error,
-                                            StackTrace? stackTrace) {
-                                          return IconButton(
-                                            icon: Icon(Icons.refresh),
-                                            onPressed: () {
-                                              // Handle refresh action when image fails to load
-                                            },
-                                          );
-                                        },
-                                        DemoData.slideImage[index],
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Gap(20),
-                                      const Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: SubHeading(text: "11000")),
-                                      const Gap(6),
-                                    ],
-                                  ),
-                                )),
-                              ),
-                            ),
-                          ),
+                        HorizontalRow(
+                          data: _homeController.newProducts,
                         ),
                         // *
                         // *
