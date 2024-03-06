@@ -46,12 +46,13 @@ class LoginController extends GetxController {
         CustomSnackbar.showSnackbar(title: 'Info', message: 'Login Successful');
 
         loading.value = false;
-        
+
         Get.off(() => HomeScreen());
       } else {
         print('Error: ${response.statusCode}');
       }
     } catch (e) {
+      print(e.toString());
       CustomSnackbar.showSnackbar(title: "Error", message: e.toString());
     } finally {
       disabled.value = false;

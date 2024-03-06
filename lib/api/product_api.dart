@@ -1,0 +1,7 @@
+import 'package:kartdaddy/api/base_url.dart';
+
+class ProductApi {
+  // http://127.0.0.1:8000/api/find-product-with-name?request_data
+  static String search =
+      "${BaseUrl.baseUrl}/api/find-product-with-name?request_data=";
+}

@@ -1,43 +1,14 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
-class Product {
-  final String name;
-  final double price;
+import '../controllers/search_controller.dart';
 
-  Product({required this.name, required this.price});
-}
+class SearchScreen extends StatelessWidget {
+  final SearchScreenController _searchScreenController =
+      Get.put(SearchScreenController());
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
-
-  @override
-  _SearchScreenState createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  List<Product> products = [
-    Product(name: 'Item 1', price: 20.0),
-    Product(name: 'Item 2', price: 30.0),
-    // Add more demo data as needed
-  ];
-
-  List<Product> filteredProducts = [];
-  final _searchController = TextEditingController();
-  late Timer _debounce;
-
-  @override
-  void initState() {
-    super.initState();
-    _debounce = Timer(const Duration(milliseconds: 500), () {});
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    _debounce.cancel();
-    super.dispose();
-  }
+  SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +19,8 @@ class _SearchScreenState extends State<SearchScreen> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: TextFormField(
-              controller: _searchController,
               onChanged: (value) {
-                _debounce.cancel(); // Cancel the previous debounce
-                _debounce = Timer(const Duration(milliseconds: 500), () {
-                  filterProducts(value);
-                });
+                _searchScreenController.searchController.value = value;
               },
               decoration: InputDecoration(
                 hintText: 'Search...',
@@ -68,39 +35,32 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
           ),
-          filteredProducts.isNotEmpty
-              ? Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
-                      itemCount: filteredProducts.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          onTap: () {},
-                          title: Text(filteredProducts[index].name),
-                          subtitle: Text(
-                              '\$${filteredProducts[index].price.toString()}'),
-                        );
-                      },
-                    ),
-                  ),
-                )
-              : const SizedBox(),
+          Gap(10),
+          Obx(
+            () => _searchScreenController.loading.value == true
+                ? CircularProgressIndicator()
+                : _searchScreenController.filteredProducts.isNotEmpty
+                    ? Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListView.builder(
+                            itemCount:
+                                _searchScreenController.filteredProducts.length,
+                            itemBuilder: (context, index) {
+                              final product = _searchScreenController
+                                  .filteredProducts[index];
+                              return ListTile(
+                                onTap: () {},
+                                title: Text(product),
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
+          ),
         ],
       ),
     );
-  }
-
-  void filterProducts(String query) {
-    setState(() {
-      if (query == "") {
-        filteredProducts.clear();
-      } else {
-        filteredProducts = products
-            .where((product) =>
-                product.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
-      }
-    });
   }
 }

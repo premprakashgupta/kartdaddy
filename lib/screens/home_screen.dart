@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
           actions: [
             InkWell(
               onTap: () {
-                Get.to(() => const SearchScreen());
+                Get.to(() => SearchScreen());
               },
               child: CustomIcons.search(),
             ),
