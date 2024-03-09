@@ -3,17 +3,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:kartdaddy/models/banner_model.dart';
+import 'package:kartdaddy/models/category_section_model.dart';
+import 'package:kartdaddy/models/product_model.dart';
+import 'package:kartdaddy/models/section_model.dart';
 
 import '../api/auth.dart';
 
 class HomeController extends GetxController {
   // page controller access by trending page
   final PageController pageController = PageController();
-  final sections = [].obs;
-  final newProducts = [].obs;
-  final popularProducts = [].obs;
+  final sections = <SectionModel>[].obs;
+  final categorySections = <CategorySectionsModel>[].obs;
   final bannerData = [].obs;
-  final categorySections = [].obs;
   final loading = true.obs;
 
   @override
@@ -29,15 +31,32 @@ class HomeController extends GetxController {
         Uri.parse(AuthApi.home),
       );
       if (response.statusCode == 200) {
-        var jsonData = json.decode(response.body) as Map<String, dynamic>;
-        sections.assignAll(jsonData['sections']);
-        newProducts.assignAll(jsonData['newProducts']);
-        popularProducts.assignAll(jsonData['popularProducts']);
-        bannerData.assignAll(jsonData['bannerData']);
-        categorySections.assignAll(jsonData['categorySections']);
-        
+        Map<String, dynamic> jsonData = await json.decode(response.body);
+        if (jsonData.containsKey("sections")) {
+          sections.assignAll((jsonData['sections'] as List<dynamic>? ?? [])
+              .map((item) => SectionModel.fromMap(item))
+              .toList());
+        }
+
+        if (jsonData.containsKey("bannerData")) {
+          bannerData.assignAll((jsonData['bannerData'] as List<dynamic>)
+              .map((banner) => BannerModel.fromMap(banner))
+              .toList());
+        }
+        if (jsonData.containsKey("categorySections")) {
+          categorySections.assignAll(
+              (jsonData['categorySections'] as List<dynamic>)
+                  .map((section) => CategorySectionsModel.fromMap(section))
+                  .toList());
+        }
+
+       
+
         loading.value = false;
       }
-    } catch (e) {}
+    } catch (e, stackTrace) {
+      print('Error: $e');
+      print('Stack Trace: $stackTrace');
+    }
   }
 }

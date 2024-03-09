@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
+import 'package:kartdaddy/models/product_model.dart';
 
 class HorizontalRow extends StatelessWidget {
   final List<dynamic> data;
@@ -16,7 +17,7 @@ class HorizontalRow extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: List.generate(data.length, (idx) {
-          var product = data[idx];
+          ProductModel product = data[idx];
           return Container(
             margin: const EdgeInsets.all(8),
             width: Get.size.width / 2,
@@ -30,14 +31,14 @@ class HorizontalRow extends StatelessWidget {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: NormalText(
-                        text: product['category_name'],
+                        text: product.category_name!,
                         color: Colors.blue.shade300,
                       )),
                   const Gap(8),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: SubHeading(
-                      text: product['title'],
+                      text: product.title!,
                       maxLines: 2,
                       color: Colors.black,
                     ),
@@ -46,15 +47,16 @@ class HorizontalRow extends StatelessWidget {
                   CachedNetworkImage(
                     height: 120,
                     imageUrl:
-                        "https://kartdaddy.in/products/product/${product['thumb_image']}",
-                    placeholder: (context, url) => CircularProgressIndicator(),
+                        "https://kartdaddy.in/products/product/${product.thumb_image}",
+                    placeholder: (context, url) =>
+                        Center(child: CircularProgressIndicator()),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                   Gap(20),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: SubHeading(
-                          text: "${product['net_sale_amount']} INR")),
+                          text: "${product.net_sale_amount} INR")),
                   const Gap(6),
                 ],
               ),

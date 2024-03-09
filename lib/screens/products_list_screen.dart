@@ -6,7 +6,7 @@ import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
-import 'package:kartdaddy/models/products_list_model.dart';
+import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/shimmer/grid_shimmer.dart';
 
 import '../controllers/products_list_controller.dart';
@@ -42,7 +42,7 @@ class ProductsListScreen extends StatelessWidget {
                 ),
                 itemCount: _ProductsListController.trendingProducts.length,
                 itemBuilder: (context, index) {
-                  ProductsListModel data =
+                  ProductModel data =
                       _ProductsListController.trendingProducts[index];
                   return Container(
                     margin: const EdgeInsets.all(8),
@@ -73,14 +73,14 @@ class ProductsListScreen extends StatelessWidget {
                               imageUrl:
                                   "https://kartdaddy.in/products/product/${data.thumb_image}",
                               placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
+                                  Center(child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
                                   Icon(Icons.error),
                             ),
                             Gap(20),
                             Align(
                               alignment: Alignment.centerLeft,
-                              child: SubHeading(text: data.sale_price!),
+                              child: SubHeading(text: data.net_sale_amount!),
                             ),
                             const Gap(6),
                           ],

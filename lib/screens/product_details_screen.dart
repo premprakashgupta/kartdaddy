@@ -78,15 +78,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             Gap(20),
             CarouselGrid(data: DemoData.slideImage),
             const Gap(16),
+            Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.red.shade800),
+              child: NormalText(
+                text: "Limited time deal",
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Gap(10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 NormalText(
-                  text: 'Price: \$${widget.productData['price']}',
-                  size: 24,
+                  text: '\$${widget.productData['price']}',
+                  size: 27,
+                  fontWeight: FontWeight.w600,
                 ),
                 Gap(20),
-                NormalText(text: '${widget.productData['crossPrice']}'),
+                Text(
+                  'M.R.P.: ${widget.productData['crossPrice']}',
+                  style: TextStyle(
+                      fontSize: 14, decoration: TextDecoration.lineThrough),
+                ),
               ],
             ),
             const Gap(16),
@@ -132,8 +149,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               color: Colors.black,
             ),
             const Gap(8),
+            Row(
+              children: [
+                Icon(
+                  Icons.local_offer_sharp,
+                  size: 20,
+                  color: Colors.green,
+                ),
+                Gap(10),
             NormalText(text: widget.productData['offer1']),
+              ],
+            ),
+            Gap(10),
+            Row(
+              children: [
+                Icon(
+                  Icons.local_offer_sharp,
+                  size: 20,
+                  color: Colors.green,
+                ),
+                Gap(10),
             NormalText(text: widget.productData['offer2']),
+              ],
+            ),
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

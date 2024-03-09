@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/box_shadow_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
@@ -55,7 +56,7 @@ class _AddressScreenState extends State<AddressScreen> {
       body: ListView.builder(
         itemCount: addresses.length,
         itemBuilder: (context, index) {
-          return BoxShadowContainer(
+          return BoxBorderContainer(
             margin: EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

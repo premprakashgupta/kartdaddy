@@ -1,39 +1,39 @@
 import 'dart:convert';
 
-class ProductsListModel {
+class ProductModel {
   final int id;
 
   final String? category_name;
   final String? thumb_image;
   final String? title;
 
-  final String? buy_price;
-  final String? sale_price;
+  final String? discount_type_amount;
+  final String? net_sale_amount;
 
-  ProductsListModel({
+  ProductModel({
     required this.id,
     this.category_name,
     this.thumb_image,
     this.title,
-    this.buy_price,
-    this.sale_price,
+    this.discount_type_amount,
+    this.net_sale_amount,
   });
 
-  ProductsListModel copyWith({
+  ProductModel copyWith({
     int? id,
     String? category_name,
     String? title,
     String? thumb_image,
-    String? buy_price,
-    String? sale_price,
+    String? discount_type_amount,
+    String? net_sale_amount,
   }) {
-    return ProductsListModel(
+    return ProductModel(
       id: id ?? this.id,
       category_name: category_name ?? this.category_name,
       thumb_image: thumb_image ?? this.thumb_image,
       title: title ?? this.title,
-      buy_price: buy_price ?? this.buy_price,
-      sale_price: sale_price ?? this.sale_price,
+      discount_type_amount: discount_type_amount ?? this.discount_type_amount,
+      net_sale_amount: net_sale_amount ?? this.net_sale_amount,
     );
   }
 
@@ -43,30 +43,30 @@ class ProductsListModel {
       'category_name': category_name,
       'thumb_image': thumb_image,
       'title': title,
-      'buy_price': buy_price,
-      'sale_price': sale_price,
+      'discount_type_amount': discount_type_amount,
+      'net_sale_amount': net_sale_amount,
     };
   }
 
-  factory ProductsListModel.fromMap(Map<String, dynamic> map) {
-    return ProductsListModel(
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
+    return ProductModel(
       id: map['id'].toInt() as int,
-      category_name: map['category_name'] as String,
-      thumb_image: map['thumb_image'] as String,
-      title: map['title'] as String,
-      buy_price: map['buy_price'] as String,
-      sale_price: map['sale_price'] as String,
+      category_name: map['category_name'] as String? ?? "null",
+      thumb_image: map['thumb_image'] as String? ?? "211541686207243.gif",
+      title: map['title'] as String? ?? "default_title",
+      discount_type_amount: map['discount_type_amount'] as String? ?? "null",
+      net_sale_amount: map['net_sale_amount'] as String? ?? "null",
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ProductsListModel.fromJson(String source) =>
-      ProductsListModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ProductModel.fromJson(String source) =>
+      ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'ProductsListModel(id: $id, category_name: $category_name,  title: $title, buy_price: $buy_price, sale_price: $sale_price, ';
+    return 'ProductModel(id: $id, category_name: $category_name,  title: $title, discount_type_amount: $discount_type_amount, net_sale_amount: $net_sale_amount, ';
   }
 }
 

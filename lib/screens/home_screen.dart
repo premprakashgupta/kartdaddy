@@ -16,6 +16,9 @@ import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/controllers/home_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kartdaddy/models/banner_model.dart';
+import 'package:kartdaddy/models/product_model.dart';
+import 'package:kartdaddy/models/section_model.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:kartdaddy/designs/custom_icons.dart';
@@ -87,9 +90,8 @@ class HomeScreen extends StatelessWidget {
                       autoPlay: true,
                       viewportFraction: 1,
                     ),
-                    items: [
-                      "https://kartdaddy.in/marketing/banner/${_homeController.bannerData[0]['first_image']}",
-                    ].map((img) {
+                    items: _homeController.bannerData.map((mapItem) {
+                      BannerModel bannerData = mapItem;
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(
@@ -110,8 +112,7 @@ class HomeScreen extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         NormalText(
-                                          text: _homeController.bannerData[0]
-                                              ['banner_title'],
+                                          text: bannerData.banner_title,
                                           size: 34,
                                         ),
                                         SubHeading(
@@ -120,14 +121,14 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                         Heading(
                                             text:
-                                                _homeController.bannerData[0]
-                                                ['banner_description']),
+                                                bannerData.banner_description),
                                       ],
                                     ),
-                                    Image.network(img, height: 150,
-                                        errorBuilder: (BuildContext context,
-                                            Object error,
-                                            StackTrace? stackTrace) {
+                                    Image.network(
+                                        "https://kartdaddy.in/marketing/banner/${bannerData.first_image}",
+                                        height: 150, errorBuilder:
+                                            (BuildContext context, Object error,
+                                                StackTrace? stackTrace) {
                                       return IconButton(
                                         icon: Icon(Icons.refresh),
                                         onPressed: () {
@@ -159,10 +160,11 @@ class HomeScreen extends StatelessWidget {
 
                           children: List.generate(
                               _homeController.sections.length, (index) {
-                            var section = _homeController.sections[index];
+                            SectionModel section =
+                                _homeController.sections[index];
                             // if attribute limitForApp is 0 (section['limitForApp'] < 1) or if there is not product in products array (section['products'].length < 1) the it will not display the category
-                            return section['limitForApp'] < 1 ||
-                                    section['products'].length < 1
+                            return section.limitForApp < 1 ||
+                                    section.products.length < 1
                                 ? SizedBox()
                                 : Column(
                                     children: [
@@ -173,83 +175,90 @@ class HomeScreen extends StatelessWidget {
                                           alignment: Alignment.centerLeft,
                                           child: UnderlineContainer(
                                               color: Colors.amber,
-                                              child: Heading(
-                                                  text: section['title'])),
+                                              child:
+                                                  Heading(text: section.title)),
                                         ),
                                       ),
                                       const Gap(20),
                                       Wrap(
                                         direction: Axis.horizontal,
                                         children: List.generate(
-                                            section['products'].length >=
-                                                    section['limitForApp']
-                                                ? section['limitForApp']
-                                                : section['products'].length,
+                                            section.products.length >=
+                                                    section.limitForApp
+                                                ? section.limitForApp
+                                                : section.products.length,
                                             (idx) {
-                                          var product =
-                                              section['products'][idx];
-                                          return Container(
-                                            margin: const EdgeInsets.all(8),
-                                            width: Get.size.width / 2 - 30,
-                                            height: 300,
-                                            child: BoxBorderContainer(
-                                                child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(15.0),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: NormalText(
-                                                        text: product[
-                                                            'category_name'],
-                                                        color: Colors
-                                                            .blue.shade300,
-                                                      )),
-                                                  const Gap(3),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    child: SubHeading(
-                                                      text: product['title'],
-                                                      maxLines: 2,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                  Gap(5),
-                                                  CachedNetworkImage(
-                                                    height: 120,
-                                                    imageUrl:
-                                                        "https://kartdaddy.in/products/product/${product['thumb_image']}",
-                                                    placeholder: (context,
-                                                            url) =>
-                                                        CircularProgressIndicator(),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                            Icon(Icons.error),
-                                                  ),
-                                                  Gap(5),
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: NormalText(
-                                                          text:
-                                                              "${product['discount_type_amount']} % off")),
-                                                  const Gap(3),
-                                                  Align(
+                                          ProductModel product =
+                                              section.products[idx];
+                                          return InkWell(
+                                            onTap: () {
+                                              Get.to(() => ProductDetailsScreen(
+                                                  productData: DemoData
+                                                      .demoProductData[0]));
+                                            },
+                                            child: Container(
+                                              margin: const EdgeInsets.all(8),
+                                              width: Get.size.width / 2 - 30,
+                                              height: 300,
+                                              child: BoxBorderContainer(
+                                                  child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(15.0),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: NormalText(
+                                                          text: product
+                                                              .category_name!,
+                                                          color: Colors
+                                                              .blue.shade300,
+                                                        )),
+                                                    const Gap(3),
+                                                    Align(
                                                       alignment:
                                                           Alignment.centerLeft,
                                                       child: SubHeading(
-                                                          text:
-                                                              "${product['net_sale_amount']} INR")),
-                                                  const Gap(3),
-                                                ],
-                                              ),
-                                            )),
+                                                        text: product.title!,
+                                                        maxLines: 2,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    Gap(5),
+                                                    CachedNetworkImage(
+                                                      height: 120,
+                                                      imageUrl:
+                                                          "https://kartdaddy.in/products/product/${product.thumb_image}",
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          CircularProgressIndicator(),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Icon(Icons.error),
+                                                    ),
+                                                    Gap(5),
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: NormalText(
+                                                            text:
+                                                                "${product.discount_type_amount} % off")),
+                                                    const Gap(3),
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: SubHeading(
+                                                            text:
+                                                                "${product.net_sale_amount} INR")),
+                                                    const Gap(3),
+                                                  ],
+                                                ),
+                                              )),
+                                            ),
                                           );
                                         }),
                                       ),
@@ -257,8 +266,8 @@ class HomeScreen extends StatelessWidget {
                                       CustomButton(
                                         onPressed: () {
                                           Get.to(() => ProductsListScreen(
-                                                slug: section['slug'],
-                                                title: section['title'],
+                                                slug: section.slug,
+                                                title: section.title,
                                               ));
                                         },
                                         child: const Text(
@@ -389,10 +398,7 @@ class HomeScreen extends StatelessWidget {
                             )),
                           ],
                         ),
-                        const Gap(40),
-                        HorizontalRow(
-                          data: _homeController.popularProducts,
-                        ),
+
                         const Gap(20),
                         Card(
                           child: Container(
@@ -457,10 +463,7 @@ class HomeScreen extends StatelessWidget {
                             )),
                           ],
                         ),
-                        const Gap(40),
-                        HorizontalRow(
-                          data: _homeController.newProducts,
-                        ),
+
                         // *
                         // *
                         // *
@@ -614,7 +617,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.grey.shade500,
+                color: Colors.amber.shade600,
               ),
               currentAccountPicture: const CircleAvatar(
                 backgroundImage: AssetImage("assets/kartdaddy-logo.png"),

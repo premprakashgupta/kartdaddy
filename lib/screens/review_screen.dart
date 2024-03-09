@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 
 import '../components/normal_text_widget.dart';
@@ -18,7 +19,7 @@ class ReviewScreen extends StatelessWidget {
   }
 
   Widget buildReviewItem() {
-    return Card(
+    return BoxBorderContainer(
       margin: const EdgeInsets.all(8),
       child: Padding(
         padding: const EdgeInsets.all(8),
