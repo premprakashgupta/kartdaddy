@@ -97,4 +97,11 @@ class CustomIcons {
       size: size,
     );
   }
+  static Icon compare({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.compare_arrows,
+      color: color,
+      size: size,
+    );
+  }
 }

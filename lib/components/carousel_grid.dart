@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -8,8 +9,14 @@ import 'package:kartdaddy/designs/custom_icons.dart';
 
 class CarouselGrid extends StatefulWidget {
   final List<String> data;
+  final String percent;
+  final bool favorite;
 
-  const CarouselGrid({super.key, required this.data});
+  const CarouselGrid(
+      {super.key,
+      required this.data,
+      required this.percent,
+      required this.favorite});
 
   @override
   _CarouselGridState createState() => _CarouselGridState();
@@ -38,7 +45,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                     });
                   },
                 ),
-                items: DemoData.slideImage.map((img) {
+                items: widget.data.map((img) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
@@ -49,9 +56,16 @@ class _CarouselGridState extends State<CarouselGrid> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Image.network(
-                            img,
+                          child: CachedNetworkImage(
                             height: 150,
+                            imageUrl: img,
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) => Center(
+                              child: CircularProgressIndicator(
+                                  value: downloadProgress.progress),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
                         ),
                       );
@@ -59,19 +73,27 @@ class _CarouselGridState extends State<CarouselGrid> {
                   );
                 }).toList(),
               ),
-              // circular discount box 
+              // circular discount box
               Container(
                 width: 50,
                 height: 50,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                color: Colors.red.shade800,
-                  borderRadius: BorderRadius.circular(40)),
-                child: const Column(
+                    color: Colors.red.shade800,
+                    borderRadius: BorderRadius.circular(40)),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    NormalText(text: "43%",color: Colors.white,fontWeight: FontWeight.w600,),
-                    NormalText(text: "off",color: Colors.white,fontWeight: FontWeight.w600,),
+                    NormalText(
+                      text: "${widget.percent}%",
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    NormalText(
+                      text: "off",
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ],
                 ),
               ),
@@ -79,27 +101,28 @@ class _CarouselGridState extends State<CarouselGrid> {
                 top: 0,
                 right: 0,
                 child: Container(
-                  width: 50,
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                  color: Colors.white54,
-                    borderRadius: BorderRadius.circular(40)),
-                  child: CustomIcons.share()
-                ),
+                    width: 50,
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.white54,
+                        borderRadius: BorderRadius.circular(40)),
+                    child: CustomIcons.share()),
               ),
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  width: 50,
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                  color: Colors.white54,
-                    borderRadius: BorderRadius.circular(40)),
-                  child: CustomIcons.heart()
-                ),
+                    width: 50,
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.white54,
+                        borderRadius: BorderRadius.circular(40)),
+                    child: CustomIcons.heart(
+                        color: widget.favorite == true
+                            ? Colors.red.shade700
+                            : Colors.white)),
               )
             ],
           ),
@@ -108,21 +131,31 @@ class _CarouselGridState extends State<CarouselGrid> {
             height: 90,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: DemoData.slideImage.length,
+              itemCount: widget.data.length,
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  _carouselController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+                  _carouselController.animateToPage(index,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: _currentThumbnailIndex == index ? Colors.grey : Colors.transparent),
+                      border: Border.all(
+                          width: 1,
+                          color: _currentThumbnailIndex == index
+                              ? Colors.grey
+                              : Colors.transparent),
                     ),
-                    child: Image.network(
-                      DemoData.slideImage[index],
-                      repeat: ImageRepeat.noRepeat,
-                      fit: BoxFit.contain,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.data[index],
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => Center(
+                        child: CircularProgressIndicator(
+                            value: downloadProgress.progress),
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
                 ),

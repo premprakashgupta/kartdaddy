@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:kartdaddy/controllers/cartController.dart';
 
 import 'screens/landing_screen.dart';
 

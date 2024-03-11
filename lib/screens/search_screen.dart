@@ -19,8 +19,9 @@ class SearchScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: TextFormField(
+              controller: _searchScreenController.searchController,
               onChanged: (value) {
-                _searchScreenController.searchController.value = value;
+                _searchScreenController.query.value = value;
               },
               decoration: InputDecoration(
                 hintText: 'Search...',
@@ -50,7 +51,10 @@ class SearchScreen extends StatelessWidget {
                               final product = _searchScreenController
                                   .filteredProducts[index];
                               return ListTile(
-                                onTap: () {},
+                                onTap: () {
+                                  _searchScreenController.onSelect(
+                                      item: product);
+                                },
                                 title: Text(product),
                               );
                             },

@@ -7,20 +7,23 @@ import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/slant_reactangle.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
+import 'package:kartdaddy/controllers/product_details_controller.dart';
 import 'package:kartdaddy/data/demo_data.dart';
+import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/screens/cart_screen.dart';
 import 'package:kartdaddy/screens/review_screen.dart';
 
-class ProductDetailsScreen extends StatefulWidget {
-  final Map<String, dynamic> productData; // Replace this with your actual data
+class ProductDetailsScreen extends StatelessWidget {
+  final String slug;
+  final String timestamp;
+  final ProductDetailsController _productDetailsController;
 
-  const ProductDetailsScreen({super.key, required this.productData});
+  ProductDetailsScreen({super.key, required this.slug, required this.timestamp})
+      : _productDetailsController =
+            Get.put(ProductDetailsController(slug: slug, timestamp: timestamp));
 
-  @override
-  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
-}
+  final productData = DemoData.demoProductData[0];
 
-class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +42,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           child: CustomButton(
             onPressed: () {
               print("cart click");
-              Get.to(() => const CartScreen());
+                Get.to(() => CartScreen());
             },
             child: const NormalText(text: "Go to Kart"),
           )),
-      body: SingleChildScrollView(
+        body: Obx(
+          () => _productDetailsController.loading.value == true
+              ? Center(child: CircularProgressIndicator())
+              : SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +59,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SubHeading(
-                  text: widget.productData['category'],
+                            text: _productDetailsController
+                                .productDetail.value!.product.category_name!,
                   color: Colors.blue.shade300,
                 ),
                 Row(
@@ -62,13 +69,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     const Gap(4),
                     NormalText(
                         text:
-                            '${widget.productData['rating']} (${widget.productData['customerCount']} ratings)'),
+                                      '${productData['rating']} (${productData['customerCount']} ratings)'),
                   ],
                 ),
               ],
             ),
             Heading(
-              text: widget.productData['productTitle'],
+                        text: _productDetailsController
+                            .productDetail.value!.product.title!,
               maxLines: 4,
             ),
             const Gap(30),
@@ -76,7 +84,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               width: 150,
             ),
             const Gap(20),
-            CarouselGrid(data: DemoData.slideImage),
+                      CarouselGrid(
+                        data: _productDetailsController
+                            .productDetail.value!.productImages,
+                        percent: _productDetailsController
+                            .productDetail.value!.product.discount_type_amount!,
+                        favorite: true,
+                      ),
             const Gap(16),
             Container(
               padding: const EdgeInsets.all(5),
@@ -94,13 +108,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 NormalText(
-                  text: '\$${widget.productData['price']}',
+                            text:
+                                '\$${_productDetailsController.productDetail.value!.product.net_sale_amount!}',
                   size: 27,
                   fontWeight: FontWeight.w600,
                 ),
                 const Gap(20),
                 Text(
-                  'M.R.P.: ${widget.productData['crossPrice']}',
+                            'M.R.P.: ${productData['crossPrice']}',
                   style: const TextStyle(
                       fontSize: 14, decoration: TextDecoration.lineThrough),
                 ),
@@ -108,8 +123,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
             const Gap(16),
             NormalText(
-                text:
-                    'Availability: ${widget.productData['availability']} in stock'),
+                          text:
+                              'Availability: ${productData['availability']} in stock'),
             const Gap(8),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -118,13 +133,25 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   onPressed: () {
                     // Handle wishlist button click
                   },
-                  child: const NormalText(text: 'Add to Wishlist'),
+                            child: Row(
+                              children: [
+                                CustomIcons.heart(size: 20),
+                                Gap(5),
+                                const NormalText(text: 'Add to Wishlist'),
+                              ],
+                            ),
                 ),
                 TextButton(
                   onPressed: () {
                     // Handle compare button click
                   },
-                  child: const NormalText(text: 'Compare'),
+                            child: Row(
+                              children: [
+                                CustomIcons.compare(size: 20),
+                                Gap(5),
+                                const NormalText(text: 'Compare'),
+                              ],
+                            ),
                 ),
               ],
             ),
@@ -135,7 +162,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
             const Gap(8),
             NormalText(
-              text: widget.productData['productDescription'],
+                        text: _productDetailsController
+                            .productDetail.value!.product.short_description!,
               maxLines: 5,
             ),
             TextButton(
@@ -157,7 +185,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   color: Colors.green,
                 ),
                 const Gap(10),
-            NormalText(text: widget.productData['offer1']),
+                          NormalText(text: productData['offer1']),
               ],
             ),
             const Gap(10),
@@ -169,22 +197,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   color: Colors.green,
                 ),
                 const Gap(10),
-            NormalText(text: widget.productData['offer2']),
+                          NormalText(text: productData['offer2']),
               ],
-            ),
-            
+                      ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 DropdownButton<String>(
-                  value: widget.productData['selectedColor'],
+                            value: productData['selectedColor'],
                   onChanged: (String? newValue) {
-                    setState(() {
-                      // Handle color dropdown selection
-                      widget.productData['selectedColor'] = newValue!;
-                    });
+                              print("color changed");
                   },
-                  items: widget.productData['availableColors']
+                            items: productData['availableColors']
                       .map<DropdownMenuItem<String>>((String color) {
                     return DropdownMenuItem<String>(
                       value: color,
@@ -199,22 +223,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     const NormalText(text: 'Quantity: '),
                     IconButton(
                       onPressed: () {
-                        setState(() {
+                       
                           // Handle quantity decrease
-                          if (widget.productData['quantity'] > 1) {
-                            widget.productData['quantity']--;
+                                  if (productData['quantity'] > 1) {
+                                    productData['quantity']--;
                           }
-                        });
+                        
                       },
                       icon: const Icon(Icons.remove),
                     ),
-                    NormalText(text: widget.productData['quantity'].toString()),
+                              NormalText(
+                                  text: productData['quantity'].toString()),
                     IconButton(
                       onPressed: () {
-                        setState(() {
+                       
                           // Handle quantity increase
-                          widget.productData['quantity']++;
-                        });
+                                  productData['quantity']++;
+                        
                       },
                       icon: const Icon(Icons.add),
                     ),
@@ -266,7 +291,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
           ],
         ),
-      ),
+                ),
+        )
     );
   }
 }

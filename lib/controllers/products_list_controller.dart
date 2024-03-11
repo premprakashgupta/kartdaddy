@@ -46,6 +46,6 @@ class ProductsListController extends GetxController {
     } catch (e) {
       // Handle or log the error
       print("Error: $e");
-    }
+    } 
   }
 }

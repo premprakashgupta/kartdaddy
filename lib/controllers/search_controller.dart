@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:kartdaddy/api/product_api.dart';
@@ -18,10 +19,10 @@ class ProductRepository {
 class SearchScreenController extends GetxController {
   final ProductRepository _productRepository = ProductRepository();
 
-  final RxString searchController = ''.obs;
+  final RxString query = ''.obs;
   final loading = false.obs;
   final RxList<String> filteredProducts = <String>[].obs;
-
+  final TextEditingController searchController = TextEditingController();
   Timer? _debounceTimer;
 
   @override
@@ -37,7 +38,7 @@ class SearchScreenController extends GetxController {
   }
 
   void debounceSearch() {
-    ever(searchController, (String value) {
+    ever(query, (String value) {
       if (_debounceTimer?.isActive ?? false) _debounceTimer?.cancel();
       _debounceTimer = Timer(const Duration(milliseconds: 500), () {
         filterProducts(value);
@@ -62,5 +63,9 @@ class SearchScreenController extends GetxController {
         // Handle error, e.g., display an error message to the user.
       }
     }
+  }
+
+  void onSelect({required String item}) {
+    searchController.text = item;
   }
 }

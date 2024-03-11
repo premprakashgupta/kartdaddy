@@ -1,34 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/box_shadow_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
+import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 
-class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+class CartScreen extends StatelessWidget {
+  CartScreen({super.key});
 
-  @override
-  _CartScreenState createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
-  List<Map<String, dynamic>> cartList = DemoData.demoProductData;
-  double total = 0.0;
-
-  @override
-  void initState() {
-    super.initState();
-    calculateTotal();
-  }
-
-  // Calculate total price of items in the cart
-  void calculateTotal() {
-    total = 0.0;
-    for (var product in cartList) {
-      total += product['quantity'] * product['price'];
-    }
-  }
+  final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +20,16 @@ class _CartScreenState extends State<CartScreen> {
         title: const Text('Shopping Cart'),
       ),
       body: ListView.builder(
-        itemCount: cartList.length,
+        itemCount: _cartController.cart.length,
         itemBuilder: (context, index) {
-          Map<String, dynamic> product = cartList[index];
+          Map<String, dynamic> product = _cartController.cart[index];
 
           return Dismissible(
             key: Key(product['productTitle']),
             onDismissed: (direction) {
-              setState(() {
-                cartList.removeAt(index);
-                total -= product['quantity'] * product['price'];
-              });
+              print("dismiss in action");
             },
-            child: BoxShadowContainer(
+            child: BoxBorderContainer(
               margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 13),
               child: Container(
                 padding: const EdgeInsets.all(13),
@@ -101,7 +81,8 @@ class _CartScreenState extends State<CartScreen> {
                                         },
                                         child: product['quantity'] < 2
                                             ? const Icon(Icons.delete, size: 19)
-                                            : const Icon(Icons.minimize_outlined,
+                                            : const Icon(
+                                                Icons.minimize_outlined,
                                                 size: 19),
                                       ),
                                     ),
@@ -163,7 +144,10 @@ class _CartScreenState extends State<CartScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                NormalText(text: product['productTitle'],maxLines: 2,),
+                                NormalText(
+                                  text: product['productTitle'],
+                                  maxLines: 2,
+                                ),
                                 const Gap(10),
                                 Row(
                                   children: [
@@ -209,13 +193,10 @@ class _CartScreenState extends State<CartScreen> {
                               TextButton(
                                 onPressed: () {
                                   // Add your logic for deleting
-                                  setState(() {
-                                    cartList.removeAt(index);
-                                    total -=
-                                        product['quantity'] * product['price'];
-                                  });
+                                  print("remove in acton");
                                 },
-                                child: const NormalText(text: 'Delete', size: 13),
+                                child:
+                                    const NormalText(text: 'Delete', size: 13),
                               ),
                               OutlinedButton(
                                 onPressed: () {
@@ -257,7 +238,7 @@ class _CartScreenState extends State<CartScreen> {
             children: [
               Expanded(
                 flex: 1,
-                child: NormalText(text: "\$ $total"),
+                child: NormalText(text: "\$ ${_cartController.total}"),
               ),
               Expanded(
                 flex: 3,

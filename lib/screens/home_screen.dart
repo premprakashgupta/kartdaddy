@@ -10,6 +10,7 @@ import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/components/trending_widget.dart';
 import 'package:kartdaddy/components/underline_container.dart';
+import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/controllers/home_controller.dart';
@@ -33,7 +34,7 @@ import '../components/box_border_container.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final HomeController _homeController = Get.put(HomeController());
-
+  final CartController _cartController = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,15 +60,15 @@ class HomeScreen extends StatelessWidget {
             const Gap(10),
             InkWell(
               onTap: () {
-                Get.to(() => const CartScreen());
+                Get.to(() => CartScreen());
               },
               child: badges.Badge(
                 showBadge: true,
                 badgeStyle: const badges.BadgeStyle(badgeColor: Colors.amber),
-                badgeContent: const Text(
-                  '3',
+                badgeContent: Obx(() => Text(
+                      _cartController.cart.length.toString(),
                   style: TextStyle(color: Colors.white),
-                ),
+                    )),
                 child: CustomIcons.cart(),
               ),
             ),
@@ -76,7 +77,10 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
           child: Obx(
         () => _homeController.loading.value == true
-            ? const Center(child: CircularProgressIndicator())
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const Center(child: CircularProgressIndicator()),
+              )
             : Column(
                 children: [
                   CarouselSlider(
@@ -108,29 +112,30 @@ class HomeScreen extends StatelessWidget {
                                       children: [
                                         NormalText(
                                           text: bannerData.banner_title,
-                                          size: 34,
+                                          size: Get.size.width * .08,
                                         ),
-                                        const SubHeading(
-                                          text: 'WEEK DEAL',
-                                          size: 34,
-                                        ),
+                                        
                                         Heading(
+                                            size: Get.size.width * .03,
+                                            maxLines: 2,
                                             text:
                                                 bannerData.banner_description),
                                       ],
                                     ),
-                                    Image.network(
-                                        "https://kartdaddy.in/marketing/banner/${bannerData.first_image}",
-                                        height: 150, errorBuilder:
-                                            (BuildContext context, Object error,
-                                                StackTrace? stackTrace) {
-                                      return IconButton(
-                                        icon: const Icon(Icons.refresh),
-                                        onPressed: () {
-                                          // Handle refresh action when image fails to load
-                                        },
-                                      );
-                                    })
+                                    CachedNetworkImage(
+                                      height: Get.size.height * .25,
+                                      imageUrl:
+                                          "https://kartdaddy.in/marketing/banner/${bannerData.first_image}",
+                                      progressIndicatorBuilder: (context, url,
+                                              downloadProgress) =>
+                                          Center(
+                                              child: CircularProgressIndicator(
+                                                  value: downloadProgress
+                                                      .progress)),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    ),
+
                                   ],
                                 ),
                               ));
@@ -188,8 +193,10 @@ class HomeScreen extends StatelessWidget {
                                           return InkWell(
                                             onTap: () {
                                               Get.to(() => ProductDetailsScreen(
-                                                  productData: DemoData
-                                                      .demoProductData[0]));
+                                                    slug: product.slug!,
+                                                    timestamp:
+                                                        product.timestamp!,
+                                                  ));
                                             },
                                             child: Container(
                                               margin: const EdgeInsets.all(8),

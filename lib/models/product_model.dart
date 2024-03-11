@@ -6,9 +6,11 @@ class ProductModel {
   final String? category_name;
   final String? thumb_image;
   final String? title;
-
+  final String? slug;
+  final String? timestamp;
   final String? discount_type_amount;
   final String? net_sale_amount;
+  final String? short_description;
 
   ProductModel({
     required this.id,
@@ -17,25 +19,12 @@ class ProductModel {
     this.title,
     this.discount_type_amount,
     this.net_sale_amount,
+    this.slug,
+    this.timestamp,
+    this.short_description,
   });
 
-  ProductModel copyWith({
-    int? id,
-    String? category_name,
-    String? title,
-    String? thumb_image,
-    String? discount_type_amount,
-    String? net_sale_amount,
-  }) {
-    return ProductModel(
-      id: id ?? this.id,
-      category_name: category_name ?? this.category_name,
-      thumb_image: thumb_image ?? this.thumb_image,
-      title: title ?? this.title,
-      discount_type_amount: discount_type_amount ?? this.discount_type_amount,
-      net_sale_amount: net_sale_amount ?? this.net_sale_amount,
-    );
-  }
+ 
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -45,6 +34,9 @@ class ProductModel {
       'title': title,
       'discount_type_amount': discount_type_amount,
       'net_sale_amount': net_sale_amount,
+      'timestamp': timestamp,
+      'slug': slug,
+      'short_description': short_description,
     };
   }
 
@@ -56,18 +48,13 @@ class ProductModel {
       title: map['title'] as String? ?? "default_title",
       discount_type_amount: map['discount_type_amount'] as String? ?? "null",
       net_sale_amount: map['net_sale_amount'] as String? ?? "null",
+      timestamp: map['timestamp'] as String? ?? "null",
+      slug: map['slug'] as String? ?? "null",
+      short_description: map['short_description'] as String? ?? "null",
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory ProductModel.fromJson(String source) =>
-      ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'ProductModel(id: $id, category_name: $category_name,  title: $title, discount_type_amount: $discount_type_amount, net_sale_amount: $net_sale_amount, ';
-  }
+  
 }
 
 class Pivot {
@@ -78,15 +65,7 @@ class Pivot {
     required this.product_id,
   });
 
-  Pivot copyWith({
-    int? section_id,
-    int? product_id,
-  }) {
-    return Pivot(
-      section_id: section_id ?? this.section_id,
-      product_id: product_id ?? this.product_id,
-    );
-  }
+ 
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -102,22 +81,5 @@ class Pivot {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory Pivot.fromJson(String source) =>
-      Pivot.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() =>
-      'Pivot(section_id: $section_id, product_id: $product_id)';
-
-  @override
-  bool operator ==(covariant Pivot other) {
-    if (identical(this, other)) return true;
-
-    return other.section_id == section_id && other.product_id == product_id;
-  }
-
-  @override
-  int get hashCode => section_id.hashCode ^ product_id.hashCode;
+ 
 }
