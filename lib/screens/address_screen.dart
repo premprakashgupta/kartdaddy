@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
-import 'package:kartdaddy/components/box_shadow_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 
 class AddressScreen extends StatefulWidget {
+  const AddressScreen({super.key});
+
   @override
   _AddressScreenState createState() => _AddressScreenState();
 }
@@ -33,7 +34,7 @@ class _AddressScreenState extends State<AddressScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Address Screen'),
+        title: const Text('Address Screen'),
       ),
       bottomNavigationBar: Container(
          width: double.infinity,
@@ -51,30 +52,30 @@ class _AddressScreenState extends State<AddressScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
           child: CustomButton(
             onPressed: (){},
-            child: NormalText(text: "Add New Address",),),
+            child: const NormalText(text: "Add New Address",),),
         ) ,),
       body: ListView.builder(
         itemCount: addresses.length,
         itemBuilder: (context, index) {
           return BoxBorderContainer(
-            margin: EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SubHeading(text: "PREM PRAKASH GUPTA",color: Colors.black,),
+                          const SubHeading(text: "PREM PRAKASH GUPTA",color: Colors.black,),
                           Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         addresses[index].isDefault ? 'Default' : '',
                         style: TextStyle(
@@ -86,7 +87,7 @@ class _AddressScreenState extends State<AddressScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Checkbox(
                         value: addresses[index].isDefault,
                         onChanged: (value) {
@@ -103,11 +104,11 @@ class _AddressScreenState extends State<AddressScreen> {
                 )
                         ],
                       ),
-                      NormalText(text: "21"),
-                      NormalText(text: "13"),
+                      const NormalText(text: "21"),
+                      const NormalText(text: "13"),
                       NormalText(text: addresses[index].address),
-                      NormalText(text: "India"),
-                      NormalText(text: "Phone number: ${"995804730"}"),
+                      const NormalText(text: "India"),
+                      const NormalText(text: "Phone number: ${"995804730"}"),
                      
                     ],
                   ),

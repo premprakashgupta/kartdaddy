@@ -16,7 +16,7 @@ class ProductsListScreen extends StatelessWidget {
   final String title;
   final ProductsListController _ProductsListController;
 
-  ProductsListScreen({required this.slug, required this.title})
+  ProductsListScreen({super.key, required this.slug, required this.title})
       : _ProductsListController = Get.put(ProductsListController(slug: slug));
 
   @override
@@ -30,9 +30,9 @@ class ProductsListScreen extends StatelessWidget {
       ),
       body: Obx(
         () => _ProductsListController.loading.value == true
-            ? GridShimmer()
+            ? const GridShimmer()
             : GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // Number of cards in one row
                   crossAxisSpacing:
                       8.0, // Adjust the spacing between cards horizontally
@@ -68,16 +68,16 @@ class ProductsListScreen extends StatelessWidget {
                                 color: Colors.black,
                               ),
                             ),
-                            Gap(20),
+                            const Gap(20),
                             CachedNetworkImage(
                               imageUrl:
                                   "https://kartdaddy.in/products/product/${data.thumb_image}",
                               placeholder: (context, url) =>
-                                  Center(child: CircularProgressIndicator()),
+                                  const Center(child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                  const Icon(Icons.error),
                             ),
-                            Gap(20),
+                            const Gap(20),
                             Align(
                               alignment: Alignment.centerLeft,
                               child: SubHeading(text: data.net_sale_amount!),

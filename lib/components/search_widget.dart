@@ -8,7 +8,7 @@ class Product {
 }
 
 class CustomSearch extends StatefulWidget {
-  const CustomSearch({Key? key}) : super(key: key);
+  const CustomSearch({super.key});
 
   @override
   _CustomSearchState createState() => _CustomSearchState();

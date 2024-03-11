@@ -48,7 +48,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Gap(20),
+            const Gap(20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -71,25 +71,25 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               text: widget.productData['productTitle'],
               maxLines: 4,
             ),
-            Gap(30),
-            SlantRectangle(
+            const Gap(30),
+            const SlantRectangle(
               width: 150,
             ),
-            Gap(20),
+            const Gap(20),
             CarouselGrid(data: DemoData.slideImage),
             const Gap(16),
             Container(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.red.shade800),
-              child: NormalText(
+              child: const NormalText(
                 text: "Limited time deal",
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Gap(10),
+            const Gap(10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -98,10 +98,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   size: 27,
                   fontWeight: FontWeight.w600,
                 ),
-                Gap(20),
+                const Gap(20),
                 Text(
                   'M.R.P.: ${widget.productData['crossPrice']}',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 14, decoration: TextDecoration.lineThrough),
                 ),
               ],
@@ -151,24 +151,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             const Gap(8),
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.local_offer_sharp,
                   size: 20,
                   color: Colors.green,
                 ),
-                Gap(10),
+                const Gap(10),
             NormalText(text: widget.productData['offer1']),
               ],
             ),
-            Gap(10),
+            const Gap(10),
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.local_offer_sharp,
                   size: 20,
                   color: Colors.green,
                 ),
-                Gap(10),
+                const Gap(10),
             NormalText(text: widget.productData['offer2']),
               ],
             ),

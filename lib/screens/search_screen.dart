@@ -35,10 +35,10 @@ class SearchScreen extends StatelessWidget {
               ),
             ),
           ),
-          Gap(10),
+          const Gap(10),
           Obx(
             () => _searchScreenController.loading.value == true
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : _searchScreenController.filteredProducts.isNotEmpty
                     ? Expanded(
                         child: Padding(

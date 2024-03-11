@@ -4,14 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
-import 'package:kartdaddy/screens/auth/login_screen.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:kartdaddy/shimmer/grid_shimmer.dart';
-import 'package:kartdaddy/shimmer/list_shimmer.dart';
 
-import 'controllers/auth/login_controller.dart';
 import 'screens/landing_screen.dart';
-import 'services/token_refresh_service.dart';
 
 void main() async {
   await GetStorage.init();
@@ -27,7 +22,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final String? savedLanguage;
-  const MyApp({Key? key, this.savedLanguage}) : super(key: key);
+  const MyApp({super.key, this.savedLanguage});
 
   @override
   Widget build(BuildContext context) {

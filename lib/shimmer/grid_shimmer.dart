@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
 
 class GridShimmer extends StatelessWidget {
-  GridShimmer({Key? key});
+  const GridShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class GridShimmer extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
       child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // Number of cards in one row
           crossAxisSpacing:
               8.0, // Adjust the spacing between cards horizontally
@@ -36,14 +36,14 @@ class GridShimmer extends StatelessWidget {
                   height: 16.0,
                   color: Colors.white,
                 ),
-                Gap(10),
+                const Gap(10),
                 // title
                 Container(
                   width: double.infinity,
                   height: 16.0,
                   color: Colors.white,
                 ),
-                Gap(20),
+                const Gap(20),
                 // image
                 Container(
                   width: double.infinity,

@@ -13,7 +13,7 @@ class PopularProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: NormalText(text: "Popular Products",),
+        title: const NormalText(text: "Popular Products",),
         elevation: 5,
         ),
       body: SingleChildScrollView(

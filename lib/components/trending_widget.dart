@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/home_controller.dart';
-import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/models/category_section_model.dart';
 
@@ -56,7 +55,7 @@ class CustomSlider extends StatelessWidget {
                                 value: downloadProgress.progress),
                           ),
                         ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                       SubHeading(text: data.title),
                       const Gap(10),

@@ -9,11 +9,10 @@ import 'package:kartdaddy/controllers/auth/login_controller.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/screens/auth/forget_password_screen.dart';
 import 'package:kartdaddy/screens/auth/register_screen.dart';
-import 'package:kartdaddy/screens/home_screen.dart';
 import 'package:kartdaddy/utility/email_validation.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

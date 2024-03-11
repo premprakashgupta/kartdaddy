@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:kartdaddy/models/banner_model.dart';
 import 'package:kartdaddy/models/category_section_model.dart';
-import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/models/section_model.dart';
 
 import '../api/auth.dart';

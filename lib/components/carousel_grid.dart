@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/data/demo_data.dart';
@@ -10,7 +9,7 @@ import 'package:kartdaddy/designs/custom_icons.dart';
 class CarouselGrid extends StatefulWidget {
   final List<String> data;
 
-  const CarouselGrid({Key? key, required this.data}) : super(key: key);
+  const CarouselGrid({super.key, required this.data});
 
   @override
   _CarouselGridState createState() => _CarouselGridState();
@@ -68,7 +67,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                 decoration: BoxDecoration(
                 color: Colors.red.shade800,
                   borderRadius: BorderRadius.circular(40)),
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     NormalText(text: "43%",color: Colors.white,fontWeight: FontWeight.w600,),

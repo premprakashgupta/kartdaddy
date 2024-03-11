@@ -4,7 +4,7 @@ class UnderlineContainer extends StatelessWidget {
   final Widget child;
   final Color color;
 
-  const UnderlineContainer({Key? key, required this.child, this.color=Colors.black}) : super(key: key);
+  const UnderlineContainer({super.key, required this.child, this.color=Colors.black});
 
   @override
   Widget build(BuildContext context) {

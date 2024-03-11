@@ -35,21 +35,21 @@ class _LanguageScreenState extends State<LanguageScreen> {
         title: const Text('Select Language'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Wrap(
           children: [
             _buildOption('English', 'en'),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildOption(
               'Hindi',
               'hi',
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildOption(
               'Bangla',
               'bn',
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildOption('Bhojpuri', 'bho'),
             // Add more LanguageOption widgets as needed
           ],

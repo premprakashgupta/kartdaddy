@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/screens/address_screen.dart';
@@ -24,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: Obx(
         () => _loginController.loading.value == true
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : ListView(
         children: [
           Container(
@@ -57,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
           ListTile(
             title: const NormalText(text: 'Manage Address'),
             onTap: () {
-              Get.to(() => AddressScreen());
+              Get.to(() => const AddressScreen());
             },
           ),
           ListTile(
@@ -84,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
                       _loginController.logoutUser();
                       _loginController.loading.value = false;
                       
-                      Get.offAll(() => LoginScreen());
+                      Get.offAll(() => const LoginScreen());
             },
           ),
           TextButton(

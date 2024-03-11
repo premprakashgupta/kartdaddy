@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,7 @@ class SlantRectangle extends StatelessWidget {
   const SlantRectangle({super.key, required this.width});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
       child: CustomPaint(
         painter: SlantPainter(),
@@ -18,7 +17,7 @@ class SlantRectangle extends StatelessWidget {
             child: RichText(
               
               text: TextSpan(
-                style: TextStyle( fontWeight: FontWeight.w600),
+                style: const TextStyle( fontWeight: FontWeight.w600),
                 text: "Amazon's ",children: [
                 TextSpan(text: "Choice",style: TextStyle(color: Colors.amber.shade700))
               ]),),

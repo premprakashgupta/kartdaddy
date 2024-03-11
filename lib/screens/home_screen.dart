@@ -2,11 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:kartdaddy/components/box_shadow_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/footer_widget.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
-import 'package:kartdaddy/components/horizontal_row.dart';
 import 'package:kartdaddy/components/newsletter_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
@@ -19,15 +17,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kartdaddy/models/banner_model.dart';
 import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/models/section_model.dart';
-import 'package:shimmer/shimmer.dart';
 
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/screens/cart_screen.dart';
-import 'package:kartdaddy/screens/new_products_screen.dart';
-import 'package:kartdaddy/screens/popular_products_screen.dart';
 import 'package:kartdaddy/screens/product_details_screen.dart';
 import 'package:kartdaddy/screens/profile_screen.dart';
 import 'package:kartdaddy/screens/search_screen.dart';
@@ -81,7 +76,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
           child: Obx(
         () => _homeController.loading.value == true
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
                   CarouselSlider(
@@ -115,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                                           text: bannerData.banner_title,
                                           size: 34,
                                         ),
-                                        SubHeading(
+                                        const SubHeading(
                                           text: 'WEEK DEAL',
                                           size: 34,
                                         ),
@@ -130,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                                             (BuildContext context, Object error,
                                                 StackTrace? stackTrace) {
                                       return IconButton(
-                                        icon: Icon(Icons.refresh),
+                                        icon: const Icon(Icons.refresh),
                                         onPressed: () {
                                           // Handle refresh action when image fails to load
                                         },
@@ -164,8 +159,8 @@ class HomeScreen extends StatelessWidget {
                                 _homeController.sections[index];
                             // if attribute limitForApp is 0 (section['limitForApp'] < 1) or if there is not product in products array (section['products'].length < 1) the it will not display the category
                             return section.limitForApp < 1 ||
-                                    section.products.length < 1
-                                ? SizedBox()
+                                    section.products.isEmpty
+                                ? const SizedBox()
                                 : Column(
                                     children: [
                                       const Gap(20),
@@ -228,19 +223,19 @@ class HomeScreen extends StatelessWidget {
                                                         color: Colors.black,
                                                       ),
                                                     ),
-                                                    Gap(5),
+                                                    const Gap(5),
                                                     CachedNetworkImage(
                                                       height: 120,
                                                       imageUrl:
                                                           "https://kartdaddy.in/products/product/${product.thumb_image}",
                                                       placeholder: (context,
                                                               url) =>
-                                                          CircularProgressIndicator(),
+                                                          const CircularProgressIndicator(),
                                                       errorWidget: (context,
                                                               url, error) =>
-                                                          Icon(Icons.error),
+                                                          const Icon(Icons.error),
                                                     ),
-                                                    Gap(5),
+                                                    const Gap(5),
                                                     Align(
                                                         alignment: Alignment
                                                             .centerLeft,
@@ -302,7 +297,7 @@ class HomeScreen extends StatelessWidget {
                                           Object error,
                                           StackTrace? stackTrace) {
                                     return IconButton(
-                                      icon: Icon(Icons.refresh),
+                                      icon: const Icon(Icons.refresh),
                                       onPressed: () {
                                         // Handle refresh action when image fails to load
                                       },
@@ -334,7 +329,7 @@ class HomeScreen extends StatelessWidget {
                                           (BuildContext context, Object error,
                                               StackTrace? stackTrace) {
                                     return IconButton(
-                                      icon: Icon(Icons.refresh),
+                                      icon: const Icon(Icons.refresh),
                                       onPressed: () {
                                         // Handle refresh action when image fails to load
                                       },
@@ -366,7 +361,7 @@ class HomeScreen extends StatelessWidget {
                                           Object error,
                                           StackTrace? stackTrace) {
                                     return IconButton(
-                                      icon: Icon(Icons.refresh),
+                                      icon: const Icon(Icons.refresh),
                                       onPressed: () {
                                         // Handle refresh action when image fails to load
                                       },
@@ -505,7 +500,7 @@ class HomeScreen extends StatelessWidget {
                                                       Object error,
                                                       StackTrace? stackTrace) {
                                             return IconButton(
-                                              icon: Icon(Icons.refresh),
+                                              icon: const Icon(Icons.refresh),
                                               onPressed: () {
                                                 // Handle refresh action when image fails to load
                                               },
@@ -530,7 +525,7 @@ class HomeScreen extends StatelessWidget {
                                     errorBuilder: (BuildContext context,
                                         Object error, StackTrace? stackTrace) {
                                       return IconButton(
-                                        icon: Icon(Icons.refresh),
+                                        icon: const Icon(Icons.refresh),
                                         onPressed: () {
                                           // Handle refresh action when image fails to load
                                         },
@@ -565,7 +560,7 @@ class HomeScreen extends StatelessWidget {
                                                       Object error,
                                                       StackTrace? stackTrace) {
                                             return IconButton(
-                                              icon: Icon(Icons.refresh),
+                                              icon: const Icon(Icons.refresh),
                                               onPressed: () {
                                                 // Handle refresh action when image fails to load
                                               },
@@ -590,7 +585,7 @@ class HomeScreen extends StatelessWidget {
                                     errorBuilder: (BuildContext context,
                                         Object error, StackTrace? stackTrace) {
                                       return IconButton(
-                                        icon: Icon(Icons.refresh),
+                                        icon: const Icon(Icons.refresh),
                                         onPressed: () {
                                           // Handle refresh action when image fails to load
                                         },

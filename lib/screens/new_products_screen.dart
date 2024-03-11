@@ -13,7 +13,7 @@ class NewProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: NormalText(text: "New Products",),
+        title: const NormalText(text: "New Products",),
         elevation: 5,
         ),
       body: SingleChildScrollView(

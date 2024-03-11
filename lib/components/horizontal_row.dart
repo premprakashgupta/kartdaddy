@@ -43,16 +43,16 @@ class HorizontalRow extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  Gap(20),
+                  const Gap(20),
                   CachedNetworkImage(
                     height: 120,
                     imageUrl:
                         "https://kartdaddy.in/products/product/${product.thumb_image}",
                     placeholder: (context, url) =>
-                        Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
-                  Gap(20),
+                  const Gap(20),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: SubHeading(

@@ -31,7 +31,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(40),
+                const Gap(40),
                 const SubHeading(text: "Forget Password",color: Colors.black,),
                 const Gap(20),
                 const NormalText(text: "If your email or mobile is available in database then you will get otp on registered email or mobile",maxLines: 4,),

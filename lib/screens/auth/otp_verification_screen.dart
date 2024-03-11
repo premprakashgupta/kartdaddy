@@ -10,9 +10,9 @@ import '../../components/subheading_widget.dart';
 class OTPVerificationScreen extends StatefulWidget {
   final int otp;
   const OTPVerificationScreen({
-    Key? key,
+    super.key,
     required this.otp,
-  }) : super(key: key);
+  });
 
   @override
   State<OTPVerificationScreen> createState() => _OTPVerificationScreenState();
