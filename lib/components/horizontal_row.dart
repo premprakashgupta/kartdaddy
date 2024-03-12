@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
+import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/models/product_model.dart';
@@ -49,7 +50,7 @@ class HorizontalRow extends StatelessWidget {
                     imageUrl:
                         "https://kartdaddy.in/products/product/${product.thumb_image}",
                     placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
+                        const CustomCircularProgress(),
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                   const Gap(20),

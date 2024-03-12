@@ -7,42 +7,41 @@ import 'package:kartdaddy/controllers/auth/login_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:kartdaddy/models/auth/user_model.dart';
 
-
 class LandingController extends GetxController {
   final LoginController _loginController = Get.put(LoginController());
   final box = GetStorage();
   final loggedIn = false.obs;
   String _token = '';
-  
 
   @override
   void onInit() {
     super.onInit();
     _token = box.read('token') ?? '';
-    
 
     checkTokenExpiry();
   }
 
   void checkTokenExpiry() async {
-    
     try {
-      
-        var response = await http.post(
-          Uri.parse(AuthApi.me),
-          headers: {
-          "Authorization": "Bearer $_token",
-          },
-        );
-      print("response data from landing controller ${response.body}");
-        if (response.statusCode == 200) {
-          var data = json.decode(response.body) as Map<String, dynamic>;
+      //   var response = await http.post(
+      //     Uri.parse(AuthApi.me),
+      //     headers: {
+      //     "Authorization": "Bearer $_token",
+      //     },
+      //   );
+      // print("response data from landing controller ${response.body}");
+      // if (response.statusCode == 200) {
+      //   var data = json.decode(response.body) as Map<String, dynamic>;
 
-        _loginController.setUser = UserModel.fromMap(data['user']);
-          _loginController.loading.value = false;
+      // _loginController.setUser = UserModel.fromMap(data['user']);
+      if (_token != '') {
+        _loginController.loading.value = false;
         loggedIn.value = true;
-        }
-      
+        var user = box.read('user');
+
+        _loginController.setUser = UserModel.fromMap(user);
+      }
+      // }
     } catch (e) {
       // Handle or log the error
       print("Error during checkTokenExpiry: $e");

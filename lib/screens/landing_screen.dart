@@ -8,18 +8,13 @@ import 'package:kartdaddy/screens/home_screen.dart';
 class LandingScreen extends StatelessWidget {
   LandingScreen({super.key});
   final LandingController _landingController = Get.put(LandingController());
-  final box = GetStorage();
+  
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Obx(() => _landingController.loggedIn.value == true
-  //       ? HomeScreen()
-  //       : const LoginScreen());
-  // }
   @override
   Widget build(BuildContext context) {
-    return box.read('token') != ''
+    return Obx(() => _landingController.loggedIn.value == true
         ? HomeScreen()
-        : const LoginScreen();
+        : const LoginScreen());
   }
+  
 }

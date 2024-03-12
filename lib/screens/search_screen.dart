@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 
 import '../controllers/search_controller.dart';
 
@@ -39,7 +40,7 @@ class SearchScreen extends StatelessWidget {
           const Gap(10),
           Obx(
             () => _searchScreenController.loading.value == true
-                ? const Center(child: CircularProgressIndicator())
+                ? const CustomCircularProgress()
                 : _searchScreenController.filteredProducts.isNotEmpty
                     ? Expanded(
                         child: Padding(

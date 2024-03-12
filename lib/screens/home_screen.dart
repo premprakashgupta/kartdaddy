@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:kartdaddy/components/custom_button.dart';
+import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/footer_widget.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/newsletter_widget.dart';
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
         () => _homeController.loading.value == true
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: const Center(child: CircularProgressIndicator()),
+                child: const CustomCircularProgress(),
               )
             : Column(
                 children: [

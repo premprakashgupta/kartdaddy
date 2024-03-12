@@ -104,4 +104,11 @@ class CustomIcons {
       size: size,
     );
   }
+  static Icon location({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.location_on,
+      color: color,
+      size: size,
+    );
+  }
 }

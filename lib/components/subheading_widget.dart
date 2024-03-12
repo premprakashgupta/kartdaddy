@@ -18,6 +18,7 @@ class SubHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      softWrap: true,
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines ?? 1,
       style: GoogleFonts.lato(

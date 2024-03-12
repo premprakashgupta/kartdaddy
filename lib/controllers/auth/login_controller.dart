@@ -39,7 +39,8 @@ class LoginController extends GetxController {
         print("login controller --- ${_user.value}");
 
         box.write('token', token);
-
+        box.write('user', jsonData['user']);
+        
         CustomSnackbar.showSnackbar(
             title: 'Info', message: jsonData['message']);
 
