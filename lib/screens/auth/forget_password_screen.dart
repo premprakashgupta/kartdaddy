@@ -68,7 +68,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OTPVerificationScreen(otp: otp),
+                          builder: (context) => OTPVerificationScreen(),
                         ),
                       );
                     }

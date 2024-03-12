@@ -9,7 +9,7 @@
   "forgot_password":"पासवर्ड भूल गए?",
   "password": "पासवर्ड",
   "confirm_password": "पासवर्ड की पुष्टि करें",
-  "username":"उपयोगकर्ता नाम",
+  "name":"नाम",
   "referral":"रेफ़रल दर्ज करें (वैकल्पिक)",
   "get_started": "शुरू हो जाओ",
   "have_an_account": "{prefix} एक खाता है",

@@ -1,94 +1,71 @@
 import 'dart:convert';
 
-class Usermodel {
+class UserModel {
   final int id;
+  final String? parent_id;
   final String name;
+  final int? wallet_amount;
+  final String? referral_code;
+  final String? avatar;
+  final String mobile;
   final String email;
   final String? email_verified_at;
   final String created_at;
   final String updated_at;
-  Usermodel({
+  final int? status;
+  UserModel({
     required this.id,
+    this.parent_id,
     required this.name,
+    this.wallet_amount,
+    this.referral_code,
+    this.avatar,
+    required this.mobile,
     required this.email,
     this.email_verified_at,
     required this.created_at,
     required this.updated_at,
+    this.status,
   });
-
-  Usermodel copyWith({
-    int? id,
-    String? name,
-    String? email,
-    String? email_verified_at,
-    String? created_at,
-    String? updated_at,
-  }) {
-    return Usermodel(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      email: email ?? this.email,
-      email_verified_at: email_verified_at ?? this.email_verified_at,
-      created_at: created_at ?? this.created_at,
-      updated_at: updated_at ?? this.updated_at,
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'parent_id': parent_id ?? null,
       'name': name,
+      'wallet_amount': wallet_amount ?? null,
+      'referral_code': referral_code ?? null,
+      'avatar': avatar ?? null,
+      'mobile': mobile,
       'email': email,
-      'email_verified_at': email_verified_at,
+      'email_verified_at': email_verified_at ?? null,
       'created_at': created_at,
       'updated_at': updated_at,
+      'status': status ?? null,
     };
   }
 
-  factory Usermodel.fromMap(Map<String, dynamic> map) {
-    return Usermodel(
-      id: map['id'].toInt() as int,
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'] as int,
+      parent_id: map['parent_id'] != null ? map['parent_id'] as String : null,
       name: map['name'] as String,
+      wallet_amount: map['wallet_amount'] != null
+          ? map['wallet_amount'].toInt() as int
+          : 0,
+      referral_code:
+          map['referral_code'] != null ? map['referral_code'] as String : null,
+      avatar: map['avatar'] != null ? map['avatar'] as String : null,
+      mobile: map['mobile'] as String,
       email: map['email'] as String,
-      email_verified_at: map['email_verified_at'] == null
-          ? null
-          : map['email_verified_at'] as String,
+      email_verified_at: map['email_verified_at'] != null
+          ? map['email_verified_at'] as String
+          : null,
       created_at: map['created_at'] as String,
       updated_at: map['updated_at'] as String,
+      status: map['status'] != null ? map['status'].toInt() as int : null,
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory Usermodel.fromJson(String source) =>
-      Usermodel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'Usermodel(id: $id, name: $name, email: $email, email_verified_at: $email_verified_at, created_at: $created_at, updated_at: $updated_at)';
-  }
-
-  @override
-  bool operator ==(covariant Usermodel other) {
-    if (identical(this, other)) return true;
-
-    return other.id == id &&
-        other.name == name &&
-        other.email == email &&
-        other.email_verified_at == email_verified_at &&
-        other.created_at == created_at &&
-        other.updated_at == updated_at;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        name.hashCode ^
-        email.hashCode ^
-        email_verified_at.hashCode ^
-        created_at.hashCode ^
-        updated_at.hashCode;
-  }
+  
 }
-
-class Email_verified_at {}

@@ -12,13 +12,13 @@ class LandingController extends GetxController {
   final LoginController _loginController = Get.put(LoginController());
   final box = GetStorage();
   final loggedIn = false.obs;
-  String _accessToken = '';
+  String _token = '';
   
 
   @override
   void onInit() {
     super.onInit();
-    _accessToken = box.read('access_token') ?? '';
+    _token = box.read('token') ?? '';
     
 
     checkTokenExpiry();
@@ -31,14 +31,14 @@ class LandingController extends GetxController {
         var response = await http.post(
           Uri.parse(AuthApi.me),
           headers: {
-          "Authorization": "Bearer $_accessToken",
+          "Authorization": "Bearer $_token",
           },
         );
-        print("response data ${response.body}");
+      print("response data from landing controller ${response.body}");
         if (response.statusCode == 200) {
           var data = json.decode(response.body) as Map<String, dynamic>;
 
-          _loginController.setUser = Usermodel.fromMap(data);
+        _loginController.setUser = UserModel.fromMap(data['user']);
           _loginController.loading.value = false;
         loggedIn.value = true;
         }

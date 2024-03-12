@@ -12,38 +12,36 @@ import '../../utility/custom_snackbar.dart';
 
 class LoginController extends GetxController {
   final box = GetStorage();
-  final _user = Rx<Usermodel?>(null);
+  final _user = Rx<UserModel?>(null);
 
-  int _loginAt = 0;
   final loading = true.obs;
   final disabled = false.obs;
 
-  Usermodel? get user => _user.value;
-  set setUser(Usermodel? value) => _user.value = value;
+  UserModel? get user => _user.value;
+  set setUser(UserModel? value) => _user.value = value;
 
   Future<void> loginUser(
-      {required String email, required String password}) async {
+      {required String login_id, required String password}) async {
     try {
       disabled.value = true;
       var response = await http.post(
         Uri.parse(AuthApi.login),
-        body: {'email': email, 'password': password},
+        body: {'login_id': login_id, 'password': password},
       );
 
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body) as Map<String, dynamic>;
 
-        var accessToken = jsonData['access_token'];
-        var expiresIn = jsonData['expires_in'];
-        _loginAt = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-        _user.value = Usermodel.fromMap(jsonData['user']);
-        print(_user.value);
+        var token = jsonData['token'];
+        print("login controller --- ${jsonData['user']}");
 
-        box.write('access_token', accessToken);
-        box.write('expires_in', expiresIn);
-        box.write('login_at', _loginAt);
+        _user.value = UserModel.fromMap(jsonData['user']);
+        print("login controller --- ${_user.value}");
 
-        CustomSnackbar.showSnackbar(title: 'Info', message: 'Login Successful');
+        box.write('token', token);
+
+        CustomSnackbar.showSnackbar(
+            title: 'Info', message: jsonData['message']);
 
         loading.value = false;
 
@@ -60,24 +58,22 @@ class LoginController extends GetxController {
   }
 
   void logoutUser() async {
-    try {
-      var accessToken = box.read('access_token');
-      await http.post(
-        Uri.parse(AuthApi.logout),
-        headers: {
-          "Authorization": "Bearer $accessToken", // Fix the header name
-        },
-      );
-    } catch (e) {
-      // Handle or log the error
-      print("Error during logout: $e");
-    }
+    // try {
+    //   var token = box.read('token');
+    //   await http.post(
+    //     Uri.parse(AuthApi.logout),
+    //     headers: {
+    //       "Authorization": "Bearer $token", // Fix the header name
+    //     },
+    //   );
+    // } catch (e) {
+    //   // Handle or log the error
+    //   print("Error during logout: $e");
+    // }
 
     // Perform necessary actions
     loading.value = true;
-    box.remove('access_token');
-    box.remove('expires_in');
-    box.remove('login_at');
+    box.remove('token');
     _user.value = null;
   }
 }

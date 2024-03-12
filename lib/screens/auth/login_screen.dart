@@ -21,7 +21,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final LoginController _loginController = Get.find();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _loginIdController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: NormalText(
                         text: AppLocalizations.of(context)!.mobile_no_email),
                     prefixIcon: CustomIcons.phone(),
-                    controller: _emailController,
+                    controller: _loginIdController,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Email is required";
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (_formKey.currentState!.validate()) {
                           // If the form is valid, navigate to HomeScreen
                           _loginController.loginUser(
-                              email: _emailController.text.trim(),
+                                      login_id: _loginIdController.text.trim(),
                               password: _passwordController.text);
                         }
                         return;
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Gap(5),
                       InkWell(
                           onTap: () {
-                            Get.to(() => const RegisterScreen());
+                            Get.to(() => RegisterScreen());
                           },
                           child: NormalText(
                             text: AppLocalizations.of(context)!.sign_up,

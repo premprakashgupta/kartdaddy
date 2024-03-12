@@ -9,7 +9,7 @@
   "email_address":"Email address",
   "password":"Password",
   "confirm_password":"Confirm Password",
-  "username":"Username",
+  "name":"Name",
   "referral":"Enter Referral (optional)",
   "get_started":"Get Started",
   "have_an_account":"{prefix} have an account.",
