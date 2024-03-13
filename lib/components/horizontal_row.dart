@@ -7,8 +7,6 @@ import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/models/product_model.dart';
-import 'package:kartdaddy/screens/product_details_screen.dart';
-import 'package:kartdaddy/screens/profile_screen.dart';
 
 class HorizontalRow extends StatelessWidget {
   final List<dynamic> data;

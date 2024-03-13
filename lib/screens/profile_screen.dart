@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           NormalText(
                               text: _loginController.user!.email, size: 16.0),
-                          Gap(20),
+                          const Gap(20),
                           Center(
                             child: Wrap(
                               spacing: 15,
@@ -59,8 +59,8 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Gap(20),
-                          SubHeading(
+                          const Gap(20),
+                          const SubHeading(
                             text: "Your Orders",
                             color: Colors.black,
                           )
@@ -125,12 +125,12 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildCapsulBox({required String text}) {
     return Container(
       width: Get.size.width * .5 - 40,
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 13),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 13),
       alignment: Alignment.center,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           border: Border.all(color: Colors.grey, width: 1),
-          color: Colors.grey.shade200),
+          color: Colors.white),
       child: NormalText(text: text),
     );
   }

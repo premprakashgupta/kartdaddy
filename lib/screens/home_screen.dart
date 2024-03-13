@@ -13,7 +13,6 @@ import 'package:kartdaddy/components/trending_widget.dart';
 import 'package:kartdaddy/components/underline_container.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/controllers/wishlist_controller.dart';
-import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/controllers/home_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,7 +25,6 @@ import 'package:badges/badges.dart' as badges;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/screens/cart_screen.dart';
-import 'package:kartdaddy/screens/product_details_screen.dart';
 import 'package:kartdaddy/screens/profile_screen.dart';
 import 'package:kartdaddy/screens/search_screen.dart';
 import 'package:kartdaddy/screens/products_list_screen.dart';
@@ -70,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                 badgeStyle: const badges.BadgeStyle(badgeColor: Colors.amber),
                 badgeContent: Obx(() => Text(
                       _cartController.cart.length.toString(),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                     )),
                 child: CustomIcons.cart(),
               ),
@@ -80,9 +78,9 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
           child: Obx(
         () => _homeController.loading.value == true
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const CustomCircularProgress(),
+            ? const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CustomCircularProgress(),
               )
             : Column(
                 children: [
@@ -135,7 +133,7 @@ class HomeScreen extends StatelessWidget {
                                               value: downloadProgress
                                               .progress),
                                       errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
+                                          const Icon(Icons.error),
                                     ),
 
                                   ],

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
-import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 
@@ -66,7 +65,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                                   value: downloadProgress.progress),
                             ),
                             errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                                const Icon(Icons.error),
                           ),
                         ),
                       );
@@ -90,7 +89,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
                     ),
-                    NormalText(
+                    const NormalText(
                       text: "off",
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -106,7 +105,16 @@ class _CarouselGridState extends State<CarouselGrid> {
                     height: 50,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color: Colors.white54,
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 8,
+                            offset: const Offset(
+                                0, 1), // changes the position of the shadow
+                          ),
+                        ],
                         borderRadius: BorderRadius.circular(40)),
                     child: CustomIcons.share()),
               ),
@@ -118,12 +126,21 @@ class _CarouselGridState extends State<CarouselGrid> {
                     height: 50,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color: Colors.white54,
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 8,
+                            offset: const Offset(
+                                0, 1), // changes the position of the shadow
+                          ),
+                        ],
                         borderRadius: BorderRadius.circular(40)),
                     child: CustomIcons.heart(
                         color: widget.favorite == true
                             ? Colors.red.shade700
-                            : Colors.white)),
+                            : Colors.grey.shade300)),
               )
             ],
           ),
@@ -156,7 +173,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                         child: CustomCircularProgress(
                             value: downloadProgress.progress),
                       ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
                   ),
                 ),

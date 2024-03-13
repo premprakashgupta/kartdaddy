@@ -24,16 +24,16 @@ class SearchScreen extends StatelessWidget {
               onChanged: (value) {
                 _searchScreenController.query.value = value;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search...',
-                suffixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                ),
+                suffixIcon: Icon(Icons.search),
+                // border: OutlineInputBorder(
+                //   borderRadius: BorderRadius.circular(10.0),
+                //   borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                // ),
+                // focusedBorder: const OutlineInputBorder(
+                //   borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                // ),
               ),
             ),
           ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 
@@ -20,13 +19,13 @@ class ErrorScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Heading(text: "Something went wrong from $place"),
-            Gap(10),
+            const Gap(10),
             OutlinedButton(
                 onPressed: () {
                   SystemNavigator.pop();
                 },
-                child: Text("Go back")),
-            Gap(20),
+                child: const Text("Go back")),
+            const Gap(20),
             SubHeading(
               text: error,
               maxLines: 4,

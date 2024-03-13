@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/controllers/otp_verification_controller.dart';
-import 'package:kartdaddy/screens/auth/reset_password_screen.dart';
 
 import '../../components/normal_text_widget.dart';
 import '../../components/subheading_widget.dart';
@@ -12,6 +11,8 @@ import '../../components/subheading_widget.dart';
 class OTPVerificationScreen extends StatelessWidget {
   final OtpVerificationController _otpVerificationController =
       Get.put(OtpVerificationController());
+
+  OTPVerificationScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

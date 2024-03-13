@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class UserModel {
   final int id;
@@ -31,17 +30,17 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'parent_id': parent_id ?? null,
+      'parent_id': parent_id,
       'name': name,
-      'wallet_amount': wallet_amount ?? null,
-      'referral_code': referral_code ?? null,
-      'avatar': avatar ?? null,
+      'wallet_amount': wallet_amount,
+      'referral_code': referral_code,
+      'avatar': avatar,
       'mobile': mobile,
       'email': email,
-      'email_verified_at': email_verified_at ?? null,
+      'email_verified_at': email_verified_at,
       'created_at': created_at,
       'updated_at': updated_at,
-      'status': status ?? null,
+      'status': status,
     };
   }
 

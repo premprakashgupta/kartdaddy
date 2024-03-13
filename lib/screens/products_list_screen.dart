@@ -8,7 +8,6 @@ import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/models/product_model.dart';
-import 'package:kartdaddy/screens/product_details_screen.dart';
 import 'package:kartdaddy/shimmer/grid_shimmer.dart';
 
 import '../controllers/products_list_controller.dart';

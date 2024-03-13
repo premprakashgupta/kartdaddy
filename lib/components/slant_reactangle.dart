@@ -1,10 +1,15 @@
-
 import 'package:flutter/material.dart';
 
 class SlantRectangle extends StatelessWidget {
   final double width;
+  final String whiteText;
+  final String coloredText;
 
-  const SlantRectangle({super.key, required this.width});
+  const SlantRectangle(
+      {super.key,
+      required this.width,
+      required this.whiteText,
+      required this.coloredText});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -15,12 +20,15 @@ class SlantRectangle extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: RichText(
-              
               text: TextSpan(
-                style: const TextStyle( fontWeight: FontWeight.w600),
-                text: "Amazon's ",children: [
-                TextSpan(text: "Choice",style: TextStyle(color: Colors.amber.shade700))
-              ]),),
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                  text: "$whiteText  ",
+                  children: [
+                    TextSpan(
+                        text: coloredText,
+                        style: TextStyle(color: Colors.amber.shade700))
+                  ]),
+            ),
           ),
         ),
       ),

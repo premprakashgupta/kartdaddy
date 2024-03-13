@@ -9,7 +9,7 @@ class CustomCircularProgress extends StatelessWidget {
     return Center(
       child: CircularProgressIndicator(
         color: Colors.amber,
-        value: value ?? null,
+        value: value,
       ),
     );
   }

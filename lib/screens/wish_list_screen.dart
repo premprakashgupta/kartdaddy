@@ -10,20 +10,18 @@ import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/wishlist_controller.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/models/product_model.dart';
-import 'package:kartdaddy/screens/product_details_screen.dart';
 import 'package:kartdaddy/shimmer/grid_shimmer.dart';
 
-import '../controllers/products_list_controller.dart';
 
 class WishListScreen extends StatelessWidget {
   WishListScreen({super.key});
-  WishListController _wishListController = Get.find();
+  final WishListController _wishListController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Heading(
+        title: const Heading(
           text: "Wishlist",
         ),
         elevation: 5,
@@ -91,14 +89,29 @@ class WishListScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SubHeading(text: data.net_sale_amount!),
-                                  InkWell(
-                                    onTap: () {
-                                      _wishListController.removeWishList(
-                                          product: data);
-                                    },
-                                    child: CustomIcons.delete(),
-                                  )
+                                  SubHeading(
+                                    text: "INR ${data.net_sale_amount!}",
+                                    size: 16,
+                                  ),
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          //  add to kart
+                                        },
+                                        child: CustomIcons.cart(size: 20),
+                                      ),
+                                      const Gap(5),
+                                      InkWell(
+                                        onTap: () {
+                                          _wishListController.removeWishList(
+                                              product: data);
+                                        },
+                                        child: CustomIcons.delete(
+                                            size: 20, color: Colors.red),
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
                               const Gap(6),

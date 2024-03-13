@@ -9,7 +9,6 @@ import 'package:kartdaddy/screens/error_screen.dart';
 
 import '../../api/auth.dart';
 import '../../models/auth/user_model.dart';
-import '../../screens/home_screen.dart';
 
 import '../../utility/custom_snackbar.dart';
 
@@ -45,7 +44,7 @@ class RegisterController extends GetxController {
         var jsonData = json.decode(response.body) as Map<String, dynamic>;
 
         var token = jsonData['token'];
-        print("register controller --- ${jsonData}");
+        print("register controller --- $jsonData");
 
         _loginController.setUser =
             UserModel.fromMap(jsonData['verificationInfo']);

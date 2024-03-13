@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/components/carousel_grid.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
-import 'package:kartdaddy/components/custom_input.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/horizontal_row.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
@@ -22,7 +21,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   final ProductDetailsController _productDetailsController =
       Get.put(ProductDetailsController());
-  WishListController _wishListController = Get.find();
+  final WishListController _wishListController = Get.find();
   final productData = DemoData.demoProductData[0];
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,7 @@ class ProductDetailsScreen extends StatelessWidget {
             )),
         body: Obx(
           () => _productDetailsController.loading.value == true
-              ? CustomCircularProgress()
+              ? const CustomCircularProgress()
               : SingleChildScrollView(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -82,6 +81,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       const Gap(30),
                       const SlantRectangle(
                         width: 150,
+                        whiteText: 'KartDaddy\'s',
+                        coloredText: 'Choice',
                       ),
                       const Gap(20),
                       Obx(
@@ -147,7 +148,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 CustomIcons.heart(size: 20),
-                                Gap(5),
+                                const Gap(5),
                                 const NormalText(text: 'Add to Wishlist'),
                               ],
                             ),
@@ -159,18 +160,18 @@ class ProductDetailsScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 CustomIcons.compare(size: 20),
-                                Gap(5),
+                                const Gap(5),
                                 const NormalText(text: 'Compare'),
                               ],
                             ),
                           ),
                         ],
                       ),
-                      Gap(15),
+                      const Gap(15),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SubHeading(
+                          const SubHeading(
                             text: "Color",
                             color: Colors.black,
                           ),
@@ -184,7 +185,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               return Container(
                                 width: 50,
                                 height: 50,
-                                margin: EdgeInsets.all(3),
+                                margin: const EdgeInsets.all(3),
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color: Colors.amber, width: 2),
@@ -194,11 +195,11 @@ class ProductDetailsScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      Gap(20),
+                      const Gap(20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SubHeading(
+                          const SubHeading(
                             text: "Delivery",
                             color: Colors.black,
                           ),
@@ -208,11 +209,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   CustomIcons.location(),
-                                  Gap(5),
+                                  const Gap(5),
                                   SizedBox(
                                     width: Get.size.width * .4,
                                     child: TextFormField(
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         hintText: "Enter delivery Code",
                                         label: Text(
                                           "Enter delivery Code",
@@ -220,10 +221,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Gap(5),
+                                  const Gap(5),
                                   TextButton(
                                     onPressed: () {},
-                                    child: NormalText(
+                                    child: const NormalText(
                                       text: "Check",
                                       color: Colors.blue,
                                       fontWeight: FontWeight.bold,
@@ -231,8 +232,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              Gap(5),
-                              NormalText(
+                              const Gap(5),
+                              const NormalText(
                                 maxLines: 2,
                                 fontWeight: FontWeight.bold,
                                 text:
@@ -284,7 +285,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           NormalText(text: productData['offer2']),
                         ],
                       ),
-                      Gap(20),
+                      const Gap(20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -382,18 +383,18 @@ class ProductDetailsScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Gap(20),
-                      SubHeading(
+                      const Gap(20),
+                      const SubHeading(
                         text: "Related Products",
                         color: Colors.black,
                       ),
-                      Gap(10),
+                      const Gap(10),
                       HorizontalRow(
                           data: _productDetailsController
                               .productDetail.value!.relatedProducts),
 
                       // fixed this gap for clear screen visibility
-                      Gap(80)
+                      const Gap(80)
                     ],
                   ),
                 ),
