@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:kartdaddy/screens/error_screen.dart';
 
 import '../../api/auth.dart';
 import '../../models/auth/user_model.dart';
@@ -39,8 +40,8 @@ class LoginController extends GetxController {
         print("login controller --- ${_user.value}");
 
         box.write('token', token);
-        box.write('user', jsonData['user']);
-        
+        // box.write('user', jsonData['user']);
+
         CustomSnackbar.showSnackbar(
             title: 'Info', message: jsonData['message']);
 
@@ -52,25 +53,32 @@ class LoginController extends GetxController {
       }
     } catch (e) {
       print(e.toString());
-      CustomSnackbar.showSnackbar(title: "Error", message: e.toString());
+      Get.to(() => ErrorScreen(
+            error: e.toString(),
+            place: 'Login method throw error',
+          ));
     } finally {
       disabled.value = false;
     }
   }
 
   void logoutUser() async {
-    // try {
-    //   var token = box.read('token');
-    //   await http.post(
-    //     Uri.parse(AuthApi.logout),
-    //     headers: {
-    //       "Authorization": "Bearer $token", // Fix the header name
-    //     },
-    //   );
-    // } catch (e) {
-    //   // Handle or log the error
-    //   print("Error during logout: $e");
-    // }
+    try {
+      var token = box.read('token');
+      await http.post(
+        Uri.parse(AuthApi.logout),
+        headers: {
+          "Authorization": "Bearer $token", // Fix the header name
+        },
+      );
+    } catch (e) {
+      // Handle or log the error
+      print("Error during logout: $e");
+      Get.to(() => ErrorScreen(
+            error: e.toString(),
+            place: 'Logout method throw error',
+          ));
+    }
 
     // Perform necessary actions
     loading.value = true;

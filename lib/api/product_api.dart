@@ -6,4 +6,6 @@ class ProductApi {
       "${BaseUrl.baseUrl}/api/find-product-with-name?request_data=";
   // https://kartdaddy.in/api/shop-detail/1682263064/redmi-10a
   static String productDetail = "${BaseUrl.baseUrl}/api/shop-detail";
+  static String getWishList = "${BaseUrl.baseUrl}/api/wishlist";
+  static String addWishList = "${BaseUrl.baseUrl}/api/wishlist/add";
 }

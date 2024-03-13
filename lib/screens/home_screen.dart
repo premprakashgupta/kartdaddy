@@ -12,6 +12,7 @@ import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/components/trending_widget.dart';
 import 'package:kartdaddy/components/underline_container.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
+import 'package:kartdaddy/controllers/wishlist_controller.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/controllers/home_controller.dart';
@@ -36,6 +37,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final HomeController _homeController = Get.put(HomeController());
   final CartController _cartController = Get.put(CartController());
+  final WishListController _wishListController = Get.put(WishListController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,10 +131,9 @@ class HomeScreen extends StatelessWidget {
                                           "https://kartdaddy.in/marketing/banner/${bannerData.first_image}",
                                       progressIndicatorBuilder: (context, url,
                                               downloadProgress) =>
-                                          Center(
-                                              child: CircularProgressIndicator(
-                                                  value: downloadProgress
-                                                      .progress)),
+                                          CustomCircularProgress(
+                                              value: downloadProgress
+                                              .progress),
                                       errorWidget: (context, url, error) =>
                                           Icon(Icons.error),
                                     ),
@@ -193,11 +194,14 @@ class HomeScreen extends StatelessWidget {
                                               section.products[idx];
                                           return InkWell(
                                             onTap: () {
-                                              Get.to(() => ProductDetailsScreen(
-                                                    slug: product.slug!,
-                                                    timestamp:
-                                                        product.timestamp!,
-                                                  ));
+                                              // Get.to(() => ProductDetailsScreen(
+                                              //       slug: product.slug!,
+                                              //       timestamp:
+                                              //           product.timestamp!,
+                                              //     ));
+
+                                              Get.toNamed(
+                                                  '/productDetails?slug=${product.slug!}&timestamp=${product.timestamp!}');
                                             },
                                             child: Container(
                                               margin: const EdgeInsets.all(8),
@@ -238,7 +242,7 @@ class HomeScreen extends StatelessWidget {
                                                           "https://kartdaddy.in/products/product/${product.thumb_image}",
                                                       placeholder: (context,
                                                               url) =>
-                                                          const CircularProgressIndicator(),
+                                                          const CustomCircularProgress(),
                                                       errorWidget: (context,
                                                               url, error) =>
                                                           const Icon(Icons.error),

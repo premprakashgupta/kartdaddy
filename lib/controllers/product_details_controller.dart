@@ -4,18 +4,22 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:kartdaddy/api/product_api.dart';
 import 'package:kartdaddy/models/product_details_model.dart';
+import 'package:kartdaddy/screens/error_screen.dart';
 
 class ProductDetailsController extends GetxController {
-  final String slug;
-  final String timestamp;
-  ProductDetailsController({required this.timestamp, required this.slug});
-
   final loading = true.obs;
   Rx<ProductDetailModel?> productDetail = Rx<ProductDetailModel?>(null);
+  late String slug;
+  late String timestamp;
 
   @override
   void onInit() {
     // TODO: implement onInit
+    print("onInit of product detail controller");
+    var parameters = Get.parameters;
+    slug = parameters['slug'] ?? '';
+    timestamp = parameters['timestamp'] ?? '';
+
     fetchData();
     super.onInit();
   }
@@ -38,6 +42,10 @@ class ProductDetailsController extends GetxController {
     } catch (e, stackTrace) {
       print('Error: $e');
       print('Stack Trace: $stackTrace');
+      Get.to(() => ErrorScreen(
+            error: e.toString(),
+            place: 'product detail fetchData method throw error',
+          ));
     } finally {
       loading.value = false;
     }

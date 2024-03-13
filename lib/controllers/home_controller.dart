@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/models/banner_model.dart';
 import 'package:kartdaddy/models/category_section_model.dart';
 import 'package:kartdaddy/models/section_model.dart';
+import 'package:kartdaddy/screens/error_screen.dart';
 
 import '../api/auth.dart';
 
@@ -56,6 +57,10 @@ class HomeController extends GetxController {
     } catch (e, stackTrace) {
       print('Error: $e');
       print('Stack Trace: $stackTrace');
+      Get.to(() => ErrorScreen(
+            error: e.toString(),
+            place: 'home controller fetchData method throw error',
+          ));
     }
   }
 }

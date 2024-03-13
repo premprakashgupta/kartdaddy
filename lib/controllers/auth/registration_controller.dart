@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:kartdaddy/controllers/auth/login_controller.dart';
 import 'package:kartdaddy/screens/auth/otp_verification_screen.dart';
+import 'package:kartdaddy/screens/error_screen.dart';
 
 import '../../api/auth.dart';
 import '../../models/auth/user_model.dart';
@@ -64,7 +65,10 @@ class RegisterController extends GetxController {
       }
     } catch (e) {
       print(e.toString());
-      CustomSnackbar.showSnackbar(title: "Error", message: e.toString());
+      Get.to(() => ErrorScreen(
+            error: e.toString(),
+            place: 'register user method throw error',
+          ));
     } finally {
       disabled.value = false;
     }

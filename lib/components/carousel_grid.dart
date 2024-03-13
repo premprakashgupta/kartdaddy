@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
@@ -61,7 +62,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                             imageUrl: img,
                             progressIndicatorBuilder:
                                 (context, url, downloadProgress) => Center(
-                              child: CircularProgressIndicator(
+                              child: CustomCircularProgress(
                                   value: downloadProgress.progress),
                             ),
                             errorWidget: (context, url, error) =>
@@ -152,7 +153,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                       imageUrl: widget.data[index],
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) => Center(
-                        child: CircularProgressIndicator(
+                        child: CustomCircularProgress(
                             value: downloadProgress.progress),
                       ),
                       errorWidget: (context, url, error) => Icon(Icons.error),

@@ -8,6 +8,7 @@ import 'package:kartdaddy/screens/address_screen.dart';
 import 'package:kartdaddy/screens/auth/login_screen.dart';
 import 'package:kartdaddy/screens/edit_profile_screen.dart';
 import 'package:kartdaddy/screens/language_screen.dart';
+import 'package:kartdaddy/screens/wish_list_screen.dart';
 
 import '../components/normal_text_widget.dart';
 import '../controllers/auth/login_controller.dart';
@@ -48,7 +49,13 @@ class ProfileScreen extends StatelessWidget {
                                 _buildCapsulBox(text: "Your Orders"),
                                 _buildCapsulBox(text: "Buy Again"),
                                 _buildCapsulBox(text: "Your Account"),
-                                _buildCapsulBox(text: "Your Lists"),
+                                InkWell(
+                                  onTap: () {
+                                    Get.to(() => WishListScreen());
+                                  },
+                                  child: _buildCapsulBox(text: "Your Lists"),
+                                )
+                               
                               ],
                             ),
                           ),

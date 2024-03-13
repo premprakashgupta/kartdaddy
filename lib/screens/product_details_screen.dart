@@ -11,22 +11,19 @@ import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/slant_reactangle.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/product_details_controller.dart';
+import 'package:kartdaddy/controllers/wishlist_controller.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/screens/cart_screen.dart';
 import 'package:kartdaddy/screens/review_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  final String slug;
-  final String timestamp;
-  final ProductDetailsController _productDetailsController;
+  ProductDetailsScreen({super.key});
 
-  ProductDetailsScreen({super.key, required this.slug, required this.timestamp})
-      : _productDetailsController =
-            Get.put(ProductDetailsController(slug: slug, timestamp: timestamp));
-
+  final ProductDetailsController _productDetailsController =
+      Get.put(ProductDetailsController());
+  WishListController _wishListController = Get.find();
   final productData = DemoData.demoProductData[0];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,12 +84,20 @@ class ProductDetailsScreen extends StatelessWidget {
                         width: 150,
                       ),
                       const Gap(20),
+                      Obx(
+                        () => 
                       CarouselGrid(
                         data: _productDetailsController
                             .productDetail.value!.productImages,
                         percent: _productDetailsController
                             .productDetail.value!.product.discount_type_amount!,
-                        favorite: true,
+                          favorite: _wishListController.wishlists.any(
+                            (element) =>
+                                element.id ==
+                                _productDetailsController
+                                    .productDetail.value!.product.id,
+                          ),
+                        ),
                       ),
                       const Gap(16),
                       Container(
@@ -135,7 +140,9 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed: () {
-                              // Handle wishlist button click
+                              _wishListController.addWishList(
+                                  product: _productDetailsController
+                                      .productDetail.value!.product);
                             },
                             child: Row(
                               children: [
@@ -247,7 +254,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             .productDetail.value!.product.short_description!,
                         maxLines: 5,
                       ),
-                      
+
                       const Gap(32),
                       const SubHeading(
                         text: 'Available Offers',
@@ -334,6 +341,12 @@ class ProductDetailsScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             const TabBar(
+                              isScrollable: true,
+                              indicatorColor: Colors.amber,
+                              labelColor: Colors.amber,
+                              labelPadding:
+                                  EdgeInsets.symmetric(horizontal: 8.0),
+                              indicatorPadding: EdgeInsets.zero,
                               tabs: [
                                 Tab(text: 'Accessories'),
                                 Tab(text: 'Description'),

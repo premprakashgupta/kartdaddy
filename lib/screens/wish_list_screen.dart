@@ -7,31 +7,29 @@ import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
+import 'package:kartdaddy/controllers/wishlist_controller.dart';
+import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/screens/product_details_screen.dart';
 import 'package:kartdaddy/shimmer/grid_shimmer.dart';
 
 import '../controllers/products_list_controller.dart';
 
-class ProductsListScreen extends StatelessWidget {
-  final String slug;
-  final String title;
-  final ProductsListController _ProductsListController;
-
-  ProductsListScreen({super.key, required this.slug, required this.title})
-      : _ProductsListController = Get.put(ProductsListController(slug: slug));
+class WishListScreen extends StatelessWidget {
+  WishListScreen({super.key});
+  WishListController _wishListController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Heading(
-          text: title,
+          text: "Wishlist",
         ),
         elevation: 5,
       ),
       body: Obx(
-        () => _ProductsListController.loading.value == true
+        () => _wishListController.loading.value == true
             ? const GridShimmer()
             : GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -42,10 +40,9 @@ class ProductsListScreen extends StatelessWidget {
                       8.0, // Adjust the spacing between cards vertically
                   childAspectRatio: 0.55, // Adjust the aspect ratio as needed
                 ),
-                itemCount: _ProductsListController.products.length,
+                itemCount: _wishListController.wishlists.length,
                 itemBuilder: (context, index) {
-                  ProductModel data =
-                      _ProductsListController.products[index];
+                  ProductModel data = _wishListController.wishlists[index];
                   return Container(
                     margin: const EdgeInsets.all(8),
                     child: InkWell(
@@ -90,9 +87,19 @@ class ProductsListScreen extends StatelessWidget {
                                     const Icon(Icons.error),
                               ),
                               const Gap(20),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: SubHeading(text: data.net_sale_amount!),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SubHeading(text: data.net_sale_amount!),
+                                  InkWell(
+                                    onTap: () {
+                                      _wishListController.removeWishList(
+                                          product: data);
+                                    },
+                                    child: CustomIcons.delete(),
+                                  )
+                                ],
                               ),
                               const Gap(6),
                             ],

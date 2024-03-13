@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:kartdaddy/api/product_api.dart';
+import 'package:kartdaddy/screens/error_screen.dart';
 
 class ProductRepository {
   Future<List<String>> searchProducts(String query) async {
@@ -60,7 +61,10 @@ class SearchScreenController extends GetxController {
       } catch (e) {
         print('Error: $e');
         loading.value = false;
-        // Handle error, e.g., display an error message to the user.
+        Get.to(() => ErrorScreen(
+              error: e.toString(),
+              place: 'search screen filter method throw error',
+            ));
       }
     }
   }

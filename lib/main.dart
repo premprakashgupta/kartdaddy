@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
+import 'package:kartdaddy/screens/product_details_screen.dart';
 
 import 'screens/landing_screen.dart';
 
@@ -46,6 +47,13 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('en'),
         Locale('hi'),
+      ],
+      getPages: [
+        GetPage(
+          name: '/productDetails',
+          page: () => ProductDetailsScreen(),
+        ),
+        // Add other pages/routes as needed
       ],
       home: LandingScreen(),
     );

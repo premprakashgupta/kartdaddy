@@ -7,6 +7,7 @@ import 'package:kartdaddy/api/auth.dart';
 import 'package:kartdaddy/controllers/auth/login_controller.dart';
 import 'package:kartdaddy/controllers/landing_controller.dart';
 import 'package:kartdaddy/models/auth/user_model.dart';
+import 'package:kartdaddy/screens/error_screen.dart';
 import 'package:kartdaddy/screens/home_screen.dart';
 import 'package:kartdaddy/utility/custom_snackbar.dart';
 
@@ -44,7 +45,10 @@ class OtpVerificationController extends GetxController {
       } catch (e, stackTrace) {
         print(stackTrace.toString());
         print(e.toString());
-        CustomSnackbar.showSnackbar(title: "Error", message: e.toString());
+        Get.to(() => ErrorScreen(
+              error: e.toString(),
+              place: 'onOtpSubmit method throw error',
+            ));
       }
     } else {
       CustomSnackbar.showSnackbar(title: "Error", message: 'otp is empty');
