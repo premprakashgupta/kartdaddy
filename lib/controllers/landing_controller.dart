@@ -37,13 +37,7 @@ class LandingController extends GetxController {
         _loginController.setUser = UserModel.fromMap(data['user']);
         _loginController.loading.value = false;
         loggedIn.value = true;
-        // if (_token != '') {
-        //   _loginController.loading.value = false;
-        //   loggedIn.value = true;
-        //   var user = box.read('user');
-
-        //   _loginController.setUser = UserModel.fromMap(user);
-      // }
+        
       }
     } catch (e) {
       // Handle or log the error

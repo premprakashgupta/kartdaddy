@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
+import 'package:kartdaddy/controllers/landing_controller.dart';
 import 'package:kartdaddy/screens/address_screen.dart';
 import 'package:kartdaddy/screens/auth/login_screen.dart';
 import 'package:kartdaddy/screens/edit_profile_screen.dart';
+import 'package:kartdaddy/screens/landing_screen.dart';
 import 'package:kartdaddy/screens/language_screen.dart';
 import 'package:kartdaddy/screens/wish_list_screen.dart';
 
@@ -17,6 +19,7 @@ class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
   final LoginController _loginController = Get.find();
+  final LandingController _landingController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,6 @@ class ProfileScreen extends StatelessWidget {
                                   },
                                   child: _buildCapsulBox(text: "Your Lists"),
                                 )
-                               
                               ],
                             ),
                           ),
@@ -81,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
                   ListTile(
                     title: const NormalText(text: 'Manage Address'),
                     onTap: () {
-                      Get.to(() => const AddressScreen());
+                      Get.to(() => AddressScreen());
                     },
                   ),
                   ListTile(
@@ -106,9 +108,9 @@ class ProfileScreen extends StatelessWidget {
                     title: const NormalText(text: 'Sign Out'),
                     onTap: () {
                       _loginController.logoutUser();
-                      _loginController.loading.value = false;
-
-                      Get.offAll(() => const LoginScreen());
+                      _loginController.loading.value = true;
+                      _landingController.loggedIn.value = false;
+                      Get.offAll(() => LandingScreen());
                     },
                   ),
                   TextButton(

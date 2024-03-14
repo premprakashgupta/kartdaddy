@@ -81,7 +81,7 @@ class LoginController extends GetxController {
     }
 
     // Perform necessary actions
-    loading.value = true;
+    loading.value = false;
     box.remove('token');
     _user.value = null;
   }

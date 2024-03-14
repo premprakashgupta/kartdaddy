@@ -54,7 +54,7 @@ class WishListController extends GetxController {
         print(response.body);
         // updating wishlist is remaining
         if (wishlists.any((element) => element.id == product.id)) {
-          wishlists.remove(product);
+         
           wishlists.removeWhere((element) => element.id == product.id);
         } else {
           wishlists.add(product);

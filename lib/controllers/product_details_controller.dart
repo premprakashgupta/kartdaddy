@@ -8,6 +8,8 @@ import 'package:kartdaddy/screens/error_screen.dart';
 
 class ProductDetailsController extends GetxController {
   final loading = true.obs;
+  final quantity = 1.obs;
+  final total = 0.0.obs;
   Rx<ProductDetailModel?> productDetail = Rx<ProductDetailModel?>(null);
   late String slug;
   late String timestamp;
@@ -36,6 +38,8 @@ class ProductDetailsController extends GetxController {
         print(response.statusCode);
         var data = await json.decode(response.body) as Map<String, dynamic>;
         productDetail.value = ProductDetailModel.fromMap(data);
+        total.value =
+            double.parse(productDetail.value!.product.net_sale_amount!);
 
         print(productDetail);
       }
@@ -48,6 +52,22 @@ class ProductDetailsController extends GetxController {
           ));
     } finally {
       loading.value = false;
+    }
+  }
+
+  void increamentQuantity() {
+    if (quantity.value < 5) {
+      quantity.value += 1;
+      total.value +=
+          double.parse(productDetail.value!.product.net_sale_amount!);
+    }
+  }
+
+  void decreamentQuantity() {
+    if (quantity.value > 1) {
+      quantity.value -= 1;
+      total.value -=
+          double.parse(productDetail.value!.product.net_sale_amount!);
     }
   }
 }

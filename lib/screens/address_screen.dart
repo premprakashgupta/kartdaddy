@@ -1,35 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
+import 'package:kartdaddy/controllers/address_controller.dart';
+import 'package:kartdaddy/models/address_model.dart';
 
-class AddressScreen extends StatefulWidget {
-  const AddressScreen({super.key});
+class AddressScreen extends StatelessWidget {
+  AddressScreen({super.key});
 
-  @override
-  _AddressScreenState createState() => _AddressScreenState();
-}
-
-class Address {
-  String address;
-  bool isDefault;
-
-  Address({required this.address, required this.isDefault});
-}
-
-class _AddressScreenState extends State<AddressScreen> {
-  List<Address> addresses = [
-    Address(address: "123 Main Street, City-12345, State-XYZ", isDefault: true),
-    Address(
-        address: "456 Side Street, City-67890, State-ABC", isDefault: false),
-    Address(address: "789 Up Street, City-54321, State-PQR", isDefault: false),
-    Address(
-        address: "321 Down Street, City-09876, State-MNO", isDefault: false),
-    Address(
-        address: "555 Left Street, City-13579, State-JKL", isDefault: false),
-  ];
-
+  final AddressController _addressController = Get.put(AddressController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +18,7 @@ class _AddressScreenState extends State<AddressScreen> {
         title: const Text('Address Screen'),
       ),
       bottomNavigationBar: Container(
-         width: double.infinity,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -51,12 +32,17 @@ class _AddressScreenState extends State<AddressScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
           child: CustomButton(
-            onPressed: (){},
-            child: const NormalText(text: "Add New Address",),),
-        ) ,),
-      body: ListView.builder(
-        itemCount: addresses.length,
+            onPressed: () {},
+            child: const NormalText(
+              text: "Add New Address",
+            ),
+          ),
+        ),
+      ),
+      body: Obx(() => ListView.builder(
+            itemCount: _addressController.addressList.length,
         itemBuilder: (context, index) {
+              AddressModel address = _addressController.addressList[index];
           return BoxBorderContainer(
             margin: const EdgeInsets.all(8.0),
             child: Column(
@@ -70,55 +56,61 @@ class _AddressScreenState extends State<AddressScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const SubHeading(text: "PREM PRAKASH GUPTA",color: Colors.black,),
+                              SubHeading(
+                                text:
+                                    "${address.first_name} ${address.last_name}",
+                                color: Colors.black,
+                              ),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.end,
+                              //   children: [
+                              //     Padding(
+                              //       padding: const EdgeInsets.all(8.0),
+                              //       child: Text(
+                              //         addresses[index].isDefault ? 'Default' : '',
+                              //         style: TextStyle(
+                              //           color: addresses[index].isDefault
+                              //               ? Colors.green
+                              //               : Colors.transparent,
+                              //           fontWeight: FontWeight.bold,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     Padding(
+                              //       padding: const EdgeInsets.all(8.0),
+                              //       child: Checkbox(
+                              //         value: addresses[index].isDefault,
+                              //         onChanged: (value) {
+                              //           setState(() {
+                              //             for (var addr in addresses) {
+                              //               addr.isDefault = false;
+                              //             }
+                              //             addresses[index].isDefault = value!;
+                              //           });
+                              //         },
+                              //       ),
+                              //     ),
+                              //   ],
+                              // )
+                            ],
+                          ),
                           Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        addresses[index].isDefault ? 'Default' : '',
-                        style: TextStyle(
-                          color: addresses[index].isDefault
-                              ? Colors.green
-                              : Colors.transparent,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Checkbox(
-                        value: addresses[index].isDefault,
-                        onChanged: (value) {
-                          setState(() {
-                            for (var addr in addresses) {
-                              addr.isDefault = false;
-                            }
-                            addresses[index].isDefault = value!;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                )
+                            children: [
+                              NormalText(text: "Type: ${address.type}"),
+                              NormalText(text: "Pin ${address.pin_code}"),
+
                         ],
                       ),
-                      const NormalText(text: "21"),
-                      const NormalText(text: "13"),
-                      NormalText(text: addresses[index].address),
-                      const NormalText(text: "India"),
-                      const NormalText(text: "Phone number: ${"995804730"}"),
-                     
+                          NormalText(text: "Country ${address.country}"),
+                          NormalText(text: "Phone number: ${address.mobile}"),
                     ],
                   ),
-                ),
-                
+                    ),
               ],
             ),
           );
         },
-      ),
+          )),
     );
   }
 }

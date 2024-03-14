@@ -1,11 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
+import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/data/demo_data.dart';
+import 'package:kartdaddy/models/cart_model.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -18,13 +21,15 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Shopping Cart'),
       ),
-      body: ListView.builder(
+      body: Obx(() => _cartController.loading.value == true
+          ? CustomCircularProgress()
+          : ListView.builder(
         itemCount: _cartController.cart.length,
         itemBuilder: (context, index) {
-          Map<String, dynamic> product = _cartController.cart[index];
+                CartModel cartItem = _cartController.cart[index];
 
           return Dismissible(
-            key: Key(product['productTitle']),
+                  key: Key(cartItem.id.toString()),
             onDismissed: (direction) {
               print("dismiss in action");
             },
@@ -43,9 +48,15 @@ class CartScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.network(
-                              DemoData.slideImage[index],
-                              fit: BoxFit.cover,
+                                  CachedNetworkImage(
+                                    imageUrl:
+                                        "https://kartdaddy.in/products/product/${cartItem.product.thumb_image}",
+                                    progressIndicatorBuilder: (context, url,
+                                            downloadProgress) =>
+                                        CustomCircularProgress(
+                                            value: downloadProgress.progress),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
                             ),
                             Container(
                               // width: MediaQuery.of(context).size.width*.3,
@@ -78,7 +89,9 @@ class CartScreen extends StatelessWidget {
                                         onTap: () {
                                           // Add your logic for decreasing quantity
                                         },
-                                        child: product['quantity'] < 2
+                                              child: int.parse(
+                                                          cartItem.quantity) <
+                                                      2
                                             ? const Icon(Icons.delete, size: 19)
                                             : const Icon(
                                                 Icons.minimize_outlined,
@@ -96,7 +109,7 @@ class CartScreen extends StatelessWidget {
                                                   width: 1,
                                                   color: Colors.grey))),
                                       child: Text(
-                                        '${product['quantity']}',
+                                              '${cartItem.quantity}',
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -144,7 +157,7 @@ class CartScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 NormalText(
-                                  text: product['productTitle'],
+                                        text: cartItem.product.title!,
                                   maxLines: 2,
                                 ),
                                 const Gap(10),
@@ -154,8 +167,8 @@ class CartScreen extends StatelessWidget {
                                       padding: const EdgeInsets.all(3),
                                       decoration: BoxDecoration(
                                           color: Colors.red.shade900),
-                                      child: const Text(
-                                        "10% off",
+                                            child: Text(
+                                              "${cartItem.product.discount_type_amount}% off",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
@@ -171,7 +184,7 @@ class CartScreen extends StatelessWidget {
                                   ],
                                 ),
                                 NormalText(
-                                  text: 'Price: ${product['price']}',
+                                        text: 'Price: ${cartItem.total_price}',
                                   size: 15,
                                 ),
                                 const NormalText(
@@ -192,6 +205,8 @@ class CartScreen extends StatelessWidget {
                               TextButton(
                                 onPressed: () {
                                   // Add your logic for deleting
+                                        _cartController.removeFromcart(
+                                            productId: cartItem.product_id);
                                   print("remove in acton");
                                 },
                                 child:
@@ -217,7 +232,7 @@ class CartScreen extends StatelessWidget {
             ),
           );
         },
-      ),
+            )),
       bottomNavigationBar: Container(
         width: double.infinity,
         decoration: BoxDecoration(

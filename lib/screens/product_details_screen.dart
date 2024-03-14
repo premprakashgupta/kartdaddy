@@ -9,10 +9,12 @@ import 'package:kartdaddy/components/horizontal_row.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/slant_reactangle.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
+import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/controllers/product_details_controller.dart';
 import 'package:kartdaddy/controllers/wishlist_controller.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
+import 'package:kartdaddy/models/cart_model.dart';
 import 'package:kartdaddy/screens/cart_screen.dart';
 import 'package:kartdaddy/screens/review_screen.dart';
 
@@ -22,6 +24,7 @@ class ProductDetailsScreen extends StatelessWidget {
   final ProductDetailsController _productDetailsController =
       Get.put(ProductDetailsController());
   final WishListController _wishListController = Get.find();
+  final CartController _cartController = Get.find();
   final productData = DemoData.demoProductData[0];
   @override
   Widget build(BuildContext context) {
@@ -86,12 +89,11 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       const Gap(20),
                       Obx(
-                        () => 
-                      CarouselGrid(
-                        data: _productDetailsController
-                            .productDetail.value!.productImages,
-                        percent: _productDetailsController
-                            .productDetail.value!.product.discount_type_amount!,
+                        () => CarouselGrid(
+                          data: _productDetailsController
+                              .productDetail.value!.productImages,
+                          percent: _productDetailsController.productDetail
+                              .value!.product.discount_type_amount!,
                           favorite: _wishListController.wishlists.any(
                             (element) =>
                                 element.id ==
@@ -145,13 +147,15 @@ class ProductDetailsScreen extends StatelessWidget {
                                   product: _productDetailsController
                                       .productDetail.value!.product);
                             },
-                            child: Row(
-                              children: [
-                                CustomIcons.heart(size: 20),
-                                const Gap(5),
-                                const NormalText(text: 'Add to Wishlist'),
-                              ],
-                            ),
+                            child: _wishListController.wishlists.any(
+                                      (element) =>
+                                          element.id ==
+                                          _productDetailsController
+                                              .productDetail.value!.product.id,
+                                    ) ==
+                                    true
+                                ? const NormalText(text: 'Added to Wishlist')
+                                : const NormalText(text: 'Add to Wishlist'),
                           ),
                           TextButton(
                             onPressed: () {
@@ -310,18 +314,19 @@ class ProductDetailsScreen extends StatelessWidget {
                               IconButton(
                                 onPressed: () {
                                   // Handle quantity decrease
-                                  if (productData['quantity'] > 1) {
-                                    productData['quantity']--;
-                                  }
+                                  _productDetailsController
+                                      .decreamentQuantity();
                                 },
                                 icon: const Icon(Icons.remove),
                               ),
                               NormalText(
-                                  text: productData['quantity'].toString()),
+                                  text: _productDetailsController.quantity.value
+                                      .toString()),
                               IconButton(
                                 onPressed: () {
                                   // Handle quantity increase
-                                  productData['quantity']++;
+                                  _productDetailsController
+                                      .increamentQuantity();
                                 },
                                 icon: const Icon(Icons.add),
                               ),
@@ -332,7 +337,25 @@ class ProductDetailsScreen extends StatelessWidget {
                       const Gap(16),
                       CustomButton(
                         onPressed: () {
-                          // Handle add to cart button click
+                          Map<String, dynamic> mapData = {
+                            "id": 1,
+                            "product_id": _productDetailsController
+                                .productDetail.value!.product.id
+                                .toString(),
+                            "quantity": _productDetailsController.quantity.value
+                                .toString(),
+                            "total_price": _productDetailsController.total.value
+                                .toString(),
+                            "walletAmountUsed": null,
+                            "product_price": _productDetailsController
+                                .productDetail.value!.product.net_sale_amount,
+                            "product": _productDetailsController
+                                .productDetail.value!.product
+                                .toMap()
+                          };
+                          CartModel cartData = CartModel.fromMap(mapData);
+
+                          _cartController.addToCart(cartitem: cartData);
                         },
                         child: const NormalText(text: 'Add to Cart'),
                       ),

@@ -8,4 +8,10 @@ class ProductApi {
   static String productDetail = "${BaseUrl.baseUrl}/api/shop-detail";
   static String getWishList = "${BaseUrl.baseUrl}/api/wishlist";
   static String addWishList = "${BaseUrl.baseUrl}/api/wishlist/add";
+  // cart api
+  static String getCartList = "${BaseUrl.baseUrl}/api/cart";
+  static String addToCart = "${BaseUrl.baseUrl}/api/cart/add";
+  static String removeFromCart = "${BaseUrl.baseUrl}/api/cart/remove";
+  // address api
+  static String getAddress = "${BaseUrl.baseUrl}/api/address";
 }
