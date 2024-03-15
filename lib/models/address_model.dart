@@ -14,8 +14,8 @@ class AddressModel {
   final String email;
   final String mobile;
   final String? note;
-  final String status;
-  final String timestamp;
+  final String? status;
+  final String? timestamp;
   
   AddressModel({
     required this.id,
@@ -33,8 +33,8 @@ class AddressModel {
     required this.email,
     required this.mobile,
     this.note,
-    required this.status,
-    required this.timestamp,
+    this.status,
+    this.timestamp,
     
   });
 
@@ -78,8 +78,8 @@ class AddressModel {
       email: map['email'] as String,
       mobile: map['mobile'] as String,
       note: map['note'] as String?,
-      status: map['status'] as String,
-      timestamp: map['timestamp'] as String,
+      status: map['status'] as String?,
+      timestamp: map['timestamp'] as String?,
       
     );
   }

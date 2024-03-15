@@ -111,6 +111,7 @@ class AddressController extends GetxController {
           TextEditingController controller = controllerData['controller'];
           controller.clear();
         });
+        Get.back();
       }
     } catch (e) {
       print(e.toString());
