@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
@@ -6,6 +7,8 @@ import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/address_controller.dart';
 import 'package:kartdaddy/models/address_model.dart';
+import 'package:kartdaddy/screens/add_address_screen.dart';
+import 'package:kartdaddy/screens/edit_address_screen.dart';
 
 class AddressScreen extends StatelessWidget {
   AddressScreen({super.key});
@@ -32,7 +35,9 @@ class AddressScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
           child: CustomButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => AddAddressScreen());
+            },
             child: const NormalText(
               text: "Add New Address",
             ),
@@ -41,21 +46,21 @@ class AddressScreen extends StatelessWidget {
       ),
       body: Obx(() => ListView.builder(
             itemCount: _addressController.addressList.length,
-        itemBuilder: (context, index) {
+            itemBuilder: (context, index) {
               AddressModel address = _addressController.addressList[index];
-          return BoxBorderContainer(
-            margin: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              return BoxBorderContainer(
+                margin: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
                               SubHeading(
                                 text:
                                     "${address.first_name} ${address.last_name}",
@@ -98,18 +103,43 @@ class AddressScreen extends StatelessWidget {
                             children: [
                               NormalText(text: "Type: ${address.type}"),
                               NormalText(text: "Pin ${address.pin_code}"),
-
+                            ],
+                          ),
+                          NormalText(text: "Country ${address.country}"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              NormalText(
+                                  text: "Phone number: ${address.mobile}"),
+                              Row(
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        _addressController
+                                            .preFillingEditScreenInput(
+                                                id: address.id);
+                                        Get.to(() => EditAddressScreen(
+                                              id: address.id,
+                                            ));
+                                      },
+                                      icon: Icon(Icons.edit)),
+                                  IconButton(
+                                      onPressed: () {
+                                        _addressController.removeAddress(
+                                            id: address.id);
+                                      },
+                                      icon: Icon(Icons.delete))
+                                ],
+                              )
+                            ],
+                          )
                         ],
                       ),
-                          NormalText(text: "Country ${address.country}"),
-                          NormalText(text: "Phone number: ${address.mobile}"),
-                    ],
-                  ),
                     ),
-              ],
-            ),
-          );
-        },
+                  ],
+                ),
+              );
+            },
           )),
     );
   }

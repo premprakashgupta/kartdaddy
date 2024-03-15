@@ -12,6 +12,7 @@ import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/components/trending_widget.dart';
 import 'package:kartdaddy/components/underline_container.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
+import 'package:kartdaddy/controllers/website_info_controller.dart';
 import 'package:kartdaddy/controllers/wishlist_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/controllers/home_controller.dart';
@@ -36,13 +37,25 @@ class HomeScreen extends StatelessWidget {
   final HomeController _homeController = Get.put(HomeController());
   final CartController _cartController = Get.put(CartController());
   final WishListController _wishListController = Get.put(WishListController());
+  final WebsiteInfoController _websiteInfoController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           title: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset("assets/kartdaddy-logo.png"),
+            child: Obx(() => _websiteInfoController.loading.value == true
+                ? CustomCircularProgress()
+                : CachedNetworkImage(
+                    imageUrl:
+                        "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            CustomCircularProgress(
+                                value: downloadProgress.progress),
+                    errorWidget: (context, url, error) =>
+                        Image.asset("assets/kartdaddy-logo.png"),
+                  )),
           ),
           actions: [
             InkWell(
@@ -68,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                 badgeStyle: const badges.BadgeStyle(badgeColor: Colors.amber),
                 badgeContent: Obx(() => Text(
                       _cartController.cart.length.toString(),
-                  style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     )),
                 child: CustomIcons.cart(),
               ),
@@ -115,7 +128,6 @@ class HomeScreen extends StatelessWidget {
                                           text: bannerData.banner_title,
                                           size: Get.size.width * .08,
                                         ),
-                                        
                                         Heading(
                                             size: Get.size.width * .03,
                                             maxLines: 2,
@@ -130,12 +142,10 @@ class HomeScreen extends StatelessWidget {
                                       progressIndicatorBuilder: (context, url,
                                               downloadProgress) =>
                                           CustomCircularProgress(
-                                              value: downloadProgress
-                                              .progress),
+                                              value: downloadProgress.progress),
                                       errorWidget: (context, url, error) =>
                                           const Icon(Icons.error),
                                     ),
-
                                   ],
                                 ),
                               ));
@@ -243,7 +253,8 @@ class HomeScreen extends StatelessWidget {
                                                           const CustomCircularProgress(),
                                                       errorWidget: (context,
                                                               url, error) =>
-                                                          const Icon(Icons.error),
+                                                          const Icon(
+                                                              Icons.error),
                                                     ),
                                                     const Gap(5),
                                                     Align(
@@ -612,127 +623,79 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   const Gap(30),
-                  const FooterWidget()
+                  FooterWidget()
                 ],
               ),
       )),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.amber.shade600,
-              ),
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: AssetImage("assets/kartdaddy-logo.png"),
-              ),
-              accountName: const Text("prem prakash gupta"),
-              accountEmail: const Text("prem.com0011@gmail.com"),
-            ),
-            ListTile(
-              title: const Text('Mobile & Mobile Accessories'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 1 tap
-              },
-            ),
-            ListTile(
-              title: const Text('Laptop & Computer'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 2 tap
-              },
-            ),
-            ListTile(
-              title: const Text('CCTV & Security System'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 11 tap
-              },
-            ),
-            ListTile(
-              title: const Text('Kitchen Appliances'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 11 tap
-              },
-            ),
-            ListTile(
-              title: const Text('Personal Care'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 11 tap
-              },
-            ),
-            ListTile(
-              title: const Text('Watches'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 11 tap
-              },
-            ),
-            ListTile(
-              title: const Text('Men\'s Accessories'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 11 tap
-              },
-            ),
-            ListTile(
-              title: const Text('Inverter And Batteries'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 11 tap
-              },
-            ),
-            ListTile(
-              title: const Text('Home Appliances'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 11 tap
-              },
-            ),
-            ListTile(
-              title: const Text('Electricals'),
-              trailing: CustomIcons.chevronRight(size: 18),
-              onTap: () {
-                // Handle item 11 tap
-              },
-            ),
-            const Gap(30),
-            Stack(
+      drawer: Obx(() => Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
               children: [
-                SvgPicture.asset('assets/drawer_bg.svg',
-                    height: 120, semanticsLabel: 'Acme Logo'),
-                const Gap(8),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          // Handle privacy button tap
-                        },
-                        child: const Text('Privacy'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          // Handle terms button tap
-                        },
-                        child: const Text('Terms'),
-                      ),
-                    ],
+                UserAccountsDrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.amber.shade600,
                   ),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage: AssetImage("assets/kartdaddy-logo.png"),
+                  ),
+                  accountName: Text("Prem Prakash Gupta"),
+                  accountEmail: Text("prem.com0011@gmail.com"),
+                ),
+                ..._websiteInfoController.categoryList.map((masterCat) {
+                  return ExpansionTile(
+                    title: Text(masterCat['name']),
+                    childrenPadding: EdgeInsets.only(left: 20),
+                    children: masterCat['categories'].map<Widget>((category) {
+                      return ExpansionTile(
+                        title: Text(category['name']),
+                        childrenPadding: EdgeInsets.only(left: 40),
+                        children: category['sub_categories']
+                            .map<Widget>((subCategory) {
+                          return ListTile(
+                            title: Text(subCategory['name']),
+                            onTap: () {
+                              // Handle subcategory tap
+                            },
+                          );
+                        }).toList(),
+                      );
+                    }).toList(),
+                  );
+                }).toList(),
+                const SizedBox(height: 30),
+                Stack(
+                  children: [
+                    SvgPicture.asset('assets/drawer_bg.svg',
+                        height: 120, semanticsLabel: 'Acme Logo'),
+                    const SizedBox(height: 8),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              // Handle privacy button tap
+                            },
+                            child: const Text('Privacy'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              // Handle terms button tap
+                            },
+                            child: const Text('Terms'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+)
+),
     );
   }
 }

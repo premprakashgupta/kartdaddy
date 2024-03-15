@@ -9,6 +9,7 @@ import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/models/cart_model.dart';
+import 'package:kartdaddy/screens/empty_screens/empty_cart_screen.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -23,7 +24,9 @@ class CartScreen extends StatelessWidget {
       ),
       body: Obx(() => _cartController.loading.value == true
           ? CustomCircularProgress()
-          : ListView.builder(
+          : _cartController.cart.isEmpty
+              ? EmptyCartScreen()
+              : ListView.builder(
         itemCount: _cartController.cart.length,
         itemBuilder: (context, index) {
                 CartModel cartItem = _cartController.cart[index];
@@ -233,7 +236,7 @@ class CartScreen extends StatelessWidget {
           );
         },
             )),
-      bottomNavigationBar: Container(
+      bottomNavigationBar: Obx(() => Container(
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -252,13 +255,16 @@ class CartScreen extends StatelessWidget {
             children: [
               Expanded(
                 flex: 1,
-                child: NormalText(text: "\$ ${_cartController.total}"),
+                    child: NormalText(
+                        text: "\$ ${_cartController.total.toString()}"),
               ),
               Expanded(
                 flex: 3,
                 child: CustomButton(
                   child: const Text('Checkout'),
-                  onPressed: () {
+                      onPressed: _cartController.cart.isEmpty
+                          ? null
+                          : () {
                     // Add your checkout logic here
                     print('Checkout button pressed!');
                   },
@@ -267,7 +273,7 @@ class CartScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
+          )),
     );
   }
 }

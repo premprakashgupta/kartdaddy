@@ -1,26 +1,26 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_button.dart';
+import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/custom_input.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/auth/login_controller.dart';
+import 'package:kartdaddy/controllers/landing_controller.dart';
+import 'package:kartdaddy/controllers/website_info_controller.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/screens/auth/forget_password_screen.dart';
 import 'package:kartdaddy/screens/auth/register_screen.dart';
 import 'package:kartdaddy/utility/email_validation.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final LoginController _loginController = Get.find();
+  final WebsiteInfoController _websiteInfoController = Get.find();
   final TextEditingController _loginIdController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -37,7 +37,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Image.asset("assets/kartdaddy-logo.png"),
+                    child:
+                        Obx(() => _websiteInfoController.loading.value == true
+                            ? CustomCircularProgress()
+                            : CachedNetworkImage(
+                                imageUrl:
+                                    "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                        CustomCircularProgress(
+                                            value: downloadProgress.progress),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset("assets/kartdaddy-logo.png"),
+                              )),
                   ),
                   const Gap(40),
                   NormalText(
@@ -58,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         return "Email is required";
                       } else if (value.contains('@')) {
                         if (!isEmail(email: value)) {
-                        return "Email is not valid";
+                          return "Email is not valid";
                         }
                       }
                       return null;
@@ -93,26 +105,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const Gap(30),
                   Obx(
-                    () => 
-                  CustomButton(
-                      size: Size.fromWidth(
-                          MediaQuery.of(context).size.width * .8),
+                    () => CustomButton(
+                        size: Size.fromWidth(
+                            MediaQuery.of(context).size.width * .8),
                         onPressed: _loginController.disabled.value == true
                             ? null
                             : () {
-                        if (_formKey.currentState!.validate()) {
-                          // If the form is valid, navigate to HomeScreen
-                          _loginController.loginUser(
+                                if (_formKey.currentState!.validate()) {
+                                  // If the form is valid, navigate to HomeScreen
+                                  _loginController.loginUser(
                                       login_id: _loginIdController.text.trim(),
-                              password: _passwordController.text);
-                        }
-                        return;
-                      },
-                      child: NormalText(
-                        text: AppLocalizations.of(context)!.login,
-                      )),
+                                      password: _passwordController.text);
+                                }
+                                return;
+                              },
+                        child: NormalText(
+                          text: AppLocalizations.of(context)!.login,
+                        )),
                   ),
-                  
+
                   const Gap(20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

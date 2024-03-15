@@ -3,13 +3,17 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kartdaddy/api/auth.dart';
+import 'package:kartdaddy/api/general_api.dart';
 import 'package:kartdaddy/controllers/auth/login_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:kartdaddy/models/auth/user_model.dart';
+import 'package:kartdaddy/models/website_info_model.dart';
 import 'package:kartdaddy/screens/error_screen.dart';
 
 class LandingController extends GetxController {
+  // here because we cant simply initialize it in landing screen
   final LoginController _loginController = Get.put(LoginController());
+
   final box = GetStorage();
   final loggedIn = false.obs;
   String _token = '';
@@ -37,7 +41,6 @@ class LandingController extends GetxController {
         _loginController.setUser = UserModel.fromMap(data['user']);
         _loginController.loading.value = false;
         loggedIn.value = true;
-        
       }
     } catch (e) {
       // Handle or log the error

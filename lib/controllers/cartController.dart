@@ -11,7 +11,7 @@ class CartController extends GetxController {
   var box = GetStorage();
   String _token = '';
   RxList<CartModel> cart = RxList<CartModel>();
-  final total = 0.0.obs;
+  final total = 0.obs;
   final loading = true.obs;
 
   @override
@@ -31,10 +31,19 @@ class CartController extends GetxController {
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
         print(jsonData);
+
+
+
+
+      
+        if (jsonData.containsKey('cart_items')) {
         cart.assignAll((jsonData['cart_items'] as List<dynamic>)
             .map((item) => CartModel.fromMap(item))
             .toList());
-        // total.value = double.parse(jsonData['total_cart_price']);
+        }
+        if (jsonData.containsKey('total_cart_price')) {
+          total.value = jsonData['total_cart_price'] as int;
+        }
       }
     } catch (e) {
       print(e);
@@ -51,7 +60,7 @@ class CartController extends GetxController {
       var response = await http.post(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token'
       }, body: {
-        'product_id': cartitem.id.toString(),
+        'product_id': cartitem.product_id.toString(),
         'quantity': cartitem.quantity
       });
       print(response.statusCode);
@@ -59,7 +68,9 @@ class CartController extends GetxController {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
         print(jsonData);
         cart.add(cartitem);
-        // total.value = double.parse(jsonData['total_cart_price']);
+        if (jsonData.containsKey('total_cart_price')) {
+          total.value = jsonData['total_cart_price'];
+        }
       }
     } catch (e, stackTrace) {
       print(e);
@@ -81,7 +92,9 @@ class CartController extends GetxController {
         print(cart.length);
         cart.removeWhere((item) => item.product_id == productId);
         print(cart.length);
-        // total.value = double.parse(jsonData['total_cart_price']);
+        if (jsonData.containsKey('total_cart_price')) {
+          total.value = jsonData['total_cart_price'];
+        }
       }
     } catch (e) {
       print(e);

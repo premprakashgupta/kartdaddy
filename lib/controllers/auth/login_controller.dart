@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:kartdaddy/api/general_api.dart';
+import 'package:kartdaddy/models/website_info_model.dart';
 import 'package:kartdaddy/screens/error_screen.dart';
 
 import '../../api/auth.dart';
@@ -15,11 +17,14 @@ class LoginController extends GetxController {
   final box = GetStorage();
   final _user = Rx<UserModel?>(null);
 
+  
   final loading = true.obs;
   final disabled = false.obs;
 
   UserModel? get user => _user.value;
   set setUser(UserModel? value) => _user.value = value;
+
+  
 
   Future<void> loginUser(
       {required String login_id, required String password}) async {

@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:kartdaddy/controllers/website_info_controller.dart';
 import 'package:kartdaddy/screens/product_details_screen.dart';
 
 import 'screens/landing_screen.dart';
@@ -17,7 +18,8 @@ void main() async {
 
   // Get the saved language preference
   String? savedLanguage = box.read('language');
-  
+  // website infi
+  Get.put(WebsiteInfoController());
   runApp(MyApp(savedLanguage: savedLanguage));
 }
 

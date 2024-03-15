@@ -13,7 +13,7 @@ class LandingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => _landingController.loggedIn.value == true
         ? HomeScreen()
-        : const LoginScreen());
+        : LoginScreen());
   }
   
 }
