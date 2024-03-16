@@ -6,6 +6,7 @@ import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class CarouselGrid extends StatefulWidget {
   final List<String> data;
@@ -52,7 +53,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.symmetric(horizontal: 5.0),
                         decoration: BoxDecoration(
-                          color: CustomColors.slideColor,
+                          color: CustomColors.sliderColor.toColor(),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -79,7 +80,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                 height: 50,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: Colors.red.shade800,
+                    color: CustomColors.redColor.toColor(),
                     borderRadius: BorderRadius.circular(40)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -139,8 +140,8 @@ class _CarouselGridState extends State<CarouselGrid> {
                         borderRadius: BorderRadius.circular(40)),
                     child: CustomIcons.heart(
                         color: widget.favorite == true
-                            ? Colors.red.shade700
-                            : Colors.grey.shade300)),
+                            ? CustomColors.redColor.toColor()
+                            : CustomColors.greyColor.toColor())),
               )
             ],
           ),
@@ -163,7 +164,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                       border: Border.all(
                           width: 1,
                           color: _currentThumbnailIndex == index
-                              ? Colors.grey
+                              ? CustomColors.greyColor.toColor()
                               : Colors.transparent),
                     ),
                     child: CachedNetworkImage(

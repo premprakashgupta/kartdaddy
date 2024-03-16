@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:kartdaddy/api/general_api.dart';
 import 'package:kartdaddy/api/product_api.dart';
 import 'package:kartdaddy/screens/error_screen.dart';
 
@@ -23,6 +24,8 @@ class SearchScreenController extends GetxController {
   final RxString query = ''.obs;
   final loading = false.obs;
   final RxList<String> filteredProducts = <String>[].obs;
+  List<String> categories = ['All', 'B', 'C', 'D'];
+  final selectedDropDown = "All".obs;
   final TextEditingController searchController = TextEditingController();
   Timer? _debounceTimer;
 
@@ -71,5 +74,12 @@ class SearchScreenController extends GetxController {
 
   void onSelect({required String item}) {
     searchController.text = item;
+  }
+
+  void searchProductWithCategory() async {
+    try {
+      String url = GeneralApis.searchProductWithCategory;
+      var response = await http.get(Uri.parse(url));
+    } catch (e) {}
   }
 }

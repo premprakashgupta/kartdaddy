@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_button.dart';
+import 'package:kartdaddy/controllers/auth/forget_password_controller.dart';
 import 'package:kartdaddy/screens/home_screen.dart';
 
 import '../../components/normal_text_widget.dart';
 import '../../components/subheading_widget.dart';
+
 class ResetPasswordScreen extends StatelessWidget {
+  final ForgetPasswordController _forgetPasswordController =
+      Get.put(ForgetPasswordController());
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
@@ -17,7 +22,7 @@ class ResetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const NormalText(text:'Reset Password'),
+        title: const NormalText(text: 'Reset Password'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,9 +31,16 @@ class ResetPasswordScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SubHeading(text: "Reset Your Password",color: Colors.black,),
+              const SubHeading(
+                text: "Reset Your Password",
+                color: Colors.black,
+              ),
               const Gap(20),
-              const NormalText(text: "please fill new password and same password in confirm password",maxLines: 4,),
+              const NormalText(
+                text:
+                    "please fill new password and same password in confirm password",
+                maxLines: 4,
+              ),
               const Gap(40),
               TextFormField(
                 controller: newPasswordController,
@@ -45,7 +57,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              const Gap( 8),
+              const Gap(8),
               TextFormField(
                 controller: confirmPasswordController,
                 obscureText: true,
@@ -60,20 +72,18 @@ class ResetPasswordScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              const Gap( 16),
+              const Gap(16),
               CustomButton(
-                size:  Size.fromWidth(MediaQuery.of(context).size.width),
+                size: Size.fromWidth(MediaQuery.of(context).size.width),
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
                     // Form is valid, proceed with saving new password
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                      (route) => false,
-                    );
+                    _forgetPasswordController.resetPassword(
+                        password: newPasswordController.text,
+                        password_confirmation: confirmPasswordController.text);
                   }
                 },
-                child: const NormalText(text:'Save'),
+                child: const NormalText(text: 'Save'),
               ),
             ],
           ),

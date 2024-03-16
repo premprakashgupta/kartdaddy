@@ -2,27 +2,26 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
+import 'package:kartdaddy/controllers/auth/forget_password_controller.dart';
 import 'package:kartdaddy/screens/auth/otp_verification_screen.dart';
 
 import '../../components/normal_text_widget.dart';
-class ForgetPasswordScreen extends StatefulWidget {
-  const ForgetPasswordScreen({super.key});
 
-  @override
-  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
-}
+class ForgetPasswordScreen extends StatelessWidget {
+  ForgetPasswordScreen({super.key});
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  final TextEditingController emailController = TextEditingController();
+  final ForgetPasswordController _forgetPasswordController =
+      Get.put(ForgetPasswordController());
+  final TextEditingController _identifierController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int otp = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -32,48 +31,47 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Gap(40),
-                const SubHeading(text: "Forget Password",color: Colors.black,),
+                const SubHeading(
+                  text: "Forget Password",
+                  color: Colors.black,
+                ),
                 const Gap(20),
-                const NormalText(text: "If your email or mobile is available in database then you will get otp on registered email or mobile",maxLines: 4,),
+                const NormalText(
+                  text:
+                      "If your email or mobile is available in database then you will get otp on registered email or mobile",
+                  maxLines: 4,
+                ),
                 const Gap(40),
                 TextFormField(
-                  controller: emailController,
+                  controller: _identifierController,
                   decoration: const InputDecoration(
-                    labelText: 'Email',
+                    labelText: 'Email/Mobile',
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                      return 'Please enter your email or mobile';
                     }
                     // You can add more email validation logic here if needed
                     return null;
                   },
                 ),
-                const Gap( 20),
+                const Gap(20),
                 CustomButton(
-                  size:  Size.fromWidth(MediaQuery.of(context).size.width),
-                  
+                  size: Size.fromWidth(MediaQuery.of(context).size.width),
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
                       // Form is valid, proceed with sending OTP
-                      setState(() {
-                        var tempOtp = Random().nextInt(999999);
-                        print(tempOtp); // Generate a random 6-digit OTP
-                        otp = tempOtp;
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: NormalText(text:"your otp : $tempOtp")));
-                      });
-                  
-            
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OTPVerificationScreen(),
+                      _forgetPasswordController.sendOtp(
+                          identifier: _identifierController.text);
+                      Get.to(
+                        () => OTPVerificationScreen(
+                          forgetPass: true,
                         ),
                       );
                     }
                   },
-                  child: const NormalText(text:'Send OTP'),
+                  child: const NormalText(text: 'Send OTP'),
                 ),
               ],
             ),

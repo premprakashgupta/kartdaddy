@@ -4,15 +4,18 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/controllers/otp_verification_controller.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 import '../../components/normal_text_widget.dart';
 import '../../components/subheading_widget.dart';
 
 class OTPVerificationScreen extends StatelessWidget {
+  final bool forgetPass;
   final OtpVerificationController _otpVerificationController =
       Get.put(OtpVerificationController());
 
-  OTPVerificationScreen({super.key});
+  OTPVerificationScreen({super.key, required this.forgetPass});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +39,7 @@ class OTPVerificationScreen extends StatelessWidget {
             const Gap(40),
             OtpTextField(
               numberOfFields: 6,
-              borderColor: Colors.amber,
+              borderColor: CustomColors.themeColor.toColor(),
               showFieldAsBox: true,
               onSubmit: (String verificationCode) {
                 _otpVerificationController.newOtp.value = verificationCode;
@@ -50,7 +53,13 @@ class OTPVerificationScreen extends StatelessWidget {
                 print(_otpVerificationController.newOtp.value);
                 if (_otpVerificationController.newOtp.value != '') {
                   print("otp if condition 51 line");
+                  if (forgetPass == true) {
+                    _otpVerificationController.verifyOtpForForgetPassword();
+                  } else {
                   _otpVerificationController.onOtpSubmit();
+
+                  }
+
                 } else {
                   print("6 digit otp is required");
                 }

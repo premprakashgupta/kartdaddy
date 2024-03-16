@@ -9,7 +9,7 @@ class SearchScreen extends StatelessWidget {
   final SearchScreenController _searchScreenController =
       Get.put(SearchScreenController());
 
-  SearchScreen({super.key});
+  SearchScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +19,55 @@ class SearchScreen extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: TextFormField(
-              controller: _searchScreenController.searchController,
-              onChanged: (value) {
-                _searchScreenController.query.value = value;
-              },
-              decoration: const InputDecoration(
-                hintText: 'Search...',
-                suffixIcon: Icon(Icons.search),
-                // border: OutlineInputBorder(
-                //   borderRadius: BorderRadius.circular(10.0),
-                //   borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                // ),
-                // focusedBorder: const OutlineInputBorder(
-                //   borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                // ),
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Obx(
+                    () => DropdownButton<String>(
+                      underline: SizedBox(),
+                      value: _searchScreenController.selectedDropDown.value,
+                      onChanged: (value) {
+                        _searchScreenController.selectedDropDown.value = value!;
+                      },
+                      items:
+                          _searchScreenController.categories.map((String item) {
+                        return DropdownMenuItem<String>(
+                          value: item,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(item),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  flex: 4,
+                  child: TextFormField(
+                    controller: _searchScreenController.searchController,
+                    onChanged: (value) {
+                      _searchScreenController.query.value = value;
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Search...',
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.search),
+                )
+              ],
             ),
           ),
+
           const Gap(10),
           Obx(
-            () => _searchScreenController.loading.value == true
+            () => _searchScreenController.loading.value
                 ? const CustomCircularProgress()
                 : _searchScreenController.filteredProducts.isNotEmpty
                     ? Expanded(

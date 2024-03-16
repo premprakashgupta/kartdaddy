@@ -8,9 +8,13 @@ import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/wishlist_controller.dart';
+import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/models/product_model.dart';
+import 'package:kartdaddy/screens/empty_screens/empty_screen.dart';
 import 'package:kartdaddy/shimmer/grid_shimmer.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class WishListScreen extends StatelessWidget {
@@ -29,7 +33,9 @@ class WishListScreen extends StatelessWidget {
       body: Obx(
         () => _wishListController.loading.value == true
             ? const GridShimmer()
-            : GridView.builder(
+            : _wishListController.wishlists.isEmpty
+                ? EmptyScreen(title: "Add Product in Wishlist")
+                : GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // Number of cards in one row
                   crossAxisSpacing:
@@ -63,7 +69,7 @@ class WishListScreen extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: NormalText(
                                   text: data.category_name!,
-                                  color: Colors.blue.shade300,
+                                      color: CustomColors.blueColor.toColor(),
                                 ),
                               ),
                               const Gap(8),
@@ -90,7 +96,9 @@ class WishListScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   SubHeading(
-                                    text: "INR ${data.net_sale_amount!}",
+                                        text: AppLocalizations.of(context)!
+                                            .rupee(data.net_sale_amount
+                                                .toString()),
                                     size: 16,
                                   ),
                                   Row(
@@ -108,7 +116,9 @@ class WishListScreen extends StatelessWidget {
                                               product: data);
                                         },
                                         child: CustomIcons.delete(
-                                            size: 20, color: Colors.red),
+                                                size: 20,
+                                                color: CustomColors.redColor
+                                                    .toColor()),
                                       )
                                     ],
                                   ),

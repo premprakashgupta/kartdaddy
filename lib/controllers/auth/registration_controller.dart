@@ -58,7 +58,9 @@ class RegisterController extends GetxController {
 
         loading.value = false;
 
-        Get.off(() => OTPVerificationScreen());
+        Get.off(() => OTPVerificationScreen(
+              forgetPass: false,
+            ));
       } else {
         print('Error: ${response.statusCode}');
       }

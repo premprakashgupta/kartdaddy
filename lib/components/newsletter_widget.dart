@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class NewsLetterWidget extends StatelessWidget {
   const NewsLetterWidget({super.key});
@@ -11,7 +13,7 @@ class NewsLetterWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(15),
       width: double.infinity,
-      color: Colors.amber,
+      color: CustomColors.themeColor.toColor(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

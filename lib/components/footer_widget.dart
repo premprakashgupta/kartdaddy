@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
@@ -7,6 +8,8 @@ import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kartdaddy/controllers/website_info_controller.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class FooterWidget extends StatelessWidget {
   FooterWidget({super.key});
@@ -20,14 +23,10 @@ class FooterWidget extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(left: 20),
           alignment: Alignment.centerLeft,
-          child: CachedNetworkImage(
-            imageUrl:
-                "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.footerLog}",
-            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                CustomCircularProgress(value: downloadProgress.progress),
-            errorWidget: (context, url, error) =>
-                Image.asset("assets/kartdaddy-logo.png"),
-          ),
+          child: SvgPicture.network(
+              key: Key("webiste footer logo"),
+              "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
+              semanticsLabel: 'webiste footer logo'),
         ),
         const Gap(30),
         Padding(
@@ -38,7 +37,7 @@ class FooterWidget extends StatelessWidget {
               Icon(
                 Icons.headset_mic,
                 size: 44,
-                color: Colors.amber,
+                color: CustomColors.themeColor.toColor(),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

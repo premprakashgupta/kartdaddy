@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class CustomButton extends StatelessWidget {
   final Widget child;
@@ -11,7 +13,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: onPressed == null ? Colors.grey : Colors.amber,
+        backgroundColor: CustomColors.themeColor.toColor(),
         fixedSize: size,
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 13),
       ),

@@ -8,8 +8,11 @@ import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/data/demo_data.dart';
+import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/models/cart_model.dart';
-import 'package:kartdaddy/screens/empty_screens/empty_cart_screen.dart';
+
+import 'package:kartdaddy/screens/empty_screens/empty_screen.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -25,7 +28,9 @@ class CartScreen extends StatelessWidget {
       body: Obx(() => _cartController.loading.value == true
           ? CustomCircularProgress()
           : _cartController.cart.isEmpty
-              ? EmptyCartScreen()
+              ? EmptyScreen(
+                  title: 'Add Product in Cart',
+                )
               : ListView.builder(
         itemCount: _cartController.cart.length,
         itemBuilder: (context, index) {
@@ -66,7 +71,10 @@ class CartScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   border:
-                                      Border.all(width: 1, color: Colors.grey)),
+                                      Border.all(
+                                                width: 1,
+                                                color: CustomColors.greyColor
+                                                    .toColor())),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,7 +89,8 @@ class CartScreen extends StatelessWidget {
                                             bottomLeft: Radius.circular(8)),
                                         gradient: LinearGradient(
                                           colors: [
-                                            Colors.grey.shade300,
+                                                      CustomColors.greyColor
+                                                          .toColor(),
                                             Colors.white
                                           ],
                                           begin: Alignment.bottomRight,
@@ -106,11 +115,13 @@ class CartScreen extends StatelessWidget {
                                     flex: 1,
                                     child: Container(
                                       padding: const EdgeInsets.all(8),
-                                      decoration: const BoxDecoration(
+                                                decoration: BoxDecoration(
                                           border: Border.symmetric(
                                               vertical: BorderSide(
                                                   width: 1,
-                                                  color: Colors.grey))),
+                                                            color: CustomColors
+                                                                .greyColor
+                                                                .toColor()))),
                                       child: Text(
                                               '${cartItem.quantity}',
                                         textAlign: TextAlign.center,
@@ -127,7 +138,8 @@ class CartScreen extends StatelessWidget {
                                             bottomRight: Radius.circular(8)),
                                         gradient: LinearGradient(
                                           colors: [
-                                            Colors.grey.shade300,
+                                                      CustomColors.greyColor
+                                                          .toColor(),
                                             Colors.white
                                           ],
                                           begin: Alignment.bottomLeft,
@@ -169,7 +181,8 @@ class CartScreen extends StatelessWidget {
                                     Container(
                                       padding: const EdgeInsets.all(3),
                                       decoration: BoxDecoration(
-                                          color: Colors.red.shade900),
+                                                    color: CustomColors.redColor
+                                                        .toColor()),
                                             child: Text(
                                               "${cartItem.product.discount_type_amount}% off",
                                         style: TextStyle(
@@ -181,7 +194,8 @@ class CartScreen extends StatelessWidget {
                                     Text(
                                       "Limited time deal",
                                       style: TextStyle(
-                                          color: Colors.red.shade900,
+                                                    color: CustomColors.redColor
+                                                        .toColor(),
                                           fontWeight: FontWeight.bold),
                                     )
                                   ],
@@ -242,7 +256,7 @@ class CartScreen extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.shade300,
+                  color: CustomColors.greyColor.toColor(),
               offset: const Offset(-2, -2),
               blurRadius: 5,
             ),

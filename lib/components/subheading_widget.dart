@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class SubHeading extends StatelessWidget {
   final String text;
@@ -24,7 +26,7 @@ class SubHeading extends StatelessWidget {
       style: GoogleFonts.lato(
           textStyle: TextStyle(
               fontSize: size,
-              color: color ?? Colors.grey.shade500,
+              color: color ?? CustomColors.subTextColor.toColor(),
               fontWeight: FontWeight.w400)),
     );
   }

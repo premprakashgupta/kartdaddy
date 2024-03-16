@@ -7,8 +7,10 @@ import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
+import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/shimmer/grid_shimmer.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 import '../controllers/products_list_controller.dart';
 
@@ -67,7 +69,7 @@ class ProductsListScreen extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: NormalText(
                                   text: data.category_name!,
-                                  color: Colors.blue.shade300,
+                                  color: CustomColors.blueColor.toColor(),
                                 ),
                               ),
                               const Gap(8),

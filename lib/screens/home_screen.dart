@@ -29,6 +29,8 @@ import 'package:kartdaddy/screens/cart_screen.dart';
 import 'package:kartdaddy/screens/profile_screen.dart';
 import 'package:kartdaddy/screens/search_screen.dart';
 import 'package:kartdaddy/screens/products_list_screen.dart';
+import 'package:kartdaddy/screens/shop_api_screen.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 import '../components/box_border_container.dart';
 
@@ -46,16 +48,12 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Obx(() => _websiteInfoController.loading.value == true
                 ? CustomCircularProgress()
-                : CachedNetworkImage(
-                    imageUrl:
-                        "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            CustomCircularProgress(
-                                value: downloadProgress.progress),
-                    errorWidget: (context, url, error) =>
-                        Image.asset("assets/kartdaddy-logo.png"),
-                  )),
+                  : SvgPicture.network(
+                      width: 110,
+                      key: Key("webiste header logo"),
+                      "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
+                    ),
+            ),
           ),
           actions: [
             InkWell(
@@ -78,7 +76,8 @@ class HomeScreen extends StatelessWidget {
               },
               child: badges.Badge(
                 showBadge: true,
-                badgeStyle: const badges.BadgeStyle(badgeColor: Colors.amber),
+                badgeStyle: badges.BadgeStyle(
+                    badgeColor: CustomColors.themeColor.toColor()),
                 badgeContent: Obx(() => Text(
                       _cartController.cart.length.toString(),
                       style: const TextStyle(color: Colors.white),
@@ -112,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
-                                color: CustomColors.slideColor,
+                                color: CustomColors.sliderColor.toColor(),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -184,7 +183,8 @@ class HomeScreen extends StatelessWidget {
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: UnderlineContainer(
-                                              color: Colors.amber,
+                                              color: CustomColors.themeColor
+                                                  .toColor(),
                                               child:
                                                   Heading(text: section.title)),
                                         ),
@@ -268,8 +268,12 @@ class HomeScreen extends StatelessWidget {
                                                         alignment: Alignment
                                                             .centerLeft,
                                                         child: SubHeading(
-                                                            text:
-                                                                "${product.net_sale_amount} INR")),
+                                                            text: AppLocalizations
+                                                                    .of(
+                                                                        context)!
+                                                                .rupee(product
+                                                                    .net_sale_amount
+                                                                    .toString()))),
                                                     const Gap(3),
                                                   ],
                                                 ),
@@ -631,16 +635,20 @@ class HomeScreen extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.amber.shade600,
+                Gap(Get.size.height * .1),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: _websiteInfoController.loading.value == true
+                        ? CustomCircularProgress()
+                        : SvgPicture.network(
+                            key: Key("webiste header logo"),
+                            "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
+                          ),
                   ),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage("assets/kartdaddy-logo.png"),
-                  ),
-                  accountName: Text("Prem Prakash Gupta"),
-                  accountEmail: Text("prem.com0011@gmail.com"),
                 ),
+                Gap(20),
                 ..._websiteInfoController.categoryList.map((masterCat) {
                   return ExpansionTile(
                     title: Text(masterCat['name']),
@@ -654,7 +662,10 @@ class HomeScreen extends StatelessWidget {
                           return ListTile(
                             title: Text(subCategory['name']),
                             onTap: () {
-                              // Handle subcategory tap
+                              Get.to(() => ShopApiScreen(
+                                    slug: subCategory['slug'],
+                                    title: subCategory['name'],
+                                  ));
                             },
                           );
                         }).toList(),
@@ -694,8 +705,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-)
-),
+          )),
     );
   }
 }

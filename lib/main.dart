@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:kartdaddy/controllers/website_info_controller.dart';
+import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/screens/product_details_screen.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 import 'screens/landing_screen.dart';
 
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
       title: 'Localizations Sample App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarTheme(color: Colors.grey.shade100),
+        appBarTheme: AppBarTheme(color: CustomColors.greyColor.toColor()),
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

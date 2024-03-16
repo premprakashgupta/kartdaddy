@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class SlantRectangle extends StatelessWidget {
   final double width;
@@ -26,7 +28,8 @@ class SlantRectangle extends StatelessWidget {
                   children: [
                     TextSpan(
                         text: coloredText,
-                        style: TextStyle(color: Colors.amber.shade700))
+                        style:
+                            TextStyle(color: CustomColors.themeColor.toColor()))
                   ]),
             ),
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class NormalText extends StatelessWidget {
   final String text;
@@ -25,7 +27,7 @@ class NormalText extends StatelessWidget {
       style: GoogleFonts.lato(
           textStyle: TextStyle(
               fontSize: size,
-              color: color ?? Colors.black,
+              color: color ?? CustomColors.textColor.toColor(),
               fontWeight: fontWeight?? FontWeight.normal)),
     );
   }

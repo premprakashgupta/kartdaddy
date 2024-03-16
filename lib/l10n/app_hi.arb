@@ -20,5 +20,6 @@
   "new_products": "नए उत्पाद",
   "known_products": "प्रसिद्ध उत्पाद",
   "signup_for_newsletter": "समाचार पत्रिका के लिए साइन अप करें",
-  "contact_info": "संपर्क जानकारी"
+  "contact_info": "संपर्क जानकारी",
+  "rupee":"₹. {value}"
 }

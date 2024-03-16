@@ -6,9 +6,12 @@ import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/address_controller.dart';
+import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/models/address_model.dart';
 import 'package:kartdaddy/screens/add_address_screen.dart';
 import 'package:kartdaddy/screens/edit_address_screen.dart';
+import 'package:kartdaddy/screens/empty_screens/empty_screen.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class AddressScreen extends StatelessWidget {
   AddressScreen({super.key});
@@ -26,7 +29,7 @@ class AddressScreen extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.shade300,
+              color: CustomColors.greyColor.toColor(),
               offset: const Offset(-2, -2),
               blurRadius: 5,
             ),
@@ -44,7 +47,9 @@ class AddressScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Obx(() => ListView.builder(
+      body: Obx(() => _addressController.addressList.isEmpty
+          ? EmptyScreen(title: "Add Address Here")
+          : ListView.builder(
             itemCount: _addressController.addressList.length,
             itemBuilder: (context, index) {
               AddressModel address = _addressController.addressList[index];

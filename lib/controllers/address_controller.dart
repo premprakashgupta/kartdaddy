@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:kartdaddy/api/product_api.dart';
 import 'package:kartdaddy/models/address_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:kartdaddy/utility/custom_snackbar.dart';
 
 class AddressController extends GetxController {
   final List<Map<String, dynamic>> inputControllers = [
@@ -111,6 +112,8 @@ class AddressController extends GetxController {
           TextEditingController controller = controllerData['controller'];
           controller.clear();
         });
+        CustomSnackbar.showSnackbar(
+            title: "Address", message: jsonData['message']);
         Get.back();
       }
     } catch (e) {
@@ -147,6 +150,8 @@ class AddressController extends GetxController {
         int index = addressList.indexWhere((element) => element.id == id);
         addressList[index] = AddressModel.fromMap(jsonData['address']);
         Get.back();
+        CustomSnackbar.showSnackbar(
+            title: "Address", message: jsonData['message']);
       }
     } catch (e) {
       print(e.toString());
@@ -165,6 +170,9 @@ class AddressController extends GetxController {
         var jsonData = await json.decode(response.body);
         print("json data $jsonData");
         addressList.removeWhere((element) => element.id == id);
+
+        CustomSnackbar.showSnackbar(
+            title: "Address", message: jsonData['message']);
       }
     } catch (e) {
       print(e.toString());

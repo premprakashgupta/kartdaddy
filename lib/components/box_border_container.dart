@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class BoxBorderContainer extends StatelessWidget {
   final Widget child;
@@ -15,7 +17,8 @@ class BoxBorderContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(borderRadius),
-        border: Border.all(width: 1,color: Colors.grey.shade300)
+          border:
+              Border.all(width: 1, color: CustomColors.greyColor.toColor())
       ),
       child: Center(
         child: child,

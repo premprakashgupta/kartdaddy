@@ -7,6 +7,7 @@ import 'package:kartdaddy/api/auth.dart';
 import 'package:kartdaddy/controllers/auth/login_controller.dart';
 import 'package:kartdaddy/controllers/landing_controller.dart';
 import 'package:kartdaddy/models/auth/user_model.dart';
+import 'package:kartdaddy/screens/auth/reset_password_screen.dart';
 import 'package:kartdaddy/screens/error_screen.dart';
 import 'package:kartdaddy/screens/home_screen.dart';
 import 'package:kartdaddy/utility/custom_snackbar.dart';
@@ -16,6 +17,7 @@ class OtpVerificationController extends GetxController {
   final LandingController _landingController = Get.find();
   final box = GetStorage();
   final newOtp = ''.obs;
+
   void onOtpSubmit() async {
     String uniqueSecret = box.read('unique_secret');
     print(uniqueSecret);
@@ -52,6 +54,22 @@ class OtpVerificationController extends GetxController {
       }
     } else {
       CustomSnackbar.showSnackbar(title: "Error", message: 'otp is empty');
+    }
+  }
+
+  void verifyOtpForForgetPassword() async {
+    var unique_secret = box.read('unique_secret');
+    try {
+      String url = AuthApi.veryfyOtpForgetPassword;
+      var response = await http.post(Uri.parse(url),
+          body: {"otp": newOtp.value, "unique_secret": unique_secret});
+      if (response.statusCode == 200) {
+        var jsonData = await json.decode(response.body) as Map<String, dynamic>;
+        box.write('token', jsonData['data']['token']);
+        Get.to(() => ResetPasswordScreen());
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }

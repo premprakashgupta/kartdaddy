@@ -6,6 +6,7 @@ import 'package:kartdaddy/api/product_api.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 import 'package:http/http.dart' as http;
 import 'package:kartdaddy/models/cart_model.dart';
+import 'package:kartdaddy/utility/custom_snackbar.dart';
 
 class CartController extends GetxController {
   var box = GetStorage();
@@ -32,14 +33,10 @@ class CartController extends GetxController {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
         print(jsonData);
 
-
-
-
-      
         if (jsonData.containsKey('cart_items')) {
-        cart.assignAll((jsonData['cart_items'] as List<dynamic>)
-            .map((item) => CartModel.fromMap(item))
-            .toList());
+          cart.assignAll((jsonData['cart_items'] as List<dynamic>)
+              .map((item) => CartModel.fromMap(item))
+              .toList());
         }
         if (jsonData.containsKey('total_cart_price')) {
           total.value = jsonData['total_cart_price'] as int;
@@ -71,6 +68,8 @@ class CartController extends GetxController {
         if (jsonData.containsKey('total_cart_price')) {
           total.value = jsonData['total_cart_price'];
         }
+        CustomSnackbar.showSnackbar(
+            title: "Cart", message: jsonData['message']);
       }
     } catch (e, stackTrace) {
       print(e);
@@ -95,6 +94,8 @@ class CartController extends GetxController {
         if (jsonData.containsKey('total_cart_price')) {
           total.value = jsonData['total_cart_price'];
         }
+        CustomSnackbar.showSnackbar(
+            title: "Cart", message: jsonData['message']);
       }
     } catch (e) {
       print(e);

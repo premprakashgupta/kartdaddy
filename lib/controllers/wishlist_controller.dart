@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:kartdaddy/api/product_api.dart';
 import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/screens/error_screen.dart';
+import 'package:kartdaddy/utility/custom_snackbar.dart';
 
 class WishListController extends GetxController {
   var box = GetStorage();
@@ -58,7 +59,10 @@ class WishListController extends GetxController {
           wishlists.removeWhere((element) => element.id == product.id);
         } else {
           wishlists.add(product);
+          
         }
+        CustomSnackbar.showSnackbar(
+            title: "Wishlist", message: jsonData['message']);
         update();
       }
     } catch (e) {
@@ -84,6 +88,8 @@ class WishListController extends GetxController {
         if (wishlists.any((element) => element.id == product.id)) {
           wishlists.remove(product);
         }
+        CustomSnackbar.showSnackbar(
+            title: "Wishlist", message: jsonData['message']);
         loading.value = false;
         update();
       }

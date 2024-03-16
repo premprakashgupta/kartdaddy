@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class CustomCircularProgress extends StatelessWidget {
   final double? value;
@@ -8,7 +10,7 @@ class CustomCircularProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(
-        color: Colors.amber,
+        color: CustomColors.themeColor.toColor(),
         value: value,
       ),
     );

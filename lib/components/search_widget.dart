@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class Product {
   final String name;
@@ -42,8 +44,8 @@ class _CustomSearchState extends State<CustomSearch> {
                 suffixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(
-                    color: Colors.grey,
+                  borderSide: BorderSide(
+                    color: CustomColors.greyColor.toColor(),
                     width: 1.0,
                   ),
                 ),

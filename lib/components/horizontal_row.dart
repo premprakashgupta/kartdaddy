@@ -6,7 +6,10 @@ import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
+import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/models/product_model.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HorizontalRow extends StatelessWidget {
   final List<dynamic> data;
@@ -41,7 +44,7 @@ class HorizontalRow extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: NormalText(
                           text: product.category_name!,
-                          color: Colors.blue.shade300,
+                          color: CustomColors.blueColor.toColor(),
                         )),
                     const Gap(8),
                     Align(
@@ -66,7 +69,9 @@ class HorizontalRow extends StatelessWidget {
                     Align(
                         alignment: Alignment.centerLeft,
                         child:
-                            SubHeading(text: "${product.net_sale_amount} INR")),
+                            SubHeading(
+                            text: AppLocalizations.of(context)!
+                                .rupee(product.net_sale_amount.toString()))),
                     const Gap(6),
                   ],
                 ),

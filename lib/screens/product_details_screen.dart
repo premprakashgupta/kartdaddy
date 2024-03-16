@@ -13,10 +13,13 @@ import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/controllers/product_details_controller.dart';
 import 'package:kartdaddy/controllers/wishlist_controller.dart';
 import 'package:kartdaddy/data/demo_data.dart';
+import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/models/cart_model.dart';
 import 'package:kartdaddy/screens/cart_screen.dart';
 import 'package:kartdaddy/screens/review_screen.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   ProductDetailsScreen({super.key});
@@ -36,7 +39,7 @@ class ProductDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             decoration: BoxDecoration(color: Colors.white, boxShadow: [
               BoxShadow(
-                  color: Colors.grey.shade300,
+                  color: CustomColors.greyColor.toColor(),
                   offset: const Offset(-2, -2),
                   blurRadius: 5)
             ]),
@@ -63,7 +66,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           SubHeading(
                             text: _productDetailsController
                                 .productDetail.value!.product.category_name!,
-                            color: Colors.blue.shade300,
+                            color: CustomColors.blueColor.toColor(),
                           ),
                           Row(
                             children: [
@@ -107,7 +110,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: Colors.red.shade800),
+                            color: CustomColors.redColor.toColor()),
                         child: const NormalText(
                           text: "Limited time deal",
                           color: Colors.white,
@@ -119,8 +122,9 @@ class ProductDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           NormalText(
-                            text:
-                                '\$${_productDetailsController.productDetail.value!.product.net_sale_amount!}',
+                            text: AppLocalizations.of(context)!.rupee(
+                                _productDetailsController.productDetail.value!
+                                    .product.net_sale_amount!),
                             size: 27,
                             fontWeight: FontWeight.w600,
                           ),
@@ -182,8 +186,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           Row(
                             children: List.generate(3, (index) {
                               var color = [
-                                Colors.red,
-                                Colors.blue,
+                                CustomColors.redColor.toColor(),
+                                CustomColors.blueColor.toColor(),
                                 Colors.green
                               ];
                               return Container(
@@ -192,7 +196,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                 margin: const EdgeInsets.all(3),
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: Colors.amber, width: 2),
+                                        color:
+                                            CustomColors.themeColor.toColor(),
+                                        width: 2),
                                     color: color[index]),
                               );
                             }),
@@ -228,9 +234,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                   const Gap(5),
                                   TextButton(
                                     onPressed: () {},
-                                    child: const NormalText(
+                                    child: NormalText(
                                       text: "Check",
-                                      color: Colors.blue,
+                                      color: CustomColors.blueColor.toColor(),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   )
@@ -336,7 +342,13 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       const Gap(16),
                       CustomButton(
-                        onPressed: () {
+                        onPressed: _cartController.cart.any((element) =>
+                                element.product_id ==
+                                _productDetailsController
+                                    .productDetail.value!.product.id
+                                    .toString())
+                            ? null
+                            : () {
                           Map<String, dynamic> mapData = {
                             "id": 1,
                             "product_id": _productDetailsController
@@ -364,10 +376,10 @@ class ProductDetailsScreen extends StatelessWidget {
                         length: 4,
                         child: Column(
                           children: [
-                            const TabBar(
+                            TabBar(
                               isScrollable: true,
-                              indicatorColor: Colors.amber,
-                              labelColor: Colors.amber,
+                              indicatorColor: CustomColors.themeColor.toColor(),
+                              labelColor: CustomColors.themeColor.toColor(),
                               labelPadding:
                                   EdgeInsets.symmetric(horizontal: 8.0),
                               indicatorPadding: EdgeInsets.zero,

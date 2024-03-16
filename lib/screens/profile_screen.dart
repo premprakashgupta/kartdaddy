@@ -5,12 +5,14 @@ import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/landing_controller.dart';
+import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/screens/address_screen.dart';
 import 'package:kartdaddy/screens/auth/login_screen.dart';
 import 'package:kartdaddy/screens/edit_profile_screen.dart';
 import 'package:kartdaddy/screens/landing_screen.dart';
 import 'package:kartdaddy/screens/language_screen.dart';
 import 'package:kartdaddy/screens/wish_list_screen.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 import '../components/normal_text_widget.dart';
 import '../controllers/auth/login_controller.dart';
@@ -131,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: Colors.grey, width: 1),
+          border: Border.all(color: CustomColors.greyColor.toColor(), width: 1),
           color: Colors.white),
       child: NormalText(text: text),
     );

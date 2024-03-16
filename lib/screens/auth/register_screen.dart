@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_input.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/auth/registration_controller.dart';
+import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -87,7 +89,7 @@ class RegisterScreen extends StatelessWidget {
                 const Gap(60),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.amber,
+                        backgroundColor: CustomColors.themeColor.toColor(),
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         fixedSize: Size.fromWidth(
                             MediaQuery.of(context).size.width * .8)),

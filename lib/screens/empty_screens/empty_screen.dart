@@ -5,8 +5,10 @@ import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 
-class EmptyCartScreen extends StatelessWidget {
-  const EmptyCartScreen({super.key});
+class EmptyScreen extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  const EmptyScreen({super.key, required this.title, this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class EmptyCartScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Heading(text: "Empty Cart"),
+            Heading(text: title),
             Gap(20),
             CustomButton(
                 onPressed: () {

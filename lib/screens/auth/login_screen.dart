@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_button.dart';
@@ -40,16 +41,10 @@ class LoginScreen extends StatelessWidget {
                     child:
                         Obx(() => _websiteInfoController.loading.value == true
                             ? CustomCircularProgress()
-                            : CachedNetworkImage(
-                                imageUrl:
-                                    "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) =>
-                                        CustomCircularProgress(
-                                            value: downloadProgress.progress),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset("assets/kartdaddy-logo.png"),
-                              )),
+                        : SvgPicture.network(
+                            key: Key("login page header logo"),
+                            "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
+                            semanticsLabel: 'login page header logo')),
                   ),
                   const Gap(40),
                   NormalText(
@@ -97,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                         onPressed: () {
-                          Get.to(() => const ForgetPasswordScreen());
+                          Get.to(() => ForgetPasswordScreen());
                         },
                         child: NormalText(
                             text:

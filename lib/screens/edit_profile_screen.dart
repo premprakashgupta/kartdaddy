@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
+import 'package:kartdaddy/controllers/auth/login_controller.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -14,6 +15,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final LoginController _loginController = Get.find();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _mobileController = TextEditingController();
@@ -22,28 +24,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     'email': 'johndoe@email.com',
     'profilePicture': 'https://kartdaddy.in/assets/img/400X400/img1.png',
   };
-  XFile? _image;
+  
 
   @override
   void initState() {
     super.initState();
     // Load pre-filled data from _profileData
-    _usernameController.text = _profileData['username'] ?? '';
-    _emailController.text = _profileData['email'] ?? '';
-    _mobileController.text = _profileData['mobile'] ?? '';
-  }
-
-  // Function to open the gallery and pick an image
-  Future<void> _pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = XFile(pickedFile.path);
-        // You can handle the logic to upload the image to your server or save it locally.
-      }
-    });
+    _usernameController.text = _loginController.user!.name ?? '';
+    _emailController.text = _loginController.user!.email ?? '';
+    _mobileController.text = _loginController.user!.mobile ?? '';
   }
 
   @override

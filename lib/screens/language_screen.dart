@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
 class LanguageScreen extends StatefulWidget {
   const LanguageScreen({super.key});
@@ -71,10 +73,14 @@ class _LanguageScreenState extends State<LanguageScreen> {
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: savedLanguage == locale ? Colors.amber : Colors.grey.shade100,
+          color: savedLanguage == locale
+              ? CustomColors.themeColor.toColor()
+              : CustomColors.greyColor.toColor(),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: savedLanguage == locale ? Colors.amber : Colors.black,
+            color: savedLanguage == locale
+                ? CustomColors.themeColor.toColor()
+                : Colors.black,
           ),
         ),
         child: Text(
