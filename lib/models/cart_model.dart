@@ -45,4 +45,24 @@ class CartModel {
       product: ProductModel.fromMap(map['product']),
     );
   }
+
+  CartModel copyWith({
+    int? id,
+    String? product_id,
+    String? quantity,
+    String? total_price,
+    String? walletAmountUsed,
+    String? product_price,
+    ProductModel? product,
+  }) {
+    return CartModel(
+      id: id ?? this.id,
+      product_id: product_id ?? this.product_id,
+      quantity: quantity ?? this.quantity,
+      total_price: total_price ?? this.total_price,
+      walletAmountUsed: walletAmountUsed ?? this.walletAmountUsed,
+      product_price: product_price ?? this.product_price,
+      product: product ?? this.product,
+    );
+  }
 }

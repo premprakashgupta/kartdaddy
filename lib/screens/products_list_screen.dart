@@ -11,7 +11,7 @@ import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/shimmer/grid_shimmer.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../controllers/products_list_controller.dart';
 
 class ProductsListScreen extends StatelessWidget {
@@ -93,7 +93,9 @@ class ProductsListScreen extends StatelessWidget {
                               const Gap(20),
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: SubHeading(text: data.net_sale_amount!),
+                                child: SubHeading(
+                                    text: AppLocalizations.of(context)!.rupee(
+                                        data.net_sale_amount.toString())),
                               ),
                               const Gap(6),
                             ],

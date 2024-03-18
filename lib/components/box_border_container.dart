@@ -18,7 +18,7 @@ class BoxBorderContainer extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(borderRadius),
           border:
-              Border.all(width: 1, color: CustomColors.greyColor.toColor())
+              Border.all(width: 1, color: CustomColors.borderColor.toColor())
       ),
       child: Center(
         child: child,

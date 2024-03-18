@@ -118,4 +118,19 @@ class CustomIcons {
       size: size,
     );
   }
+  static Icon visibility({double size = 20.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.visibility_outlined,
+      color: color,
+      size: size,
+    );
+  }
+
+  static Icon visibilityOff({double size = 20.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.visibility_off_outlined,
+      color: color,
+      size: size,
+    );
+  }
 }

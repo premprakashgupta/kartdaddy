@@ -16,6 +16,7 @@ class LandingController extends GetxController {
 
   final box = GetStorage();
   final loggedIn = false.obs;
+  final loading = true.obs;
   String _token = '';
 
   @override
@@ -41,6 +42,7 @@ class LandingController extends GetxController {
         _loginController.setUser = UserModel.fromMap(data['user']);
         _loginController.loading.value = false;
         loggedIn.value = true;
+        
       }
     } catch (e) {
       // Handle or log the error
@@ -49,6 +51,8 @@ class LandingController extends GetxController {
             error: e.toString(),
             place: 'check token expire method throw error',
           ));
+    } finally {
+      loading.value = false;
     }
   }
 }

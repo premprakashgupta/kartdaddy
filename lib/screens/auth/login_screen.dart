@@ -16,14 +16,31 @@ import 'package:kartdaddy/screens/auth/forget_password_screen.dart';
 import 'package:kartdaddy/screens/auth/register_screen.dart';
 import 'package:kartdaddy/utility/email_validation.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final LoginController _loginController = Get.find();
+
   final WebsiteInfoController _websiteInfoController = Get.find();
+
   final TextEditingController _loginIdController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _loginController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +53,12 @@ class LoginScreen extends StatelessWidget {
               key: _formKey,
               child: Column(
                 children: [
+                  Gap(20),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child:
-                        Obx(() => _websiteInfoController.loading.value == true
-                            ? CustomCircularProgress()
+                    child: Obx(() => _websiteInfoController.loading.value ==
+                            true
+                        ? CustomCircularProgress()
                         : SvgPicture.network(
                             key: Key("login page header logo"),
                             "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
@@ -72,12 +90,19 @@ class LoginScreen extends StatelessWidget {
                     },
                   ),
                   const Gap(20),
-                  CustomInput(
+                  Obx(
+                    () => CustomInput(
                     hint: AppLocalizations.of(context)!.password,
                     label: NormalText(
                         text: AppLocalizations.of(context)!.password),
                     prefixIcon: CustomIcons.password(),
-                    obsecureText: true,
+                      sufixIcon: InkWell(
+                        onTap: _loginController.visibilityOfPassword,
+                        child: _loginController.isVisible.value
+                            ? CustomIcons.visibility()
+                            : CustomIcons.visibilityOff(),
+                      ),
+                      obsecureText: !_loginController.isVisible.value,
                     controller: _passwordController,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -86,6 +111,7 @@ class LoginScreen extends StatelessWidget {
                       // in future we have to implement strong password validation
                       return null;
                     },
+                    ),
                   ),
                   const Gap(30),
                   Align(

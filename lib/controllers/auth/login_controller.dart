@@ -15,16 +15,19 @@ import '../../utility/custom_snackbar.dart';
 
 class LoginController extends GetxController {
   final box = GetStorage();
+  late String errorMsg = "Something went wrong";
   final _user = Rx<UserModel?>(null);
+  final isVisible = false.obs;
 
-  
   final loading = true.obs;
   final disabled = false.obs;
 
   UserModel? get user => _user.value;
   set setUser(UserModel? value) => _user.value = value;
 
-  
+  void visibilityOfPassword() {
+    isVisible.value = !isVisible.value;
+  }
 
   Future<void> loginUser(
       {required String login_id, required String password}) async {
@@ -54,7 +57,9 @@ class LoginController extends GetxController {
 
         Get.off(() => HomeScreen());
       } else {
-        print('Error: ${response.statusCode}');
+        errorMsg =
+            (await json.decode(response.body) as Map<String, dynamic>)['error'];
+        CustomSnackbar.showSnackbar(title: 'Error', message: errorMsg);
       }
     } catch (e) {
       print(e.toString());

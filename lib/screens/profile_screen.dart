@@ -133,7 +133,8 @@ class ProfileScreen extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: CustomColors.greyColor.toColor(), width: 1),
+          border:
+              Border.all(color: CustomColors.borderColor.toColor(), width: 1),
           color: Colors.white),
       child: NormalText(text: text),
     );

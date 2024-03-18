@@ -10,6 +10,7 @@ class CustomInput extends StatelessWidget {
   final String hint;
   final Widget label;
   final Widget? prefixIcon;
+  final Widget? sufixIcon;
   final TextInputType? keyboardType;
   final bool obsecureText;
   const CustomInput(
@@ -21,7 +22,8 @@ class CustomInput extends StatelessWidget {
       this.keyboardType,
       this.obsecureText = false,
       this.uniqueKey,
-      this.validator});
+      this.validator,
+      this.sufixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class CustomInput extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
         prefixIcon: prefixIcon,
+        suffixIcon: sufixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide(

@@ -110,4 +110,37 @@ class CartController extends GetxController {
     // other thing
     // total -= product['quantity'] * product['price'];
   }
+
+  void manageQuantity(
+      {required String product_id, required int quantity}) async {
+    try {
+      String url = ProductApi.addToCart;
+      var response = await http.post(
+        Uri.parse(url),
+        headers: {'Authorization': 'Bearer $_token'},
+        body: {
+          'product_id': product_id.toString(),
+          'quantity': quantity.toString()
+        }, // Pass quantity as string
+      );
+      if (response.statusCode == 200) {
+        var jsonData = json.decode(response.body);
+        var index =
+            cart.indexWhere((element) => element.product_id == product_id);
+        if (index != -1) {
+          // Increment quantity in the CartModel instance
+          cart[index] = cart[index].copyWith(
+              quantity:
+                  (int.parse(cart[index].quantity) + quantity).toString());
+          if (jsonData.containsKey('total_cart_price')) {
+            total.value = jsonData['total_cart_price'];
+          }
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
 }

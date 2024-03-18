@@ -79,7 +79,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: savedLanguage == locale
-                ? CustomColors.themeColor.toColor()
+                ? CustomColors.borderColor.toColor()
                 : Colors.black,
           ),
         ),

@@ -164,7 +164,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                       border: Border.all(
                           width: 1,
                           color: _currentThumbnailIndex == index
-                              ? CustomColors.greyColor.toColor()
+                              ? CustomColors.borderColor.toColor()
                               : Colors.transparent),
                     ),
                     child: CachedNetworkImage(

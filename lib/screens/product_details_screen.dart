@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/carousel_grid.dart';
@@ -197,7 +198,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color:
-                                            CustomColors.themeColor.toColor(),
+                                            CustomColors.borderColor.toColor(),
                                         width: 2),
                                     color: color[index]),
                               );
@@ -260,10 +261,12 @@ class ProductDetailsScreen extends StatelessWidget {
                         color: Colors.black,
                       ),
                       const Gap(10),
-                      NormalText(
-                        text: _productDetailsController
+                      HtmlWidget(
+                        enableCaching: true,
+                        _productDetailsController
                             .productDetail.value!.product.short_description!,
-                        maxLines: 5,
+                        textStyle: TextStyle(overflow: TextOverflow.ellipsis),
+                        
                       ),
 
                       const Gap(32),
@@ -318,7 +321,13 @@ class ProductDetailsScreen extends StatelessWidget {
                             children: [
                               const NormalText(text: 'Quantity: '),
                               IconButton(
-                                onPressed: () {
+                                onPressed: _cartController.cart.any((element) =>
+                                        element.product_id ==
+                                        _productDetailsController
+                                            .productDetail.value!.product.id
+                                            .toString())
+                                    ? null
+                                    : () {
                                   // Handle quantity decrease
                                   _productDetailsController
                                       .decreamentQuantity();
@@ -329,7 +338,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                   text: _productDetailsController.quantity.value
                                       .toString()),
                               IconButton(
-                                onPressed: () {
+                                onPressed: _cartController.cart.any((element) =>
+                                        element.product_id ==
+                                        _productDetailsController
+                                            .productDetail.value!.product.id
+                                            .toString())
+                                    ? null
+                                    : () {
                                   // Handle quantity increase
                                   _productDetailsController
                                       .increamentQuantity();
@@ -401,13 +416,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                       child: const NormalText(
                                           text: 'Accessories Tab Content')),
                                   Container(
-                                      child: NormalText(
-                                          maxLines: 15,
-                                          text: _productDetailsController
-                                              .productDetail
-                                              .value!
-                                              .product
-                                              .short_description!)),
+                                      child: HtmlWidget(
+                                    enableCaching: true,
+                                    _productDetailsController.productDetail
+                                        .value!.product.short_description!,
+                                    textStyle: TextStyle(
+                                        overflow: TextOverflow.ellipsis),
+                                  )),
                                   Container(
                                       child: const NormalText(
                                           text: 'Specification Tab Content')),

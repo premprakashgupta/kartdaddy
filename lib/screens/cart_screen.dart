@@ -32,261 +32,308 @@ class CartScreen extends StatelessWidget {
                   title: 'Add Product in Cart',
                 )
               : ListView.builder(
-        itemCount: _cartController.cart.length,
-        itemBuilder: (context, index) {
-                CartModel cartItem = _cartController.cart[index];
+                  itemCount: _cartController.cart.length,
+                  itemBuilder: (context, index) {
+                    CartModel cartItem = _cartController.cart[index];
 
-          return Dismissible(
-                  key: Key(cartItem.id.toString()),
-            onDismissed: (direction) {
-              print("dismiss in action");
-            },
-            child: BoxBorderContainer(
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 13),
-              child: Container(
-                padding: const EdgeInsets.all(13),
-                height: 300,
-                child: Row(
-                  children: [
-                    // First 40% section
-                    Flexible(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                                  CachedNetworkImage(
-                                    imageUrl:
-                                        "https://kartdaddy.in/products/product/${cartItem.product.thumb_image}",
-                                    progressIndicatorBuilder: (context, url,
-                                            downloadProgress) =>
-                                        CustomCircularProgress(
-                                            value: downloadProgress.progress),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
-                            ),
-                            Container(
-                              // width: MediaQuery.of(context).size.width*.3,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border:
-                                      Border.all(
+                    return Dismissible(
+                      key: Key(cartItem.id.toString()),
+                      onDismissed: (direction) {
+                        print("dismiss in action");
+                      },
+                      child: BoxBorderContainer(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 13),
+                        child: Container(
+                          padding: const EdgeInsets.all(13),
+                          height: 300,
+                          child: Row(
+                            children: [
+                              // First 40% section
+                              Flexible(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            "https://kartdaddy.in/products/product/${cartItem.product.thumb_image}",
+                                        progressIndicatorBuilder: (context, url,
+                                                downloadProgress) =>
+                                            CustomCircularProgress(
+                                                value:
+                                                    downloadProgress.progress),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                      Container(
+                                        // width: MediaQuery.of(context).size.width*.3,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border: Border.all(
                                                 width: 1,
-                                                color: CustomColors.greyColor
+                                                color: CustomColors.borderColor
                                                     .toColor())),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(8),
-                                            bottomLeft: Radius.circular(8)),
-                                        gradient: LinearGradient(
-                                          colors: [
-                                                      CustomColors.greyColor
-                                                          .toColor(),
-                                            Colors.white
-                                          ],
-                                          begin: Alignment.bottomRight,
-                                          end: Alignment.topLeft,
-                                        ),
-                                      ),
-                                      child: InkWell(
-                                        onTap: () {
-                                          // Add your logic for decreasing quantity
-                                        },
-                                              child: int.parse(
-                                                          cartItem.quantity) <
-                                                      2
-                                            ? const Icon(Icons.delete, size: 19)
-                                            : const Icon(
-                                                Icons.minimize_outlined,
-                                                size: 19),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 decoration: BoxDecoration(
-                                          border: Border.symmetric(
-                                              vertical: BorderSide(
-                                                  width: 1,
-                                                            color: CustomColors
-                                                                .greyColor
-                                                                .toColor()))),
-                                      child: Text(
-                                              '${cartItem.quantity}',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.only(
-                                            topRight: Radius.circular(8),
-                                            bottomRight: Radius.circular(8)),
-                                        gradient: LinearGradient(
-                                          colors: [
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  8),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  8)),
+                                                  gradient: LinearGradient(
+                                                    colors: [
                                                       CustomColors.greyColor
                                                           .toColor(),
-                                            Colors.white
+                                                      Colors.white
+                                                    ],
+                                                    begin:
+                                                        Alignment.bottomRight,
+                                                    end: Alignment.topLeft,
+                                                  ),
+                                                ),
+                                                child: int.parse(
+                                                            cartItem.quantity) <
+                                                        2
+                                                    ? InkWell(
+                                                        onTap: () {
+                                                          _cartController
+                                                              .removeFromcart(
+                                                                  productId:
+                                                                      cartItem
+                                                                          .product_id);
+                                                        },
+                                                        child: const Icon(
+                                                            Icons.delete,
+                                                            size: 19))
+                                                    : InkWell(
+                                                        onTap: () {
+                                                          _cartController
+                                                              .manageQuantity(
+                                                                  product_id:
+                                                                      cartItem
+                                                                          .product_id,
+                                                                  quantity: -1);
+                                                        },
+                                                        child: const Icon(
+                                                            Icons
+                                                                .minimize_outlined,
+                                                            size: 19),
+                                                      ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                decoration: BoxDecoration(
+                                                    border: Border.symmetric(
+                                                        vertical: BorderSide(
+                                                            width: 1,
+                                                            color: CustomColors
+                                                                .borderColor
+                                                                .toColor()))),
+                                                child: Text(
+                                                  '${cartItem.quantity}',
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  8),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  8)),
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      CustomColors.greyColor
+                                                          .toColor(),
+                                                      Colors.white
+                                                    ],
+                                                    begin: Alignment.bottomLeft,
+                                                    end: Alignment.topRight,
+                                                  ),
+                                                ),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    _cartController
+                                                        .manageQuantity(
+                                                            product_id: cartItem
+                                                                .product_id,
+                                                            quantity: 1);
+                                                  },
+                                                  child: const Icon(Icons.add,
+                                                      size: 19),
+                                                ),
+                                              ),
+                                            ),
                                           ],
-                                          begin: Alignment.bottomLeft,
-                                          end: Alignment.topRight,
                                         ),
                                       ),
-                                      child: InkWell(
-                                        onTap: () {
-                                          // Add your logic for decreasing quantity
-                                        },
-                                        child: const Icon(Icons.add, size: 19),
-                                      ),
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    // Second 60% section
-                    Flexible(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                NormalText(
-                                        text: cartItem.product.title!,
-                                  maxLines: 2,
                                 ),
-                                const Gap(10),
-                                Row(
+                              ),
+                              // Second 60% section
+                              Flexible(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(3),
-                                      decoration: BoxDecoration(
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          NormalText(
+                                            text: cartItem.product.title!,
+                                            maxLines: 2,
+                                          ),
+                                          const Gap(10),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(3),
+                                                decoration: BoxDecoration(
                                                     color: CustomColors.redColor
                                                         .toColor()),
-                                            child: Text(
-                                              "${cartItem.product.discount_type_amount}% off",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    const Gap(10),
-                                    Text(
-                                      "Limited time deal",
-                                      style: TextStyle(
+                                                child: Text(
+                                                  "${cartItem.product.discount_type_amount}% off",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              const Gap(10),
+                                              Text(
+                                                "Limited time deal",
+                                                style: TextStyle(
                                                     color: CustomColors.redColor
                                                         .toColor(),
-                                          fontWeight: FontWeight.bold),
-                                    )
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          ),
+                                          NormalText(
+                                            text:
+                                                'Price: ${cartItem.total_price}',
+                                            size: 15,
+                                          ),
+                                          const NormalText(
+                                            text: 'In Stock',
+                                            size: 15,
+                                          ),
+                                          NormalText(
+                                            text: '7 Day Replacement',
+                                            size: 15,
+                                            color: Colors.blue.shade600,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            // Add your logic for deleting
+                                            _cartController.removeFromcart(
+                                                productId: cartItem.product_id);
+                                            print("remove in acton");
+                                          },
+                                          child: const NormalText(
+                                              text: 'Delete', size: 13),
+                                        ),
+                                        OutlinedButton(
+                                          onPressed: () {
+                                            // Add your logic for saving for later
+                                          },
+                                          child: const NormalText(
+                                            text: 'Save for Later',
+                                            size: 13,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
-                                ),
-                                NormalText(
-                                        text: 'Price: ${cartItem.total_price}',
-                                  size: 15,
-                                ),
-                                const NormalText(
-                                  text: 'In Stock',
-                                  size: 15,
-                                ),
-                                NormalText(
-                                  text: '7 Day Replacement',
-                                  size: 15,
-                                  color: Colors.blue.shade600,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  // Add your logic for deleting
-                                        _cartController.removeFromcart(
-                                            productId: cartItem.product_id);
-                                  print("remove in acton");
-                                },
-                                child:
-                                    const NormalText(text: 'Delete', size: 13),
-                              ),
-                              OutlinedButton(
-                                onPressed: () {
-                                  // Add your logic for saving for later
-                                },
-                                child: const NormalText(
-                                  text: 'Save for Later',
-                                  size: 13,
                                 ),
                               ),
                             ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-            )),
+                    );
+                  },
+                )),
       bottomNavigationBar: Obx(() => Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
                   color: CustomColors.greyColor.toColor(),
-              offset: const Offset(-2, -2),
-              blurRadius: 5,
+                  offset: const Offset(-2, -2),
+                  blurRadius: 5,
+                ),
+              ],
             ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 1,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
                     child: NormalText(
                         text: "\$ ${_cartController.total.toString()}"),
-              ),
-              Expanded(
-                flex: 3,
-                child: CustomButton(
-                  child: const Text('Checkout'),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: CustomButton(
+                      child: const Text('Checkout'),
                       onPressed: _cartController.cart.isEmpty
                           ? null
                           : () {
-                    // Add your checkout logic here
-                    print('Checkout button pressed!');
-                  },
-                ),
+                              // Add your checkout logic here
+                              print('Checkout button pressed!');
+                            },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
           )),
     );
   }
