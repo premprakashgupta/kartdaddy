@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kartdaddy/controllers/website_info_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/screens/auth/login_screen.dart';
+import 'package:kartdaddy/screens/auth/register_screen.dart';
 import 'package:kartdaddy/screens/product_details_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 
@@ -51,14 +53,27 @@ class MyApp extends StatelessWidget {
         Locale('en'),
         Locale('hi'),
       ],
+      initialRoute: '/landing',
       getPages: [
+        GetPage(
+          name: '/login',
+          page: () => LoginScreen(),
+        ),
+        GetPage(
+          name: '/register',
+          page: () => RegisterScreen(),
+        ),
+        GetPage(
+          name: '/landing',
+          page: () => LandingScreen(),
+        ),
         GetPage(
           name: '/productDetails',
           page: () => ProductDetailsScreen(),
         ),
         // Add other pages/routes as needed
       ],
-      home: LandingScreen(),
+      
     );
   }
 }

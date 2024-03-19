@@ -34,7 +34,7 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const NormalText(text: 'Product Details'),
+          title: const Heading(text: 'Product Details'),
         ),
         bottomSheet: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -104,6 +104,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 _productDetailsController
                                     .productDetail.value!.product.id,
                           ),
+                          height: 310,
                         ),
                       ),
                       const Gap(16),
