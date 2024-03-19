@@ -16,7 +16,8 @@ class AddressModel {
   final String? note;
   final String? status;
   final String? timestamp;
-  
+  final int? is_default;
+
   AddressModel({
     required this.id,
     required this.user_id,
@@ -35,7 +36,7 @@ class AddressModel {
     this.note,
     this.status,
     this.timestamp,
-    
+    this.is_default,
   });
 
   Map<String, dynamic> toMap() {
@@ -57,7 +58,7 @@ class AddressModel {
       'note': note,
       'status': status,
       'timestamp': timestamp,
-      
+      'is_default': is_default,
     };
   }
 
@@ -80,7 +81,7 @@ class AddressModel {
       note: map['note'] as String?,
       status: map['status'] as String?,
       timestamp: map['timestamp'] as String?,
-      
+      is_default: map['is_default'] as int?,
     );
   }
 }

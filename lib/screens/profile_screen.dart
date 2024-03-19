@@ -85,7 +85,9 @@ class ProfileScreen extends StatelessWidget {
                   ListTile(
                     title: const NormalText(text: 'Manage Address'),
                     onTap: () {
-                      Get.to(() => AddressScreen());
+                      Get.to(() => AddressScreen(
+                            bottomSheetBtn: false,
+                          ));
                     },
                   ),
                   ListTile(

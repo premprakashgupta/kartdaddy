@@ -133,4 +133,19 @@ class CustomIcons {
       size: size,
     );
   }
+  static Icon creditCard({double size = 20.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.credit_card,
+      color: color,
+      size: size,
+    );
+  }
+
+  static Icon rupee({double size = 20.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.currency_rupee,
+      color: color,
+      size: size,
+    );
+  }
 }

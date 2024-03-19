@@ -16,10 +16,9 @@ import 'package:kartdaddy/shimmer/grid_shimmer.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class WishListScreen extends StatelessWidget {
   WishListScreen({super.key});
-  final WishListController _wishListController = Get.find();
+  final WishListController _wishListController = Get.find<WishListController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,103 +35,109 @@ class WishListScreen extends StatelessWidget {
             : _wishListController.wishlists.isEmpty
                 ? EmptyScreen(title: "Add Product in Wishlist")
                 : GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Number of cards in one row
-                  crossAxisSpacing:
-                      8.0, // Adjust the spacing between cards horizontally
-                  mainAxisSpacing:
-                      8.0, // Adjust the spacing between cards vertically
-                  childAspectRatio: 0.55, // Adjust the aspect ratio as needed
-                ),
-                itemCount: _wishListController.wishlists.length,
-                itemBuilder: (context, index) {
-                  ProductModel data = _wishListController.wishlists[index];
-                  return Container(
-                    margin: const EdgeInsets.all(8),
-                    child: InkWell(
-                      onTap: () {
-                        // Get.to(() => ProductDetailsScreen(
-                        //       slug: data.slug!,
-                        //       timestamp: data.timestamp!,
-                        //     ));
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, // Number of cards in one row
+                      crossAxisSpacing:
+                          8.0, // Adjust the spacing between cards horizontally
+                      mainAxisSpacing:
+                          8.0, // Adjust the spacing between cards vertically
+                      childAspectRatio:
+                          0.55, // Adjust the aspect ratio as needed
+                    ),
+                    itemCount: _wishListController.wishlists.length,
+                    itemBuilder: (context, index) {
+                      ProductModel data = _wishListController.wishlists[index];
+                      return Container(
+                        margin: const EdgeInsets.all(8),
+                        child: InkWell(
+                          onTap: () {
+                            // Get.to(() => ProductDetailsScreen(
+                            //       slug: data.slug!,
+                            //       timestamp: data.timestamp!,
+                            //     ));
 
-                        Get.toNamed(
-                            '/productDetails?slug=${data.slug!}&timestamp=${data.timestamp!}');
-                      },
-                      child: BoxBorderContainer(
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: NormalText(
-                                  text: data.category_name!,
-                                      color: CustomColors.blueColor.toColor(),
-                                ),
-                              ),
-                              const Gap(8),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: SubHeading(
-                                  text: data.title!,
-                                  maxLines: 2,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const Gap(20),
-                              CachedNetworkImage(
-                                imageUrl:
-                                    "https://kartdaddy.in/products/product/${data.thumb_image}",
-                                placeholder: (context, url) =>
-                                    const CustomCircularProgress(),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                              ),
-                              const Gap(20),
-                              Row(
+                            Get.toNamed(
+                                '/productDetails?slug=${data.slug!}&timestamp=${data.timestamp!}');
+                          },
+                          child: BoxBorderContainer(
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SubHeading(
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: NormalText(
+                                      text: data.category_name!,
+                                      color: CustomColors.blueColor.toColor(),
+                                    ),
+                                  ),
+                                  const Gap(8),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: SubHeading(
+                                      text: data.title!,
+                                      maxLines: 2,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const Gap(20),
+                                  CachedNetworkImage(
+                                    imageUrl:
+                                        "https://kartdaddy.in/products/product/${data.thumb_image}",
+                                    placeholder: (context, url) =>
+                                        const CustomCircularProgress(),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                  ),
+                                  const Gap(20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SubHeading(
                                         text: AppLocalizations.of(context)!
                                             .rupee(data.net_sale_amount
                                                 .toString()),
-                                    size: 16,
-                                  ),
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          //  add to kart
-                                        },
-                                        child: CustomIcons.cart(size: 20),
+                                        size: 16,
                                       ),
-                                      const Gap(5),
-                                      InkWell(
-                                        onTap: () {
-                                          _wishListController.removeWishList(
-                                              product: data);
-                                        },
-                                        child: CustomIcons.delete(
+                                      Row(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              print("move to cart invoked");
+                                              _wishListController.moveToCart(
+                                                  product_id: data.id);
+                                            },
+                                            child: CustomIcons.cart(size: 20),
+                                          ),
+                                          const Gap(5),
+                                          InkWell(
+                                            onTap: () {
+                                              _wishListController
+                                                  .removeWishList(
+                                                      product: data);
+                                            },
+                                            child: CustomIcons.delete(
                                                 size: 20,
                                                 color: CustomColors.redColor
                                                     .toColor()),
-                                      )
+                                          )
+                                        ],
+                                      ),
                                     ],
                                   ),
+                                  const Gap(6),
                                 ],
                               ),
-                              const Gap(6),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+                      );
+                    },
+                  ),
       ),
     );
   }

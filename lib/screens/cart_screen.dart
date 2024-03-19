@@ -10,8 +10,11 @@ import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/models/cart_model.dart';
+import 'package:kartdaddy/screens/address_screen.dart';
 
 import 'package:kartdaddy/screens/empty_screens/empty_screen.dart';
+import 'package:kartdaddy/screens/order_review_screen.dart';
+import 'package:kartdaddy/screens/payment_method_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 
 class CartScreen extends StatelessWidget {
@@ -126,11 +129,11 @@ class CartScreen extends StatelessWidget {
                                                     : InkWell(
                                                         onTap: () {
                                                           _cartController
-                                                              .manageQuantity(
+                                                              .decreamentQuantity(
                                                                   product_id:
                                                                       cartItem
                                                                           .product_id,
-                                                                  quantity: -1);
+                                                          );
                                                         },
                                                         child: const Icon(
                                                             Icons
@@ -184,10 +187,10 @@ class CartScreen extends StatelessWidget {
                                                 child: InkWell(
                                                   onTap: () {
                                                     _cartController
-                                                        .manageQuantity(
+                                                        .increaseQuantity(
                                                             product_id: cartItem
                                                                 .product_id,
-                                                            quantity: 1);
+                                                    );
                                                   },
                                                   child: const Icon(Icons.add,
                                                       size: 19),
@@ -277,7 +280,8 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         OutlinedButton(
                                           onPressed: () {
-                                            // Add your logic for saving for later
+                                            _cartController.saveForLater(
+                                                productId: cartItem.product_id);
                                           },
                                           child: const NormalText(
                                             text: 'Save for Later',
@@ -326,7 +330,9 @@ class CartScreen extends StatelessWidget {
                       onPressed: _cartController.cart.isEmpty
                           ? null
                           : () {
-                              // Add your checkout logic here
+                              Get.to(() => AddressScreen(
+                                    bottomSheetBtn: true,
+                                  ));
                               print('Checkout button pressed!');
                             },
                     ),

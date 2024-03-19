@@ -178,6 +178,28 @@ class AddressController extends GetxController {
       print(e.toString());
     }
   }
+  void setDefault({required int id}) async {
+    try {
+      String url = ProductApi.setDefault(id);
+      var response = await http.put(
+        Uri.parse(url),
+        headers: {'Authorization': 'Bearer $_token'},
+      );
+      print("response -${response.statusCode}, body-  ${response.body}");
+      if (response.statusCode == 200) {
+        var jsonData = await json.decode(response.body);
+        print("json data $jsonData");
+        addressList.assignAll((jsonData['addresses'] as List<dynamic>)
+            .map((item) => AddressModel.fromMap(item))
+            .toList());
+
+        CustomSnackbar.showSnackbar(
+            title: "Address", message: jsonData['message']);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   void onClose() {
