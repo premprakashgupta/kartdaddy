@@ -13,6 +13,7 @@ import 'package:kartdaddy/screens/landing_screen.dart';
 import 'package:kartdaddy/screens/language_screen.dart';
 import 'package:kartdaddy/screens/wish_list_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../components/normal_text_widget.dart';
 import '../controllers/auth/login_controller.dart';
@@ -51,39 +52,50 @@ class ProfileScreen extends StatelessWidget {
                               crossAxisAlignment: WrapCrossAlignment.center,
                               runSpacing: 15,
                               children: [
-                                _buildCapsulBox(text: "Your Orders"),
-                                _buildCapsulBox(text: "Buy Again"),
-                                _buildCapsulBox(text: "Your Account"),
+                                _buildCapsulBox(
+                                    text: AppLocalizations.of(context)!
+                                        .your_orders),
+                                _buildCapsulBox(
+                                    text: AppLocalizations.of(context)!
+                                        .buy_again),
+                                _buildCapsulBox(
+                                    text: AppLocalizations.of(context)!
+                                        .your_account),
                                 InkWell(
                                   onTap: () {
                                     Get.to(() => WishListScreen());
                                   },
-                                  child: _buildCapsulBox(text: "Your Lists"),
+                                  child: _buildCapsulBox(
+                                      text: AppLocalizations.of(context)!
+                                          .your_lists),
                                 )
                               ],
                             ),
                           ),
                           const Gap(20),
-                          const SubHeading(
-                            text: "Your Orders",
+                          SubHeading(
+                            text: AppLocalizations.of(context)!.your_orders,
                             color: Colors.black,
                           )
                         ],
                       )),
                   ListTile(
-                    title: const NormalText(text: 'Edit Profile'),
+                    title: NormalText(
+                        text: AppLocalizations.of(context)!.edit_profile),
                     onTap: () {
                       Get.to(() => const EditProfileScreen());
                     },
                   ),
                   ListTile(
-                    title: const NormalText(text: 'Wallet'),
+                    title:
+                        NormalText(text: AppLocalizations.of(context)!.wallet),
                     onTap: () {
                       // Navigate to wallet screen
                     },
                   ),
                   ListTile(
-                    title: const NormalText(text: 'Manage Address'),
+                    title: NormalText(
+                        text: AppLocalizations.of(context)!.manage_address),
                     onTap: () {
                       Get.to(() => AddressScreen(
                             bottomSheetBtn: false,
@@ -91,25 +103,29 @@ class ProfileScreen extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const NormalText(text: 'Language'),
+                    title: NormalText(
+                        text: AppLocalizations.of(context)!.language),
                     onTap: () {
                       Get.to(() => const LanguageScreen());
                     },
                   ),
                   ListTile(
-                    title: const NormalText(text: 'Settings'),
+                    title:
+                        NormalText(text: AppLocalizations.of(context)!.setting),
                     onTap: () {
                       // Navigate to settings screen
                     },
                   ),
                   ListTile(
-                    title: const NormalText(text: 'Privacy'),
+                    title:
+                        NormalText(text: AppLocalizations.of(context)!.privacy),
                     onTap: () {
                       // Navigate to privacy settings screen
                     },
                   ),
                   ListTile(
-                    title: const NormalText(text: 'Sign Out'),
+                    title: NormalText(
+                        text: AppLocalizations.of(context)!.sign_out),
                     onTap: () {
                       _loginController.logoutUser();
                       _loginController.loading.value = true;
@@ -119,8 +135,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   TextButton(
                       onPressed: () {},
-                      child: const NormalText(
-                        text: "Terms and Conditions",
+                      child: NormalText(
+                        text: AppLocalizations.of(context)!.term_and_condition,
                       ))
                 ],
               ),

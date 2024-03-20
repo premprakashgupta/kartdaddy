@@ -13,6 +13,7 @@ import 'package:kartdaddy/screens/edit_address_screen.dart';
 import 'package:kartdaddy/screens/empty_screens/empty_screen.dart';
 import 'package:kartdaddy/screens/order_review_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddressScreen extends StatelessWidget {
   final bool bottomSheetBtn;
@@ -45,8 +46,9 @@ class AddressScreen extends StatelessWidget {
                   onPressed: () {
                     Get.to(() => OrderReviewScreen());
                   },
-                  child: const NormalText(
-                    text: "Proceed with Default Address",
+                  child: NormalText(
+                    text: AppLocalizations.of(context)!
+                        .proceed_with_defaul_address,
                   ),
                 ),
               ),

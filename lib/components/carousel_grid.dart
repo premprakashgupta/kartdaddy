@@ -9,6 +9,7 @@ import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/screens/preview_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CarouselGrid extends StatefulWidget {
   final List<String> data;
@@ -97,15 +98,12 @@ class _CarouselGridState extends State<CarouselGrid> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           NormalText(
-                            text: "${widget.percent}%",
+                            text: AppLocalizations.of(context)!
+                                .percent_discount(widget.percent.toString()),
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                           ),
-                          const NormalText(
-                            text: "off",
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          
                         ],
                       ),
                     )

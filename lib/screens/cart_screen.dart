@@ -11,6 +11,7 @@ import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/models/cart_model.dart';
 import 'package:kartdaddy/screens/address_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:kartdaddy/screens/empty_screens/empty_screen.dart';
 import 'package:kartdaddy/screens/order_review_screen.dart';
@@ -229,7 +230,11 @@ class CartScreen extends StatelessWidget {
                                                     color: CustomColors.redColor
                                                         .toColor()),
                                                 child: Text(
-                                                  "${cartItem.product.discount_type_amount}% off",
+                                                  AppLocalizations.of(context)!
+                                                      .percent_discount(cartItem
+                                                          .product
+                                                          .discount_type_amount
+                                                          .toString()),
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
@@ -275,16 +280,20 @@ class CartScreen extends StatelessWidget {
                                                 productId: cartItem.product_id);
                                             print("remove in acton");
                                           },
-                                          child: const NormalText(
-                                              text: 'Delete', size: 13),
+                                          child: NormalText(
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .delete,
+                                              size: 13),
                                         ),
                                         OutlinedButton(
                                           onPressed: () {
                                             _cartController.saveForLater(
                                                 productId: cartItem.product_id);
                                           },
-                                          child: const NormalText(
-                                            text: 'Save for Later',
+                                          child: NormalText(
+                                            text: AppLocalizations.of(context)!
+                                                .save_for_later,
                                             size: 13,
                                           ),
                                         ),
@@ -321,12 +330,14 @@ class CartScreen extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: NormalText(
-                        text: "\$ ${_cartController.total.toString()}"),
+                        size: 20,
+                        text: AppLocalizations.of(context)!
+                            .rupee(_cartController.total.toString())),
                   ),
                   Expanded(
                     flex: 3,
                     child: CustomButton(
-                      child: const Text('Checkout'),
+                      child: Text(AppLocalizations.of(context)!.checkout),
                       onPressed: _cartController.cart.isEmpty
                           ? null
                           : () {

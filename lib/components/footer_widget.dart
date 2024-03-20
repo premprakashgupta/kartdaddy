@@ -23,7 +23,12 @@ class FooterWidget extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(left: 20),
           alignment: Alignment.centerLeft,
-          child: SvgPicture.network(
+          child: _websiteInfoController.websiteInfo.value == null
+              ? Image.asset(
+                  'assets/kartdaddy-logo.png',
+                  height: 40,
+                )
+              : SvgPicture.network(
               key: Key("webiste footer logo"),
               "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
               semanticsLabel: 'webiste footer logo'),
@@ -48,7 +53,10 @@ class FooterWidget extends StatelessWidget {
                   ),
                   NormalText(
                     text: _websiteInfoController
-                        .websiteInfo.value!.alternetMobile,
+                            .websiteInfo.value == null
+                        ? ""
+                        : _websiteInfoController
+                            .websiteInfo.value!.alternetMobile,
                     size: 18,
                   )
                 ],

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/screens/payment_method_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderReviewScreen extends StatelessWidget {
   const OrderReviewScreen({Key? key});
@@ -92,7 +93,7 @@ class OrderReviewScreen extends StatelessWidget {
               onPressed: () {
                 Get.to(() => PaymentMethodScreen());
               },
-              child: Text('Proceed'),
+              child: Text(AppLocalizations.of(context)!.proceed),
             ),
           ],
         ),

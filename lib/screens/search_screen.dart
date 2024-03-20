@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/models/master_category_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../controllers/search_controller.dart';
 
@@ -34,8 +35,8 @@ class SearchScreen extends StatelessWidget {
                     onChanged: (value) {
                       _searchScreenController.query.value = value;
                     },
-                    decoration: const InputDecoration(
-                      hintText: 'Search...',
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.search,
                     ),
                   ),
                 ),

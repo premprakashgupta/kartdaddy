@@ -48,7 +48,12 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Obx(() => _websiteInfoController.loading.value == true
                 ? CustomCircularProgress()
-                  : SvgPicture.network(
+                  : _websiteInfoController.websiteInfo.value == null
+                      ? Image.asset(
+                          'assets/kartdaddy-logo.png',
+                          height: 40,
+                        )
+                      : SvgPicture.network(
                       width: 110,
                       key: Key("webiste header logo"),
                       "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
@@ -96,7 +101,8 @@ class HomeScreen extends StatelessWidget {
               )
             : Column(
                 children: [
-                  CarouselSlider(
+                  _homeController.bannerData.isNotEmpty
+                      ? CarouselSlider(
                     options: CarouselOptions(
                       height: 300.0,
                       autoPlay: true,
@@ -151,7 +157,8 @@ class HomeScreen extends StatelessWidget {
                         },
                       );
                     }).toList(),
-                  ),
+                        )
+                      : SizedBox(),
                   Container(
                     margin: const EdgeInsets.all(8),
                     width: double.infinity,

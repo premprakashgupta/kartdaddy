@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/screens/thank_you_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class PaymentMethodScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class PaymentMethodScreen extends StatelessWidget {
                 // Add your navigation logic here
               },
               leading: CustomIcons.creditCard(),
-              title: Text('Pay Online'),
+              title: Text(AppLocalizations.of(context)!.pay_online),
               trailing: CustomIcons.chevronRight(),
             ),
             ListTile(
@@ -28,7 +28,7 @@ class PaymentMethodScreen extends StatelessWidget {
                 Get.off(() => ThankYouScreen());
               },
               leading: CustomIcons.rupee(),
-              title: Text('Cash on Delivery'),
+              title: Text(AppLocalizations.of(context)!.cash_on_delivery),
               trailing: CustomIcons.chevronRight(),
             ),
           ],

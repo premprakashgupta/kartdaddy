@@ -50,7 +50,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 print("cart click");
                 Get.to(() => CartScreen());
               },
-              child: const NormalText(text: "Go to Kart"),
+              child: NormalText(text: AppLocalizations.of(context)!.go_to_cart),
             )),
         body: Obx(
           () => _productDetailsController.loading.value == true
@@ -160,8 +160,12 @@ class ProductDetailsScreen extends StatelessWidget {
                                               .productDetail.value!.product.id,
                                     ) ==
                                     true
-                                ? const NormalText(text: 'Added to Wishlist')
-                                : const NormalText(text: 'Add to Wishlist'),
+                                ? NormalText(
+                                    text: AppLocalizations.of(context)!
+                                        .added_to_wishlist)
+                                : NormalText(
+                                    text: AppLocalizations.of(context)!
+                                        .add_to_wishlist),
                           ),
                           TextButton(
                             onPressed: () {
@@ -171,7 +175,9 @@ class ProductDetailsScreen extends StatelessWidget {
                               children: [
                                 CustomIcons.compare(size: 20),
                                 const Gap(5),
-                                const NormalText(text: 'Compare'),
+                                NormalText(
+                                    text:
+                                        AppLocalizations.of(context)!.compare),
                               ],
                             ),
                           ),
@@ -181,8 +187,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const SubHeading(
-                            text: "Color",
+                          SubHeading(
+                            text: AppLocalizations.of(context)!.color,
                             color: Colors.black,
                           ),
                           Row(
@@ -211,8 +217,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const SubHeading(
-                            text: "Delivery",
+                          SubHeading(
+                            text: AppLocalizations.of(context)!.delivery,
                             color: Colors.black,
                           ),
                           Column(
@@ -257,8 +263,8 @@ class ProductDetailsScreen extends StatelessWidget {
                         ],
                       ),
                       const Gap(32),
-                      const SubHeading(
-                        text: 'Product Description',
+                      SubHeading(
+                        text: AppLocalizations.of(context)!.product_description,
                         color: Colors.black,
                       ),
                       const Gap(10),
@@ -271,8 +277,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
 
                       const Gap(32),
-                      const SubHeading(
-                        text: 'Available Offers',
+                      SubHeading(
+                        text: AppLocalizations.of(context)!.available_offers,
                         color: Colors.black,
                       ),
                       const Gap(8),
@@ -320,7 +326,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           const Gap(8),
                           Row(
                             children: [
-                              const NormalText(text: 'Quantity: '),
+                              NormalText(
+                                  text: AppLocalizations.of(context)!.quantity),
                               IconButton(
                                 onPressed: _cartController.cart.any((element) =>
                                         element.product_id ==
@@ -385,7 +392,8 @@ class ProductDetailsScreen extends StatelessWidget {
 
                           _cartController.addToCart(cartitem: cartData);
                         },
-                        child: const NormalText(text: 'Add to Cart'),
+                        child: NormalText(
+                            text: AppLocalizations.of(context)!.add_to_cart),
                       ),
                       const Gap(16),
                       DefaultTabController(
