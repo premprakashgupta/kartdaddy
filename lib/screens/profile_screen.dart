@@ -12,6 +12,7 @@ import 'package:kartdaddy/screens/edit_profile_screen.dart';
 import 'package:kartdaddy/screens/landing_screen.dart';
 import 'package:kartdaddy/screens/language_screen.dart';
 import 'package:kartdaddy/screens/wish_list_screen.dart';
+import 'package:kartdaddy/screens/your_orders_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -52,9 +53,14 @@ class ProfileScreen extends StatelessWidget {
                               crossAxisAlignment: WrapCrossAlignment.center,
                               runSpacing: 15,
                               children: [
-                                _buildCapsulBox(
-                                    text: AppLocalizations.of(context)!
-                                        .your_orders),
+                                InkWell(
+                                  onTap: () {
+                                    Get.to(() => YourOrdersScreen());
+                                  },
+                                  child: _buildCapsulBox(
+                                      text: AppLocalizations.of(context)!
+                                          .your_orders),
+                                ),
                                 _buildCapsulBox(
                                     text: AppLocalizations.of(context)!
                                         .buy_again),
@@ -98,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                         text: AppLocalizations.of(context)!.manage_address),
                     onTap: () {
                       Get.to(() => AddressScreen(
-                            bottomSheetBtn: false,
+                            throughOrder: false,
                           ));
                     },
                   ),

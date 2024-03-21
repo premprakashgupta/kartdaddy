@@ -27,7 +27,7 @@ class ShopApiController extends GetxController {
     try {
       String url = GeneralApis.shopApi(subCategorySlug: slug);
       var response = await http.get(Uri.parse(url));
-      print(response.body);
+      
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
         shop.assignAll((jsonData['responseData'] as List<dynamic>)

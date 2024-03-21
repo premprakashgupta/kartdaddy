@@ -28,7 +28,7 @@ class WebsiteInfoController extends GetxController {
           websiteInfo.value = WebsiteInfoModel.fromJson(jsonData['data']);
         }
       }
-      print(response.body);
+      
       loading.value = false;
     } catch (e) {
       print(e);
@@ -46,7 +46,7 @@ class WebsiteInfoController extends GetxController {
           categoryList.assignAll(jsonData['data']);
         }
       }
-      print(response.body);
+     
       loading.value = false;
     } catch (e) {
       print(e);

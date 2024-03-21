@@ -42,10 +42,10 @@ class LoginController extends GetxController {
         var jsonData = json.decode(response.body) as Map<String, dynamic>;
 
         var token = jsonData['token'];
-        print("login controller --- ${jsonData['user']}");
+        
 
         _user.value = UserModel.fromMap(jsonData['user']);
-        print("login controller --- ${_user.value}");
+       
 
         box.write('token', token);
         // box.write('user', jsonData['user']);

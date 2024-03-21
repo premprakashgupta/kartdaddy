@@ -32,7 +32,7 @@ class WishListController extends GetxController {
       });
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(response.body);
+        
         wishlists.assignAll((jsonData['products'] as List<dynamic>)
             .map((product) => ProductModel.fromMap(product)));
         loading.value = false;
@@ -55,7 +55,7 @@ class WishListController extends GetxController {
       });
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(response.body);
+        
         // updating wishlist is remaining
         if (wishlists.any((element) => element.id == product.id)) {
           wishlists.removeWhere((element) => element.id == product.id);
@@ -84,7 +84,7 @@ class WishListController extends GetxController {
       });
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(response.body);
+        
         // updating wishlist is remaining
         if (wishlists.any((element) => element.id == product.id)) {
           wishlists.remove(product);
@@ -104,7 +104,7 @@ class WishListController extends GetxController {
 
   void moveToCart({required int product_id}) async {
     try {
-      print(product_id);
+      
       String url = ProductApi.moveToCart;
       var response = await http.post(Uri.parse(url), headers: {
         "Authorization": "Bearer $token",
@@ -112,10 +112,10 @@ class WishListController extends GetxController {
         'product_id': product_id.toString(),
         "quantity": "1"
       });
-      print(response.statusCode);
+      
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(response.body);
+        
 
         wishlists.removeWhere((element) => element.id == product_id);
         _cartController.cart.assignAll((jsonData['cart_items'] as List<dynamic>)

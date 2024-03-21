@@ -44,11 +44,11 @@ class RegisterController extends GetxController {
         var jsonData = json.decode(response.body) as Map<String, dynamic>;
 
         var token = jsonData['token'];
-        print("register controller --- $jsonData");
+       
 
         _loginController.setUser =
             UserModel.fromMap(jsonData['verificationInfo']);
-        print("register controller-2 --- ${_loginController.user}");
+       
 
         box.write('token', token);
         box.write(

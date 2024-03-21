@@ -13,6 +13,7 @@ import 'package:kartdaddy/utility/color_converter.dart';
 import 'screens/landing_screen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
 
   // Initialize GetStorage

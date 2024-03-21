@@ -104,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                   _homeController.bannerData.isNotEmpty
                       ? CarouselSlider(
                     options: CarouselOptions(
-                      height: 300.0,
+                            height: Get.size.height * .25,
                       autoPlay: true,
                       viewportFraction: 1,
                     ),
@@ -121,36 +121,48 @@ class HomeScreen extends StatelessWidget {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      child: Stack(
+                                  
                                   children: [
+                                    
+                                          CachedNetworkImage(
+                                            height: Get.size.height * .25,
+                                            fit: BoxFit.cover,
+                                            imageUrl:
+                                                "https://kartdaddy.in/marketing/banner/${bannerData.first_image}",
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
+                                                CustomCircularProgress(
+                                                    value: downloadProgress
+                                                        .progress),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    const Icon(Icons.error),
+                                          ),
+                                          Positioned(
+                                            top: 20,
+                                            left: 20,
+                                            child: 
                                     Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                       children: [
                                         NormalText(
+                                                  color: Colors.white,
                                           text: bannerData.banner_title,
                                           size: Get.size.width * .08,
                                         ),
                                         Heading(
+                                                    color: Colors.white,
                                             size: Get.size.width * .03,
                                             maxLines: 2,
                                             text:
                                                 bannerData.banner_description),
                                       ],
                                     ),
-                                    CachedNetworkImage(
-                                      height: Get.size.height * .25,
-                                      imageUrl:
-                                          "https://kartdaddy.in/marketing/banner/${bannerData.first_image}",
-                                      progressIndicatorBuilder: (context, url,
-                                              downloadProgress) =>
-                                          CustomCircularProgress(
-                                              value: downloadProgress.progress),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
-                                    ),
+                                          )
                                   ],
                                 ),
                               ));

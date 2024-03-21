@@ -34,10 +34,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_cashfree_pg_sdk: ^2.1.1+31
   flutter_localizations:
     sdk: flutter
-  
   flutter_otp_text_field: ^1.1.1
+  flutter_rating_bar: ^4.0.1
   flutter_svg: ^2.0.10+1
   flutter_widget_from_html: ^0.14.11
   gap: ^3.0.1
@@ -47,12 +48,13 @@ dependencies:
   http: ^1.2.1
   image_picker: ^1.0.7
   intl: ^0.18.1
+  order_tracker: ^0.0.2
   shimmer: ^3.0.0
 dev_dependencies:
   build_runner: ^2.1.0
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^3.0.1
   flutter_native_splash: ^2.3.13
-  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
@@ -101,8 +103,8 @@ flutter_native_splash:
   android: true
   ios: true
   android_12:
-     color: "#ffffff"
-     image: assets/kartdaddy-logo.png
+    color: "#ffffff"
+    image: assets/kartdaddy-logo.png
 
 flutter_launcher_icons:
   android: "launcher_icon"

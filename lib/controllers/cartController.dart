@@ -42,7 +42,7 @@ class CartController extends GetxController {
           .get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(jsonData);
+      
 
         if (jsonData.containsKey('cart_items')) {
           cart.assignAll((jsonData['cart_items'] as List<dynamic>)
@@ -62,19 +62,19 @@ class CartController extends GetxController {
 
   void addToCart({required CartModel cartitem}) async {
     try {
-      print(cartitem);
+     
       String url = ProductApi.addToCart;
-      print(url);
+      
       var response = await http.post(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token'
       }, body: {
         'product_id': cartitem.product_id.toString(),
         'quantity': cartitem.quantity
       });
-      print(response.statusCode);
+     
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(jsonData);
+       
         cart.add(cartitem);
         if (jsonData.containsKey('total_cart_price')) {
           total.value = jsonData['total_cart_price'];
@@ -95,13 +95,13 @@ class CartController extends GetxController {
       var response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
           body: {'product_id': productId});
-      print(response.body);
-      print(response.statusCode);
+     
+      
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(cart.length);
+        
         cart.removeWhere((item) => item.product_id == productId);
-        print(cart.length);
+       
         if (jsonData.containsKey('total_cart_price')) {
           total.value = jsonData['total_cart_price'];
         }
@@ -173,17 +173,17 @@ class CartController extends GetxController {
 
   void saveForLater({required String productId}) async {
     try {
-      print(productId);
+     
       String url = ProductApi.saveForLater;
       var response = await http.post(Uri.parse(url), headers: {
         "Authorization": "Bearer $_token",
       }, body: {
         'productId': productId.toString(),
       });
-      print(response.statusCode);
+      
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(response.body);
+        
 
         cart.removeWhere((element) => element.product_id == productId);
         WishListController wishListController = Get.find<WishListController>();

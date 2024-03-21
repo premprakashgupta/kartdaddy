@@ -103,7 +103,7 @@ class SearchScreenController extends GetxController {
         // selecting default value
         selectedDropDown.value = masterCategories.first;
       }
-      print(response.body);
+      
       loadingMasterCat.value = false;
     } catch (e) {
       print(e);
@@ -115,9 +115,9 @@ class SearchScreenController extends GetxController {
       String url = SearchApi.searchProductWithCategory(
           masterCategorySlug: selectedDropDown.value!.slug,
           productName: searchController.text);
-      print(url);
+     
       var response = await http.get(Uri.parse(url));
-      print(response.body);
+     
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
         searchedProduct.assignAll((jsonData['responseData'] as List<dynamic>)

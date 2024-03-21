@@ -148,4 +148,11 @@ class CustomIcons {
       size: size,
     );
   }
+  static Icon invoice({double size = 20.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.list_alt,
+      color: color,
+      size: size,
+    );
+  }
 }

@@ -342,7 +342,7 @@ class CartScreen extends StatelessWidget {
                           ? null
                           : () {
                               Get.to(() => AddressScreen(
-                                    bottomSheetBtn: true,
+                                    throughOrder: true,
                                   ));
                               print('Checkout button pressed!');
                             },

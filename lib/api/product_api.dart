@@ -23,4 +23,9 @@ class ProductApi {
       "${BaseUrl.baseUrl}/api/address/set-default/$addressId";
   static String shop(String subCategorySlug) =>
       "${BaseUrl.baseUrl}/api/shop?category=$subCategorySlug";
+    
+  static String yourOrders = "${BaseUrl.baseUrl}/api/order/your-orders";
+  static String orderPlaced = "${BaseUrl.baseUrl}/api/order/place";
+  static String orderDetail(String orderId) =>
+      "${BaseUrl.baseUrl}/api/order/details/$orderId";
 }

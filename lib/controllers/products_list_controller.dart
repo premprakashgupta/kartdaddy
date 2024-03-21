@@ -14,7 +14,7 @@ class ProductsListController extends GetxController {
   @override
   onInit() {
     super.onInit();
-    print(slug);
+   
     fetchData(slug: slug);
   }
 
@@ -22,11 +22,11 @@ class ProductsListController extends GetxController {
     try {
       final uri = Uri.parse('https://kartdaddy.in/api/section/$slug');
       var response = await http.get(uri);
-      print(response.statusCode);
+    
 
       if (response.statusCode == 200) {
         var data = json.decode(response.body) as Map<String, dynamic>;
-        print("hii");
+       
 
         // Check if 'products' key exists in the data
         if (data.containsKey('products')) {
@@ -41,7 +41,7 @@ class ProductsListController extends GetxController {
           // Update the observable data
           products.assignAll(localProducts);
           loading.value = false;
-          print(data['products']['data']);
+         
         }
       }
     } catch (e) {

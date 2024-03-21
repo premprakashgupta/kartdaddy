@@ -6,7 +6,8 @@ import 'package:kartdaddy/screens/payment_method_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderReviewScreen extends StatelessWidget {
-  const OrderReviewScreen({Key? key});
+  final int addressId;
+  const OrderReviewScreen({Key? key, required this.addressId});
 
   @override
   Widget build(BuildContext context) {

@@ -81,7 +81,7 @@ class AddressController extends GetxController {
           .get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(jsonData['addresses']);
+        
         addressList.assignAll((jsonData['addresses'] as List<dynamic>)
             .map((item) => AddressModel.fromMap(item))
             .toList());
@@ -98,15 +98,15 @@ class AddressController extends GetxController {
         addressData[controllerData['field']] =
             controllerData['controller'].text;
       }
-      print("57 line $addressData");
+     
 
       String url = ProductApi.addAddress;
       var response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'}, body: addressData);
-      print("response -${response.statusCode}, body-  ${response.body}");
+     
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body);
-        print("json data $jsonData");
+        
         addressList.add(AddressModel.fromMap(jsonData['address']));
         inputControllers.forEach((controllerData) {
           TextEditingController controller = controllerData['controller'];
@@ -137,15 +137,15 @@ class AddressController extends GetxController {
         newAddressData[controllerData['field']] =
             controllerData['controller'].text;
       }
-      print("57 line $newAddressData");
+      
 
       String url = ProductApi.updateAddress(id);
       var response = await http.put(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'}, body: newAddressData);
-      print("response -${response.statusCode}, body-  ${response.body}");
+      
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body);
-        print("json data $jsonData");
+        
 
         int index = addressList.indexWhere((element) => element.id == id);
         addressList[index] = AddressModel.fromMap(jsonData['address']);
@@ -165,10 +165,10 @@ class AddressController extends GetxController {
         Uri.parse(url),
         headers: {'Authorization': 'Bearer $_token'},
       );
-      print("response -${response.statusCode}, body-  ${response.body}");
+      
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body);
-        print("json data $jsonData");
+       
         addressList.removeWhere((element) => element.id == id);
 
         CustomSnackbar.showSnackbar(
@@ -185,10 +185,10 @@ class AddressController extends GetxController {
         Uri.parse(url),
         headers: {'Authorization': 'Bearer $_token'},
       );
-      print("response -${response.statusCode}, body-  ${response.body}");
+     
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body);
-        print("json data $jsonData");
+       
         addressList.assignAll((jsonData['addresses'] as List<dynamic>)
             .map((item) => AddressModel.fromMap(item))
             .toList());

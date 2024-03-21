@@ -16,8 +16,8 @@ import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddressScreen extends StatelessWidget {
-  final bool bottomSheetBtn;
-  AddressScreen({super.key, required this.bottomSheetBtn});
+  final bool throughOrder;
+  AddressScreen({super.key, required this.throughOrder});
 
   final AddressController _addressController = Get.put(AddressController());
   @override
@@ -26,34 +26,7 @@ class AddressScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Address Screen'),
       ),
-      bottomNavigationBar: bottomSheetBtn == true
-          ? Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.greyColor.toColor(),
-                    offset: const Offset(-2, -2),
-                    blurRadius: 5,
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
-                child: CustomButton(
-                  onPressed: () {
-                    Get.to(() => OrderReviewScreen());
-                  },
-                  child: NormalText(
-                    text: AppLocalizations.of(context)!
-                        .proceed_with_defaul_address,
-                  ),
-                ),
-              ),
-            )
-          : null,
+      
       body: Obx(() => _addressController.addressList.isEmpty
           ? EmptyScreen(title: "Add Address Here")
           : Column(
@@ -66,8 +39,8 @@ class AddressScreen extends StatelessWidget {
                   child: BoxBorderContainer(
                       margin: EdgeInsets.all(8),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("Add New Address"),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: SubHeading(text: "Add New Address"),
                       )),
                 ),
                 Expanded(
@@ -95,6 +68,9 @@ class AddressScreen extends StatelessWidget {
                                             "${address.first_name} ${address.last_name}",
                                         color: Colors.black,
                                       ),
+                                      throughOrder == true
+                                          ? SizedBox()
+                                          :
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
@@ -167,7 +143,46 @@ class AddressScreen extends StatelessWidget {
                                         ],
                                       )
                                     ],
-                                  )
+                                  ),
+                                  throughOrder == true
+                                      ? Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0, vertical: 10),
+                                            child: address.is_default == 1
+                                                ? CustomButton(
+                                                    size: Size.fromWidth(
+                                                        Get.size.width * .8),
+                                                    onPressed: () {
+                                                      Get.to(() =>
+                                                          OrderReviewScreen(
+                                                              addressId:
+                                                                  address.id));
+                                                    },
+                                                    child: NormalText(
+                                                      text: AppLocalizations.of(
+                                                              context)!
+                                                          .proceed_with_defaul_address,
+                                                    ),
+                                                  )
+                                                : OutlinedButton(
+                                                    onPressed: () {
+                                                      Get.to(() =>
+                                                          OrderReviewScreen(
+                                                              addressId:
+                                                                  address.id));
+                                                    },
+                                                    style: OutlinedButton
+                                                        .styleFrom(
+                                                      fixedSize: Size.fromWidth(
+                                                          Get.size.width * .8),
+                                                    ),
+                                                    child: NormalText(
+                                                        text:
+                                                            "Choose this address")),
+                                          ),
+                                        )
+                                      : SizedBox(),
                                 ],
                               ),
                             ),

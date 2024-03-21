@@ -35,7 +35,7 @@ class LandingController extends GetxController {
           "Authorization": "Bearer $_token",
         },
       );
-      print("response data from landing controller ${response.body}");
+     
       if (response.statusCode == 200) {
         var data = json.decode(response.body) as Map<String, dynamic>;
 
