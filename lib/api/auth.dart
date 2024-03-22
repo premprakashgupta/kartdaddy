@@ -19,4 +19,11 @@ class AuthApi {
 
   static String resetPassword({required String token}) =>
       "${BaseUrl.baseUrl}/api/change-password/${token}";
+
+  static String editEmail = "${BaseUrl.baseUrl}/api/user/email/edit";
+  static String updateEmail = "${BaseUrl.baseUrl}/api/user/email/update";
+  static String editMobile = "${BaseUrl.baseUrl}/api/user/mobile/edit";
+  static String updateMobile = "${BaseUrl.baseUrl}/api/user/mobile/update";
+  static String editName = "${BaseUrl.baseUrl}/api/user/name/edit";
+  static String updateName = "${BaseUrl.baseUrl}/api/user/name/update";
 }

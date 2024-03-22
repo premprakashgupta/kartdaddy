@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kartdaddy/api/product_api.dart';
+import 'package:kartdaddy/models/order_review_model.dart';
 import 'package:http/http.dart' as http;
 
 class OrderReviewController extends GetxController {
   var box = GetStorage();
-  final orderReviewData = {}.obs;
-  var _token = '';
+  final Rx<OrderReviewModel?> reviewOrderData = Rx<OrderReviewModel?>(null);
+  final loading = true.obs;
+  String _token = '';
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -19,13 +22,15 @@ class OrderReviewController extends GetxController {
 
   void fetchData() async {
     try {
-      String url = ProductApi.yourOrders;
-      var response = await http
-          .get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
+      String url = ProductApi.orderReview;
+      var response = await http.get(
+        Uri.parse(url),
+        headers: {'Authorization': 'Bearer $_token'},
+      );
+
       if (response.statusCode == 200) {
-        print(response.body);
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        orderReviewData.value = jsonData['orders'];
+        reviewOrderData.value = OrderReviewModel.fromMap(jsonData);
       }
     } catch (e) {
       print(e);

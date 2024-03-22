@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/your_orders_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
+import 'package:kartdaddy/models/your_orders_model.dart';
 import 'package:kartdaddy/screens/order_details_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 
@@ -21,57 +23,63 @@ class YourOrdersScreen extends StatelessWidget {
       appBar: AppBar(
         title: Heading(text: "Your Orders"),
       ),
-      body: ListView.builder(
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ListTile(
-                  onTap: () {
-                    Get.to(() => OrderDetailsScreen(
-                          orderId: '17109920581',
-                        ));
-                  },
-                  leading: Image.asset("assets/kartdaddy-logo.png"),
-                  title: NormalText(
-                    text: "Delivered on Mar 08",
+      body: Obx(() {
+        if (_yourOrdersController.loading.value == true) {
+          return CustomCircularProgress();
+        }
+        return ListView.builder(
+            itemCount: _yourOrdersController.orderList.length,
+            itemBuilder: (context, index) {
+              YourOrdersModel data = _yourOrdersController.orderList[index];
+              return Column(
+                children: [
+                  ListTile(
+                    onTap: () {
+                      Get.to(() => OrderDetailsScreen(
+                            orderId: data.order_id,
+                          ));
+                    },
+                    leading: Image.asset("assets/kartdaddy-logo.png"),
+                    title: NormalText(
+                      text: data.status,
+                    ),
+                    subtitle: NormalText(
+                      text: data.product_name,
+                    ),
+                    trailing: CustomIcons.chevronRight(),
                   ),
-                  subtitle: NormalText(
-                    text: "Well Set...",
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.all(8),
+                    color: CustomColors.greyColor.toColor(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        NormalText(text: "Rate & Review"),
+                        RatingBar.builder(
+                          initialRating: 3,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemSize: 23,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
+                        )
+                      ],
+                    ),
                   ),
-                  trailing: CustomIcons.chevronRight(),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  padding: EdgeInsets.all(8),
-                  color: CustomColors.greyColor.toColor(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      NormalText(text: "Rate & Review"),
-                      RatingBar.builder(
-                        initialRating: 3,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemSize: 23,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                Divider()
-              ],
-            );
-          }),
+                  Divider()
+                ],
+              );
+            });
+      }),
     );
   }
 }

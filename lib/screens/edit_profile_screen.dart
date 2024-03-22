@@ -1,39 +1,24 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kartdaddy/components/custom_button.dart';
+import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
+import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/auth/login_controller.dart';
+import 'package:kartdaddy/controllers/edit_profile_controller.dart';
+import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/utility/color_converter.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+class EditProfileScreen extends StatelessWidget {
+  EditProfileScreen({super.key});
 
-  @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
-}
-
-class _EditProfileScreenState extends State<EditProfileScreen> {
-  final LoginController _loginController = Get.find();
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _mobileController = TextEditingController();
-  final _profileData = {
-    'username': 'John Doe',
-    'email': 'johndoe@email.com',
-    'profilePicture': 'https://kartdaddy.in/assets/img/400X400/img1.png',
-  };
-  
-
-  @override
-  void initState() {
-    super.initState();
-    // Load pre-filled data from _profileData
-    _usernameController.text = _loginController.user!.name ?? '';
-    _emailController.text = _loginController.user!.email ?? '';
-    _mobileController.text = _loginController.user!.mobile ?? '';
-  }
+  final EditProfileController _editProfileController =
+      Get.put(EditProfileController());
+  final LoginController loginController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -43,42 +28,117 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            
-            // Text fields for other profile information
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Username'),
-            ),
-            const Gap( 16),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            const Gap( 16),
-            TextField(
-              controller: _mobileController,
-              decoration: const InputDecoration(labelText: 'Mobile'),
-              readOnly: true,
-            ),
-            const Gap( 36),
-            // Update profile button
-            CustomButton(
-              onPressed: () {
-                // Handle the profile update logic here
-
-                // Show a success snackbar
-                Get.snackbar(
-                  'Profile Updated',
-                  'Your profile has been updated successfully!',
-                );
-              },
-              child: const NormalText(text:'Update Profile'),
-            ),
-          ],
-        ),
+        child: Obx(() {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Text fields for other profile information
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _editProfileController.nameController,
+                      readOnly: _editProfileController.isNotNameEditable.value,
+                      focusNode: _editProfileController.nameFocusNode,
+                      decoration: const InputDecoration(labelText: 'Name'),
+                    ),
+                  ),
+                  _editProfileController.isNotNameEditable.value == false
+                      ? TextButton(
+                          onPressed: () {
+                            _editProfileController.editName();
+                          },
+                          child: SubHeading(
+                            text: "Verify",
+                            color: CustomColors.blueColor.toColor(),
+                          ),
+                        )
+                      : TextButton(
+                          onPressed: () {
+                            _editProfileController.isNotNameEditable.value =
+                                false;
+                            _editProfileController.nameFocusNode.requestFocus();
+                          },
+                          child: SubHeading(
+                            text: "Edit",
+                            color: CustomColors.blueColor.toColor(),
+                          ))
+                ],
+              ),
+              const Gap(16),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _editProfileController.emailController,
+                      readOnly: _editProfileController.isNotEmailEditable.value,
+                      keyboardType: TextInputType.emailAddress,
+                      focusNode: _editProfileController.emailFocusNode,
+                      decoration: const InputDecoration(labelText: 'Email'),
+                    ),
+                  ),
+                  _editProfileController.isNotEmailEditable.value == false
+                      ? TextButton(
+                          onPressed: () {
+                            _editProfileController.editEmail();
+                          },
+                          child: SubHeading(
+                            text: "Verify",
+                            color: CustomColors.blueColor.toColor(),
+                          ),
+                        )
+                      : TextButton(
+                          onPressed: () {
+                            _editProfileController.isNotEmailEditable.value =
+                                false;
+                            _editProfileController.emailFocusNode
+                                .requestFocus();
+                          },
+                          child: SubHeading(
+                            text: "Edit",
+                            color: CustomColors.blueColor.toColor(),
+                          ))
+                ],
+              ),
+              const Gap(16),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _editProfileController.mobileController,
+                      readOnly:
+                          _editProfileController.isNotMobileEditable.value,
+                      keyboardType: TextInputType.number,
+                      focusNode: _editProfileController.mobileFocusNode,
+                      decoration: const InputDecoration(labelText: 'Mobile'),
+                    ),
+                  ),
+                  _editProfileController.isNotMobileEditable.value == false
+                      ? TextButton(
+                          onPressed: () {
+                            _editProfileController.editMobile();
+                          },
+                          child: SubHeading(
+                            text: "Verify",
+                            color: CustomColors.blueColor.toColor(),
+                          ),
+                        )
+                      : TextButton(
+                          onPressed: () {
+                            _editProfileController.isNotMobileEditable.value =
+                                false;
+                            _editProfileController.mobileFocusNode
+                                .requestFocus();
+                          },
+                          child: SubHeading(
+                            text: "Edit",
+                            color: CustomColors.blueColor.toColor(),
+                          ))
+                ],
+              ),
+            ],
+          );
+        }),
       ),
     );
   }

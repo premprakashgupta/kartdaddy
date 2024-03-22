@@ -29,6 +29,9 @@ class SearchScreenController extends GetxController {
   final loading = false.obs;
   final searchProductLoading = true.obs;
   final loadingMasterCat = true.obs;
+  final page = 1.obs;
+  final count = 0.obs;
+
   final RxList<String> filteredProducts = <String>[].obs;
   final masterCategories = <MasterCategoryModel>[];
   Rx<MasterCategoryModel?> selectedDropDown = Rx<MasterCategoryModel?>(null);
@@ -103,7 +106,7 @@ class SearchScreenController extends GetxController {
         // selecting default value
         selectedDropDown.value = masterCategories.first;
       }
-      
+
       loadingMasterCat.value = false;
     } catch (e) {
       print(e);
@@ -112,17 +115,21 @@ class SearchScreenController extends GetxController {
 
   void searchProductWithCategory() async {
     try {
+      searchProductLoading.value = true;
       String url = SearchApi.searchProductWithCategory(
           masterCategorySlug: selectedDropDown.value!.slug,
-          productName: searchController.text);
-     
+          productName: searchController.text,
+          page: page.toString());
+
       var response = await http.get(Uri.parse(url));
-     
+      
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
         searchedProduct.assignAll((jsonData['responseData'] as List<dynamic>)
             .map((e) => ShopApiModel.fromJson(e))
             .toList());
+        count.value = jsonData['count'];
+        
       }
       searchProductLoading.value = false;
       Get.to(() => SearchResultScreen());

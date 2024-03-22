@@ -24,6 +24,20 @@ class LoginController extends GetxController {
 
   UserModel? get user => _user.value;
   set setUser(UserModel? value) => _user.value = value;
+  void setName(String? value) {
+    _user.value = _user.value!.copyWith(name: value);
+    update();
+  }
+
+  void setEmail(String? value) {
+    _user.value = _user.value!.copyWith(email: value);
+    update();
+  }
+
+  void setMobile(String? value) {
+    _user.value = _user.value!.copyWith(mobile: value);
+    update();
+  }
 
   void visibilityOfPassword() {
     isVisible.value = !isVisible.value;
@@ -42,10 +56,8 @@ class LoginController extends GetxController {
         var jsonData = json.decode(response.body) as Map<String, dynamic>;
 
         var token = jsonData['token'];
-        
 
         _user.value = UserModel.fromMap(jsonData['user']);
-       
 
         box.write('token', token);
         // box.write('user', jsonData['user']);

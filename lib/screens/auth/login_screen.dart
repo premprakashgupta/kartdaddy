@@ -54,16 +54,24 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Gap(20),
-                  // Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: Obx(() => _websiteInfoController.loading.value ==
-                  //           true
-                  //       ? CustomCircularProgress()
-                  //       : SvgPicture.network(
-                  //           key: Key("login page header logo"),
-                  //           "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
-                  //           semanticsLabel: 'login page header logo')),
-                  // ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child:
+                        Obx(() => _websiteInfoController.loading.value == true
+                            ? CustomCircularProgress()
+                            : CachedNetworkImage(
+                                width: 110,
+                                imageUrl:
+                                    "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) => Center(
+                                  child: CustomCircularProgress(
+                                      value: downloadProgress.progress),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                              )),
+                  ),
                   const Gap(40),
                   NormalText(
                     text: AppLocalizations.of(context)!.welcome_back,

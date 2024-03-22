@@ -89,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
                     title: NormalText(
                         text: AppLocalizations.of(context)!.edit_profile),
                     onTap: () {
-                      Get.to(() => const EditProfileScreen());
+                      Get.to(() => EditProfileScreen());
                     },
                   ),
                   ListTile(

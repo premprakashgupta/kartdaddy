@@ -49,15 +49,23 @@ class HomeScreen extends StatelessWidget {
             child: Obx(() => _websiteInfoController.loading.value == true
                 ? CustomCircularProgress()
                   : _websiteInfoController.websiteInfo.value == null
-                      ? Image.asset(
-                          'assets/kartdaddy-logo.png',
-                          height: 40,
-                        )
-                      : SvgPicture.network(
+                      ? Image.asset("assets/kartdaddy-logo.png")
+                      : CachedNetworkImage(
                       width: 110,
-                      key: Key("webiste header logo"),
-                      "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
-                    ),
+                          imageUrl:
+                              "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) => Center(
+                            child: CustomCircularProgress(
+                                value: downloadProgress.progress),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
+                      
+                      
+                      
+                       
             ),
           ),
           actions: [
@@ -140,27 +148,40 @@ class HomeScreen extends StatelessWidget {
                                                     const Icon(Icons.error),
                                           ),
                                           Positioned(
-                                            top: 20,
-                                            left: 20,
+                                            top: 0,
+                                            left: 0,
                                             child: 
-                                    Column(
-                                      mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                      children: [
-                                        NormalText(
-                                                  color: Colors.white,
-                                          text: bannerData.banner_title,
-                                          size: Get.size.width * .08,
-                                        ),
-                                        Heading(
-                                                    color: Colors.white,
-                                            size: Get.size.width * .03,
-                                            maxLines: 2,
-                                            text:
-                                                bannerData.banner_description),
-                                      ],
+                                    Container(
+                                              width: Get.size.width,
+                                              height: Get.size.height * .25,
+                                              color:
+                                                  Colors.black.withOpacity(.2),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    NormalText(
+                                                      color: Colors.white,
+                                                      text: bannerData
+                                                          .banner_title,
+                                                      size:
+                                                          Get.size.width * .08,
+                                                    ),
+                                                    Heading(
+                                                        color: Colors.white,
+                                                        size: Get.size.width *
+                                                            .04,
+                                                        maxLines: 2,
+                                                        text: bannerData
+                                                            .banner_description),
+                                                  ],
+                                                ),
+                                              ),
                                     ),
                                           )
                                   ],

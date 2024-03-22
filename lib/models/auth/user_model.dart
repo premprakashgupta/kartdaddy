@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 
 class UserModel {
   final int id;
@@ -67,4 +68,34 @@ class UserModel {
   }
 
   
+
+  UserModel copyWith({
+    int? id,
+    String? parent_id,
+    String? name,
+    int? wallet_amount,
+    String? referral_code,
+    String? avatar,
+    String? mobile,
+    String? email,
+    String? email_verified_at,
+    String? created_at,
+    String? updated_at,
+    int? status,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      parent_id: parent_id ?? this.parent_id,
+      name: name ?? this.name,
+      wallet_amount: wallet_amount ?? this.wallet_amount,
+      referral_code: referral_code ?? this.referral_code,
+      avatar: avatar ?? this.avatar,
+      mobile: mobile ?? this.mobile,
+      email: email ?? this.email,
+      email_verified_at: email_verified_at ?? this.email_verified_at,
+      created_at: created_at ?? this.created_at,
+      updated_at: updated_at ?? this.updated_at,
+      status: status ?? this.status,
+    );
+  }
 }

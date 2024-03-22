@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:kartdaddy/api/product_api.dart';
+import 'package:kartdaddy/models/order_details_model.dart';
 
 class OrderDetailsController extends GetxController {
   final String orderId;
@@ -14,7 +15,8 @@ class OrderDetailsController extends GetxController {
   });
 
   var box = GetStorage();
-  final orderDetails = {}.obs;
+  Rx<OrderDetailsModel?> orderDetails = Rx<OrderDetailsModel?>(null);
+  final loading = true.obs;
   var _token = '';
 
   @override
@@ -33,10 +35,12 @@ class OrderDetailsController extends GetxController {
       if (response.statusCode == 200) {
         print(response.body);
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        orderDetails.value = (jsonData['order']);
+        orderDetails.value = OrderDetailsModel.fromMap(jsonData['order']);
       }
     } catch (e) {
       print(e);
+    } finally {
+      loading.value = false;
     }
   }
 }

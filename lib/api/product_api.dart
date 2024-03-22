@@ -26,6 +26,7 @@ class ProductApi {
     
   static String yourOrders = "${BaseUrl.baseUrl}/api/order/your-orders";
   static String orderPlaced = "${BaseUrl.baseUrl}/api/order/place";
+  static String orderReview = "${BaseUrl.baseUrl}/api/cart/summary";
   static String orderDetail(String orderId) =>
       "${BaseUrl.baseUrl}/api/order/details/$orderId";
 }
