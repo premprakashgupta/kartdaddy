@@ -7,15 +7,12 @@ import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
-import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/models/cart_model.dart';
-import 'package:kartdaddy/screens/address_screen.dart';
+import 'package:kartdaddy/screens/address/address_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:kartdaddy/screens/empty_screens/empty_screen.dart';
-import 'package:kartdaddy/screens/order_review_screen.dart';
-import 'package:kartdaddy/screens/payment_method_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 
 class CartScreen extends StatelessWidget {
@@ -30,9 +27,9 @@ class CartScreen extends StatelessWidget {
         title: const Text('Shopping Cart'),
       ),
       body: Obx(() => _cartController.loading.value == true
-          ? CustomCircularProgress()
+          ? const CustomCircularProgress()
           : _cartController.cart.isEmpty
-              ? EmptyScreen(
+              ? const EmptyScreen(
                   title: 'Add Product in Cart',
                 )
               : ListView.builder(
@@ -71,7 +68,7 @@ class CartScreen extends StatelessWidget {
                                                 value:
                                                     downloadProgress.progress),
                                         errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
+                                            const Icon(Icons.error),
                                       ),
                                       Container(
                                         // width: MediaQuery.of(context).size.width*.3,
@@ -131,9 +128,8 @@ class CartScreen extends StatelessWidget {
                                                         onTap: () {
                                                           _cartController
                                                               .decreamentQuantity(
-                                                                  product_id:
-                                                                      cartItem
-                                                                          .product_id,
+                                                            product_id: cartItem
+                                                                .product_id,
                                                           );
                                                         },
                                                         child: const Icon(
@@ -156,7 +152,7 @@ class CartScreen extends StatelessWidget {
                                                                 .borderColor
                                                                 .toColor()))),
                                                 child: Text(
-                                                  '${cartItem.quantity}',
+                                                  cartItem.quantity,
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),
@@ -189,8 +185,8 @@ class CartScreen extends StatelessWidget {
                                                   onTap: () {
                                                     _cartController
                                                         .increaseQuantity(
-                                                            product_id: cartItem
-                                                                .product_id,
+                                                      product_id:
+                                                          cartItem.product_id,
                                                     );
                                                   },
                                                   child: const Icon(Icons.add,
@@ -235,7 +231,7 @@ class CartScreen extends StatelessWidget {
                                                           .product
                                                           .discount_type_amount
                                                           .toString()),
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -337,7 +333,6 @@ class CartScreen extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: CustomButton(
-                      child: Text(AppLocalizations.of(context)!.checkout),
                       onPressed: _cartController.cart.isEmpty
                           ? null
                           : () {
@@ -346,6 +341,7 @@ class CartScreen extends StatelessWidget {
                                   ));
                               print('Checkout button pressed!');
                             },
+                      child: Text(AppLocalizations.of(context)!.checkout),
                     ),
                   ),
                 ],

@@ -8,8 +8,8 @@ import 'package:kartdaddy/controllers/auth/login_controller.dart';
 import 'package:kartdaddy/controllers/landing_controller.dart';
 import 'package:kartdaddy/models/auth/user_model.dart';
 import 'package:kartdaddy/screens/auth/reset_password_screen.dart';
+import 'package:kartdaddy/screens/bottom_navigation_screen.dart';
 import 'package:kartdaddy/screens/error_screen.dart';
-import 'package:kartdaddy/screens/home_screen.dart';
 import 'package:kartdaddy/utility/custom_snackbar.dart';
 
 class OtpVerificationController extends GetxController {
@@ -20,7 +20,7 @@ class OtpVerificationController extends GetxController {
 
   void onOtpSubmit() async {
     String uniqueSecret = box.read('unique_secret');
-    print(uniqueSecret);
+
     if (uniqueSecret == '') {
       CustomSnackbar.showSnackbar(
           title: "Error", message: 'Register Again, unique code is missing');
@@ -28,21 +28,21 @@ class OtpVerificationController extends GetxController {
     }
     if (newOtp.value != '') {
       try {
-        print("21 otp controller ${newOtp.value}");
         String url = AuthApi.verifyOtp;
-        print("url --- $url");
+
         var response = await http.post(Uri.parse(url),
             body: {'otp': newOtp.value, 'unique_secret': uniqueSecret});
-        print("response body string ${response.body}");
+
         if (response.statusCode == 201) {
           var data = await json.decode(response.body) as Map<String, dynamic>;
-          print("jasonData $data");
+
           _loginController.setUser = UserModel.fromMap(data['user']);
           _loginController.loading.value = false;
           _landingController.loggedIn.value = true;
-          // it will remove in future
+          // it will remove in future when token come from backend
           box.write('token', "brhjfbhjrebre");
-          Get.off(() => HomeScreen());
+          box.remove('unique_secret');
+          Get.off(() => const BottomNavigationScreen());
         }
       } catch (e, stackTrace) {
         print(stackTrace.toString());
@@ -58,11 +58,11 @@ class OtpVerificationController extends GetxController {
   }
 
   void verifyOtpForForgetPassword() async {
-    var unique_secret = box.read('unique_secret');
+    var uniqueSecret = box.read('unique_secret');
     try {
       String url = AuthApi.veryfyOtpForgetPassword;
       var response = await http.post(Uri.parse(url),
-          body: {"otp": newOtp.value, "unique_secret": unique_secret});
+          body: {"otp": newOtp.value, "unique_secret": uniqueSecret});
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
         box.write('token', jsonData['data']['token']);

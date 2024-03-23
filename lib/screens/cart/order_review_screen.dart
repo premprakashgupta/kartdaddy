@@ -6,12 +6,12 @@ import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/order_review_controller.dart';
 import 'package:kartdaddy/models/order_review_model.dart';
-import 'package:kartdaddy/screens/payment_method_screen.dart';
+import 'package:kartdaddy/screens/payment/payment_method_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderReviewScreen extends StatelessWidget {
   final int addressId;
-  OrderReviewScreen({Key? key, required this.addressId});
+  OrderReviewScreen({super.key, required this.addressId});
 
   final OrderReviewController _orderReviewController =
       Get.put(OrderReviewController());
@@ -19,7 +19,7 @@ class OrderReviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order Review'),
+        title: const Text('Order Review'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -35,38 +35,38 @@ class OrderReviewScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Order Summary',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          NormalText(text: 'Total Price:'),
+                          const NormalText(text: 'Total Price:'),
                           NormalText(text: data.order_summary.total.toString()),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          NormalText(text: 'Delivery Charge:'),
+                          const NormalText(text: 'Delivery Charge:'),
                           NormalText(
                               text: data.order_summary.delivery_charge
                                   .toString()),
                         ],
                       ),
-                      SizedBox(height: 10),
-                      Divider(),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
+                      const Divider(),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          NormalText(text: 'Total:'),
+                          const NormalText(text: 'Total:'),
                           NormalText(
                               text:
                                   data.order_summary.payable_amount.toString()),
@@ -76,7 +76,7 @@ class OrderReviewScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Second Box: Address
               BoxBorderContainer(
                 margin: const EdgeInsets.all(8.0),
@@ -112,18 +112,17 @@ class OrderReviewScreen extends StatelessWidget {
                                   text: "Phone number: ${data.address.mobile}"),
                             ],
                           ),
-                                 
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Proceed Button
               CustomButton(
                 onPressed: () {
-                  Get.to(() => PaymentMethodScreen());
+                  Get.to(() => const PaymentMethodScreen());
                 },
                 child: Text(AppLocalizations.of(context)!.proceed),
               ),

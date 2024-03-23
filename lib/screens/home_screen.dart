@@ -11,9 +11,7 @@ import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/components/trending_widget.dart';
 import 'package:kartdaddy/components/underline_container.dart';
-import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/controllers/website_info_controller.dart';
-import 'package:kartdaddy/controllers/wishlist_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/controllers/home_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,15 +19,11 @@ import 'package:kartdaddy/models/banner_model.dart';
 import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/models/section_model.dart';
 
-import 'package:kartdaddy/designs/custom_icons.dart';
-import 'package:badges/badges.dart' as badges;
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
-import 'package:kartdaddy/screens/cart_screen.dart';
-import 'package:kartdaddy/screens/profile_screen.dart';
-import 'package:kartdaddy/screens/search_screen.dart';
-import 'package:kartdaddy/screens/products_list_screen.dart';
-import 'package:kartdaddy/screens/shop_api_screen.dart';
+import 'package:kartdaddy/screens/product/products_list_screen.dart';
+import 'package:kartdaddy/screens/search/shop_api_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 
 import '../components/box_border_container.dart';
@@ -37,8 +31,8 @@ import '../components/box_border_container.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final HomeController _homeController = Get.put(HomeController());
-  final CartController _cartController = Get.put(CartController());
-  final WishListController _wishListController = Get.put(WishListController());
+  
+  
   final WebsiteInfoController _websiteInfoController = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -47,7 +41,7 @@ class HomeScreen extends StatelessWidget {
           title: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Obx(() => _websiteInfoController.loading.value == true
-                ? CustomCircularProgress()
+                ? const CustomCircularProgress()
                   : _websiteInfoController.websiteInfo.value == null
                       ? Image.asset("assets/kartdaddy-logo.png")
                       : CachedNetworkImage(
@@ -67,39 +61,8 @@ class HomeScreen extends StatelessWidget {
                       
                        
             ),
-          ),
-          actions: [
-            InkWell(
-              onTap: () {
-                Get.to(() => SearchScreen());
-              },
-              child: CustomIcons.search(),
-            ),
-            const Gap(10),
-            IconButton(
-              onPressed: () {
-                Get.to(() => ProfileScreen());
-              },
-              icon: CustomIcons.person(),
-            ),
-            const Gap(10),
-            InkWell(
-              onTap: () {
-                Get.to(() => CartScreen());
-              },
-              child: badges.Badge(
-                showBadge: true,
-                badgeStyle: badges.BadgeStyle(
-                    badgeColor: CustomColors.themeColor.toColor()),
-                badgeContent: Obx(() => Text(
-                      _cartController.cart.length.toString(),
-                      style: const TextStyle(color: Colors.white),
-                    )),
-                child: CustomIcons.cart(),
-              ),
-            ),
-            const Gap(10)
-          ]),
+        ),
+      ),
       body: SingleChildScrollView(
           child: Obx(
         () => _homeController.loading.value == true
@@ -191,7 +154,7 @@ class HomeScreen extends StatelessWidget {
                       );
                     }).toList(),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                   Container(
                     margin: const EdgeInsets.all(8),
                     width: double.infinity,
@@ -681,22 +644,22 @@ class HomeScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: _websiteInfoController.loading.value == true
-                        ? CustomCircularProgress()
+                        ? const CustomCircularProgress()
                         : SvgPicture.network(
-                            key: Key("webiste header logo"),
+                            key: const Key("webiste header logo"),
                             "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
                           ),
                   ),
                 ),
-                Gap(20),
+                const Gap(20),
                 ..._websiteInfoController.categoryList.map((masterCat) {
                   return ExpansionTile(
                     title: Text(masterCat['name']),
-                    childrenPadding: EdgeInsets.only(left: 20),
+                    childrenPadding: const EdgeInsets.only(left: 20),
                     children: masterCat['categories'].map<Widget>((category) {
                       return ExpansionTile(
                         title: Text(category['name']),
-                        childrenPadding: EdgeInsets.only(left: 40),
+                        childrenPadding: const EdgeInsets.only(left: 40),
                         children: category['sub_categories']
                             .map<Widget>((subCategory) {
                           return ListTile(
@@ -712,7 +675,7 @@ class HomeScreen extends StatelessWidget {
                       );
                     }).toList(),
                   );
-                }).toList(),
+                }),
                 const SizedBox(height: 30),
                 Stack(
                   children: [

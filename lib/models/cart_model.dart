@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:kartdaddy/models/product_model.dart';
 
@@ -26,7 +25,7 @@ class CartModel {
       'product_id': product_id,
       'quantity': quantity,
       'total_price': total_price,
-      'walletAmountUsed': walletAmountUsed ?? null,
+      'walletAmountUsed': walletAmountUsed,
       'product_price': product_price,
       'product': product,
     };

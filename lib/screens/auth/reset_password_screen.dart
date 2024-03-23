@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/controllers/auth/forget_password_controller.dart';
-import 'package:kartdaddy/screens/home_screen.dart';
 
 import '../../components/normal_text_widget.dart';
 import '../../components/subheading_widget.dart';

@@ -1,12 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:kartdaddy/components/custom_button.dart';
-import 'package:kartdaddy/components/heading_widget.dart';
-import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/auth/login_controller.dart';
 import 'package:kartdaddy/controllers/edit_profile_controller.dart';
@@ -46,10 +40,10 @@ class EditProfileScreen extends StatelessWidget {
                   _editProfileController.isNotNameEditable.value == false
                       ? TextButton(
                           onPressed: () {
-                            _editProfileController.editName();
+                            _editProfileController.updateName();
                           },
                           child: SubHeading(
-                            text: "Verify",
+                            text: "Done",
                             color: CustomColors.blueColor.toColor(),
                           ),
                         )

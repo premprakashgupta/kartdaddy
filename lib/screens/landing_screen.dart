@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/controllers/landing_controller.dart';
 import 'package:kartdaddy/screens/auth/login_screen.dart';
-import 'package:kartdaddy/screens/home_screen.dart';
+import 'package:kartdaddy/screens/bottom_navigation_screen.dart';
 
 class LandingScreen extends StatelessWidget {
   LandingScreen({super.key});
@@ -11,14 +11,15 @@ class LandingScreen extends StatelessWidget {
   
 
 
+  @override
   Widget build(BuildContext context) {
     return Obx(() => _landingController.loading.value
-        ? Scaffold(
+        ? const Scaffold(
             body: CustomCircularProgress(),
           )
         : _landingController.loggedIn.value == true
-        ? HomeScreen()
-        : LoginScreen());
+            ? const BottomNavigationScreen()
+        : const LoginScreen());
   }
   
 }

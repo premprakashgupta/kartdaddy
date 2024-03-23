@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gap/gap.dart';
-import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
-import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/address_controller.dart';
 
 class EditAddressScreen extends StatelessWidget {
   final int id;
-  EditAddressScreen({Key? key, required this.id}) : super(key: key);
+  EditAddressScreen({super.key, required this.id});
 
   final AddressController _addressController = Get.find();
 
@@ -16,7 +14,7 @@ class EditAddressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Heading(text: "Edit Address"),
+        title: const Heading(text: "Edit Address"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -30,13 +28,13 @@ class EditAddressScreen extends StatelessWidget {
                     decoration:
                         InputDecoration(labelText: controllerData['label']),
                   ),
-                Gap(20),
+                const Gap(20),
                 ElevatedButton(
                   onPressed: () {
                     // Access data from controllers
                     _addressController.updateAddress(id: id);
                   },
-                  child: Text("Update"),
+                  child: const Text("Update"),
                 ),
               ],
             ),

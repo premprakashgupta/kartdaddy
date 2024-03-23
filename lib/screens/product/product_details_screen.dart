@@ -17,8 +17,8 @@ import 'package:kartdaddy/data/demo_data.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/models/cart_model.dart';
-import 'package:kartdaddy/screens/cart_screen.dart';
-import 'package:kartdaddy/screens/review_screen.dart';
+import 'package:kartdaddy/screens/cart/cart_screen.dart';
+import 'package:kartdaddy/screens/product/review_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -272,8 +272,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         enableCaching: true,
                         _productDetailsController
                             .productDetail.value!.product.short_description!,
-                        textStyle: TextStyle(overflow: TextOverflow.ellipsis),
-                        
+                        textStyle: const TextStyle(overflow: TextOverflow.ellipsis),
                       ),
 
                       const Gap(32),
@@ -336,10 +335,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                             .toString())
                                     ? null
                                     : () {
-                                  // Handle quantity decrease
-                                  _productDetailsController
-                                      .decreamentQuantity();
-                                },
+                                        // Handle quantity decrease
+                                        _productDetailsController
+                                            .decreamentQuantity();
+                                      },
                                 icon: const Icon(Icons.remove),
                               ),
                               NormalText(
@@ -353,10 +352,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                             .toString())
                                     ? null
                                     : () {
-                                  // Handle quantity increase
-                                  _productDetailsController
-                                      .increamentQuantity();
-                                },
+                                        // Handle quantity increase
+                                        _productDetailsController
+                                            .increamentQuantity();
+                                      },
                                 icon: const Icon(Icons.add),
                               ),
                             ],
@@ -372,26 +371,31 @@ class ProductDetailsScreen extends StatelessWidget {
                                     .toString())
                             ? null
                             : () {
-                          Map<String, dynamic> mapData = {
-                            "id": 1,
-                            "product_id": _productDetailsController
-                                .productDetail.value!.product.id
-                                .toString(),
-                            "quantity": _productDetailsController.quantity.value
-                                .toString(),
-                            "total_price": _productDetailsController.total.value
-                                .toString(),
-                            "walletAmountUsed": null,
-                            "product_price": _productDetailsController
-                                .productDetail.value!.product.net_sale_amount,
-                            "product": _productDetailsController
-                                .productDetail.value!.product
-                                .toMap()
-                          };
-                          CartModel cartData = CartModel.fromMap(mapData);
+                                Map<String, dynamic> mapData = {
+                                  "id": 1,
+                                  "product_id": _productDetailsController
+                                      .productDetail.value!.product.id
+                                      .toString(),
+                                  "quantity": _productDetailsController
+                                      .quantity.value
+                                      .toString(),
+                                  "total_price": _productDetailsController
+                                      .total.value
+                                      .toString(),
+                                  "walletAmountUsed": null,
+                                  "product_price": _productDetailsController
+                                      .productDetail
+                                      .value!
+                                      .product
+                                      .net_sale_amount,
+                                  "product": _productDetailsController
+                                      .productDetail.value!.product
+                                      .toMap()
+                                };
+                                CartModel cartData = CartModel.fromMap(mapData);
 
-                          _cartController.addToCart(cartitem: cartData);
-                        },
+                                _cartController.addToCart(cartitem: cartData);
+                              },
                         child: NormalText(
                             text: AppLocalizations.of(context)!.add_to_cart),
                       ),
@@ -405,9 +409,9 @@ class ProductDetailsScreen extends StatelessWidget {
                               indicatorColor: CustomColors.themeColor.toColor(),
                               labelColor: CustomColors.themeColor.toColor(),
                               labelPadding:
-                                  EdgeInsets.symmetric(horizontal: 8.0),
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               indicatorPadding: EdgeInsets.zero,
-                              tabs: [
+                              tabs: const [
                                 Tab(text: 'Accessories'),
                                 Tab(text: 'Description'),
                                 Tab(text: 'Specification'),
@@ -429,7 +433,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                     enableCaching: true,
                                     _productDetailsController.productDetail
                                         .value!.product.short_description!,
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis),
                                   )),
                                   Container(

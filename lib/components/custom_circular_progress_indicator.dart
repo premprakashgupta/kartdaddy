@@ -4,7 +4,7 @@ import 'package:kartdaddy/utility/color_converter.dart';
 
 class CustomCircularProgress extends StatelessWidget {
   final double? value;
-  const CustomCircularProgress({Key? key, this.value}) : super(key: key);
+  const CustomCircularProgress({super.key, this.value});
 
   @override
   Widget build(BuildContext context) {

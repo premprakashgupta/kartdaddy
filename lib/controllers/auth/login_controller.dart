@@ -3,13 +3,11 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:kartdaddy/api/general_api.dart';
-import 'package:kartdaddy/models/website_info_model.dart';
+import 'package:kartdaddy/screens/bottom_navigation_screen.dart';
 import 'package:kartdaddy/screens/error_screen.dart';
 
 import '../../api/auth.dart';
 import '../../models/auth/user_model.dart';
-import '../../screens/home_screen.dart';
 
 import '../../utility/custom_snackbar.dart';
 
@@ -67,7 +65,7 @@ class LoginController extends GetxController {
 
         loading.value = false;
 
-        Get.off(() => HomeScreen());
+        Get.off(() => const BottomNavigationScreen());
       } else {
         errorMsg =
             (await json.decode(response.body) as Map<String, dynamic>)['error'];

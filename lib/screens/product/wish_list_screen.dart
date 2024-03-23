@@ -33,7 +33,7 @@ class WishListScreen extends StatelessWidget {
         () => _wishListController.loading.value == true
             ? const GridShimmer()
             : _wishListController.wishlists.isEmpty
-                ? EmptyScreen(title: "Add Product in Wishlist")
+                ? const EmptyScreen(title: "Add Product in Wishlist")
                 : GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(

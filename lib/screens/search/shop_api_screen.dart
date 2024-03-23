@@ -9,13 +9,11 @@ import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/shop_api_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
-import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/models/shop_api_model.dart';
 import 'package:kartdaddy/screens/empty_screens/empty_screen.dart';
 import 'package:kartdaddy/shimmer/grid_shimmer.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../controllers/products_list_controller.dart';
 
 class ShopApiScreen extends StatelessWidget {
   final String slug;
@@ -38,7 +36,7 @@ class ShopApiScreen extends StatelessWidget {
         () => _shopApiController.loading.value == true
             ? const GridShimmer()
             : _shopApiController.shop.isEmpty
-                ? EmptyScreen(
+                ? const EmptyScreen(
                     title: 'Product Coming Soon',
                   )
                 : GridView.builder(
@@ -102,9 +100,7 @@ class ShopApiScreen extends StatelessWidget {
                                   const Gap(20),
                                   Align(
                                     alignment: Alignment.centerLeft,
-                                    child:
-                                        
-                                        SubHeading(
+                                    child: SubHeading(
                                         text: AppLocalizations.of(context)!
                                             .rupee(data.buyPrice ?? '0')),
                                   ),

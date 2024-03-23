@@ -8,7 +8,7 @@ import 'package:kartdaddy/controllers/your_orders_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/models/your_orders_model.dart';
-import 'package:kartdaddy/screens/order_details_screen.dart';
+import 'package:kartdaddy/screens/cart/order_details_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 
 class YourOrdersScreen extends StatelessWidget {
@@ -21,11 +21,11 @@ class YourOrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Heading(text: "Your Orders"),
+        title: const Heading(text: "Your Orders"),
       ),
       body: Obx(() {
         if (_yourOrdersController.loading.value == true) {
-          return CustomCircularProgress();
+          return const CustomCircularProgress();
         }
         return ListView.builder(
             itemCount: _yourOrdersController.orderList.length,
@@ -49,13 +49,13 @@ class YourOrdersScreen extends StatelessWidget {
                     trailing: CustomIcons.chevronRight(),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    padding: EdgeInsets.all(8),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.all(8),
                     color: CustomColors.greyColor.toColor(),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        NormalText(text: "Rate & Review"),
+                        const NormalText(text: "Rate & Review"),
                         RatingBar.builder(
                           initialRating: 3,
                           minRating: 1,
@@ -63,8 +63,8 @@ class YourOrdersScreen extends StatelessWidget {
                           allowHalfRating: true,
                           itemCount: 5,
                           itemSize: 23,
-                          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                          itemBuilder: (context, _) => Icon(
+                          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) => const Icon(
                             Icons.star,
                             color: Colors.amber,
                           ),
@@ -75,7 +75,7 @@ class YourOrdersScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Divider()
+                  const Divider()
                 ],
               );
             });

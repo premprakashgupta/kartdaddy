@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kartdaddy/controllers/website_info_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
-import 'package:kartdaddy/screens/product_details_screen.dart';
+import 'package:kartdaddy/screens/product/product_details_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 
 import 'screens/landing_screen.dart';
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       locale: savedLanguage != null ? Locale(savedLanguage!) : null,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

@@ -3,7 +3,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_button.dart';
-import 'package:kartdaddy/controllers/otp_verification_controller.dart';
+import 'package:kartdaddy/controllers/auth/otp_verification_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 

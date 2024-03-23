@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kartdaddy/components/box_shadow_container.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
@@ -12,7 +11,6 @@ import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/models/order_details_model.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
-import 'package:order_tracker/order_tracker.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   final String orderId;
@@ -25,14 +23,14 @@ class OrderDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Heading(
+        title: const Heading(
           text: "Order details",
         ),
       ),
       body: SingleChildScrollView(
         child: Obx(() {
           if (_orderDetailsController.loading.value == true) {
-            return CustomCircularProgress();
+            return const CustomCircularProgress();
           }
           OrderDetailsModel? data = _orderDetailsController.orderDetails.value;
 
@@ -47,7 +45,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(),
+              const Divider(),
               Container(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -71,14 +69,14 @@ class OrderDetailsScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      Gap(5),
-                      NormalText(text: "Seller: SugandhMart"),
+                      const Gap(5),
+                      const NormalText(text: "Seller: SugandhMart"),
                       SubHeading(text: data.total_price)
                     ],
                   ),
                 ),
               ),
-              Divider(),
+              const Divider(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
@@ -88,7 +86,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(),
+              const Divider(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: RatingBar.builder(
@@ -98,8 +96,8 @@ class OrderDetailsScreen extends StatelessWidget {
                   allowHalfRating: true,
                   itemCount: 5,
                   unratedColor: CustomColors.greyColor.toColor(),
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => Icon(
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => const Icon(
                     Icons.star,
                     color: Colors.amber,
                   ),
@@ -108,10 +106,10 @@ class OrderDetailsScreen extends StatelessWidget {
                   },
                 ),
               ),
-              Divider(),
+              const Divider(),
               TextButton(
                 onPressed: () {},
-                child: NormalText(
+                child: const NormalText(
                   text: "Need help?",
                 ),
               ),
@@ -122,7 +120,7 @@ class OrderDetailsScreen extends StatelessWidget {
               ),
               ListTile(
                 leading: CustomIcons.invoice(),
-                title: Heading(
+                title: const Heading(
                   text: "Invoice download",
                 ),
                 trailing: CustomIcons.chevronRight(),
@@ -132,8 +130,8 @@ class OrderDetailsScreen extends StatelessWidget {
                 height: 5,
                 color: Colors.grey.shade300,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: NormalText(
@@ -141,9 +139,9 @@ class OrderDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Divider(),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -167,8 +165,8 @@ class OrderDetailsScreen extends StatelessWidget {
                 height: 5,
                 color: Colors.grey.shade300,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: NormalText(
@@ -176,9 +174,9 @@ class OrderDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
+              const Divider(),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

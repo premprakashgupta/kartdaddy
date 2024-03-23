@@ -12,7 +12,7 @@ import 'package:kartdaddy/models/product_model.dart';
 import 'package:kartdaddy/shimmer/grid_shimmer.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../controllers/products_list_controller.dart';
+import '../../controllers/products_list_controller.dart';
 
 class ProductsListScreen extends StatelessWidget {
   final String slug;
@@ -45,8 +45,7 @@ class ProductsListScreen extends StatelessWidget {
                 ),
                 itemCount: _ProductsListController.products.length,
                 itemBuilder: (context, index) {
-                  ProductModel data =
-                      _ProductsListController.products[index];
+                  ProductModel data = _ProductsListController.products[index];
                   return Container(
                     margin: const EdgeInsets.all(8),
                     child: InkWell(

@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class MasterCategoryModel {
   final int id;

@@ -11,7 +11,7 @@ class PreviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Heading(text: "Preview"),
+        title: const Heading(text: "Preview"),
       ),
       body: CarouselGrid(
         data: data,

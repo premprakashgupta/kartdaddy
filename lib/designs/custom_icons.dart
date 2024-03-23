@@ -1,9 +1,31 @@
 import 'package:flutter/material.dart';
 
 class CustomIcons {
+  static Icon home({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.home,
+      color: color,
+      size: size,
+    );
+  }
+
+  static Icon homeOutline({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.home_outlined,
+      color: color,
+      size: size,
+    );
+  }
   static Icon search({double size = 27.0, Color color = Colors.black}) {
     return Icon(
       Icons.search,
+      color: color,
+      size: size,
+    );
+  }
+  static Icon tune({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.tune,
       color: color,
       size: size,
     );
@@ -16,10 +38,24 @@ class CustomIcons {
       size: size,
     );
   }
+  static Icon personOutline({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.person_outline_outlined,
+      color: color,
+      size: size,
+    );
+  }
 
   static Icon cart({double size = 27.0, Color color = Colors.black}) {
     return Icon(
       Icons.shopping_cart,
+      color: color,
+      size: size,
+    );
+  }
+  static Icon cartOutline({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.shopping_cart_outlined,
       color: color,
       size: size,
     );

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/custom_button.dart';
@@ -9,7 +8,6 @@ import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/custom_input.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/auth/login_controller.dart';
-import 'package:kartdaddy/controllers/landing_controller.dart';
 import 'package:kartdaddy/controllers/website_info_controller.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/screens/auth/forget_password_screen.dart';
@@ -17,7 +15,7 @@ import 'package:kartdaddy/screens/auth/register_screen.dart';
 import 'package:kartdaddy/utility/email_validation.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -53,12 +51,12 @@ class _LoginScreenState extends State<LoginScreen> {
               key: _formKey,
               child: Column(
                 children: [
-                  Gap(20),
+                  const Gap(20),
                   Align(
                     alignment: Alignment.centerLeft,
                     child:
                         Obx(() => _websiteInfoController.loading.value == true
-                            ? CustomCircularProgress()
+                            ? const CustomCircularProgress()
                             : CachedNetworkImage(
                                 width: 110,
                                 imageUrl:
@@ -110,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? CustomIcons.visibility()
                             : CustomIcons.visibilityOff(),
                       ),
-                      obsecureText: !_loginController.isVisible.value,
+                      obscureText: !_loginController.isVisible.value,
                     controller: _passwordController,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -164,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Gap(5),
                       InkWell(
                           onTap: () {
-                            Get.to(() => RegisterScreen());
+                            Get.to(() => const RegisterScreen());
                           },
                           child: NormalText(
                             text: AppLocalizations.of(context)!.sign_up,

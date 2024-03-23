@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
-import 'package:kartdaddy/screens/thank_you_screen.dart';
+import 'package:kartdaddy/screens/payment/thank_you_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class PaymentMethodScreen extends StatelessWidget {
+  const PaymentMethodScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Choose Payment Method'),
+        title: const Text('Choose Payment Method'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
             ListTile(
@@ -25,7 +28,7 @@ class PaymentMethodScreen extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                Get.off(() => ThankYouScreen());
+                Get.off(() => const ThankYouScreen());
               },
               leading: CustomIcons.rupee(),
               title: Text(AppLocalizations.of(context)!.cash_on_delivery),

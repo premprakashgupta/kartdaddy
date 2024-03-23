@@ -14,7 +14,7 @@ import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:kartdaddy/utility/email_validation.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({super.key});
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -63,14 +63,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               key: _formKey,
               child: Column(
                 children: [
-                  Gap(20),
+                  const Gap(20),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Obx(() => _websiteInfoController.loading.value ==
                             true
-                        ? CustomCircularProgress()
+                        ? const CustomCircularProgress()
                         : SvgPicture.network(
-                            key: Key("login page header logo"),
+                            key: const Key("login page header logo"),
                             "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
                             semanticsLabel: 'login page header logo')),
                   ),
@@ -136,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hint: AppLocalizations.of(context)!.password,
                     label: const Text("Password"),
                     prefixIcon: CustomIcons.password(),
-                    obsecureText: true,
+                    obscureText: true,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "password is required";
@@ -150,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hint: AppLocalizations.of(context)!.confirm_password,
                     label: const Text("Confirm Password"),
                     prefixIcon: CustomIcons.key(),
-                    obsecureText: true,
+                    obscureText: true,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "confirm password is required";

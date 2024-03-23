@@ -6,18 +6,20 @@ import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/landing_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
-import 'package:kartdaddy/screens/address_screen.dart';
-import 'package:kartdaddy/screens/auth/login_screen.dart';
-import 'package:kartdaddy/screens/edit_profile_screen.dart';
+import 'package:kartdaddy/designs/custom_icons.dart';
+import 'package:kartdaddy/screens/address/address_screen.dart';
+import 'package:kartdaddy/screens/profile/edit_profile_screen.dart';
 import 'package:kartdaddy/screens/landing_screen.dart';
 import 'package:kartdaddy/screens/language_screen.dart';
-import 'package:kartdaddy/screens/wish_list_screen.dart';
-import 'package:kartdaddy/screens/your_orders_screen.dart';
+import 'package:kartdaddy/screens/setting/setting_screen.dart';
+import 'package:kartdaddy/screens/wallet_screen.dart';
+import 'package:kartdaddy/screens/product/wish_list_screen.dart';
+import 'package:kartdaddy/screens/cart/your_orders_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../components/normal_text_widget.dart';
-import '../controllers/auth/login_controller.dart';
+import '../../components/normal_text_widget.dart';
+import '../../controllers/auth/login_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -91,12 +93,14 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () {
                       Get.to(() => EditProfileScreen());
                     },
+                    trailing: CustomIcons.chevronRight(),
                   ),
                   ListTile(
                     title:
                         NormalText(text: AppLocalizations.of(context)!.wallet),
+                    trailing: CustomIcons.chevronRight(),
                     onTap: () {
-                      // Navigate to wallet screen
+                      Get.to(() => WalletScreen());
                     },
                   ),
                   ListTile(
@@ -107,6 +111,7 @@ class ProfileScreen extends StatelessWidget {
                             throughOrder: false,
                           ));
                     },
+                    trailing: CustomIcons.chevronRight(),
                   ),
                   ListTile(
                     title: NormalText(
@@ -114,13 +119,15 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () {
                       Get.to(() => const LanguageScreen());
                     },
+                    trailing: CustomIcons.chevronRight(),
                   ),
                   ListTile(
                     title:
                         NormalText(text: AppLocalizations.of(context)!.setting),
                     onTap: () {
-                      // Navigate to settings screen
+                      Get.to(() => const SettingScreen());
                     },
+                    trailing: CustomIcons.chevronRight(),
                   ),
                   ListTile(
                     title:
@@ -131,7 +138,9 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   ListTile(
                     title: NormalText(
-                        text: AppLocalizations.of(context)!.sign_out),
+                      text: AppLocalizations.of(context)!.sign_out,
+                      color: CustomColors.redColor.toColor(),
+                    ),
                     onTap: () {
                       _loginController.logoutUser();
                       _loginController.loading.value = true;

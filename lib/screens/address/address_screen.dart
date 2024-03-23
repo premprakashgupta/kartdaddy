@@ -6,13 +6,11 @@ import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/address_controller.dart';
-import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/models/address_model.dart';
-import 'package:kartdaddy/screens/add_address_screen.dart';
-import 'package:kartdaddy/screens/edit_address_screen.dart';
+import 'package:kartdaddy/screens/address/add_address_screen.dart';
+import 'package:kartdaddy/screens/address/edit_address_screen.dart';
 import 'package:kartdaddy/screens/empty_screens/empty_screen.dart';
-import 'package:kartdaddy/screens/order_review_screen.dart';
-import 'package:kartdaddy/utility/color_converter.dart';
+import 'package:kartdaddy/screens/cart/order_review_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddressScreen extends StatelessWidget {
@@ -26,20 +24,19 @@ class AddressScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Address Screen'),
       ),
-      
       body: Obx(() => _addressController.addressList.isEmpty
-          ? EmptyScreen(title: "Add Address Here")
+          ? const EmptyScreen(title: "Add Address Here")
           : Column(
               children: [
-                Gap(10),
+                const Gap(10),
                 InkWell(
                   onTap: () {
                     Get.to(() => AddAddressScreen());
                   },
-                  child: BoxBorderContainer(
+                  child: const BoxBorderContainer(
                       margin: EdgeInsets.all(8),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        padding: EdgeInsets.symmetric(vertical: 15),
                         child: SubHeading(text: "Add New Address"),
                       )),
                 ),
@@ -69,40 +66,46 @@ class AddressScreen extends StatelessWidget {
                                         color: Colors.black,
                                       ),
                                       throughOrder == true
-                                          ? SizedBox()
-                                          :
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              address.is_default == 1
-                                                  ? 'Default'
-                                                  : '',
-                                              style: TextStyle(
-                                                color: address.is_default == 1
-                                                    ? Colors.green
-                                                    : Colors.transparent,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Checkbox(
-                                              value: address.is_default == 1
-                                                  ? true
-                                                  : false,
-                                              onChanged: (value) {
-                                                _addressController.setDefault(
-                                                    id: address.id);
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      )
+                                          ? const SizedBox()
+                                          : Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    address.is_default == 1
+                                                        ? 'Default'
+                                                        : '',
+                                                    style: TextStyle(
+                                                      color: address
+                                                                  .is_default ==
+                                                              1
+                                                          ? Colors.green
+                                                          : Colors.transparent,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Checkbox(
+                                                    value:
+                                                        address.is_default == 1
+                                                            ? true
+                                                            : false,
+                                                    onChanged: (value) {
+                                                      _addressController
+                                                          .setDefault(
+                                                              id: address.id);
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            )
                                     ],
                                   ),
                                   Row(
@@ -132,14 +135,14 @@ class AddressScreen extends StatelessWidget {
                                                       id: address.id,
                                                     ));
                                               },
-                                              icon: Icon(Icons.edit)),
+                                              icon: const Icon(Icons.edit)),
                                           IconButton(
                                               onPressed: () {
                                                 _addressController
                                                     .removeAddress(
                                                         id: address.id);
                                               },
-                                              icon: Icon(Icons.delete))
+                                              icon: const Icon(Icons.delete))
                                         ],
                                       )
                                     ],
@@ -177,12 +180,12 @@ class AddressScreen extends StatelessWidget {
                                                       fixedSize: Size.fromWidth(
                                                           Get.size.width * .8),
                                                     ),
-                                                    child: NormalText(
+                                                    child: const NormalText(
                                                         text:
                                                             "Choose this address")),
                                           ),
                                         )
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 ],
                               ),
                             ),

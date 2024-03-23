@@ -5,5 +5,5 @@ class GeneralApis {
   static String categories = "${BaseUrl.baseUrl}/api/categories";
   
   static shopApi({required String subCategorySlug}) =>
-      "${BaseUrl.baseUrl}/api/shop?category=${subCategorySlug}";
+      "${BaseUrl.baseUrl}/api/shop?category=$subCategorySlug";
 }

@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:kartdaddy/api/general_api.dart';
 import 'package:kartdaddy/api/product_api.dart';
 import 'package:kartdaddy/api/search_api.dart';
 import 'package:kartdaddy/models/master_category_model.dart';
 import 'package:kartdaddy/models/shop_api_model.dart';
 import 'package:kartdaddy/screens/error_screen.dart';
-import 'package:kartdaddy/screens/search_result_screen.dart';
+import 'package:kartdaddy/screens/search/search_result_screen.dart';
 
 class ProductRepository {
   Future<List<String>> searchProducts(String query) async {

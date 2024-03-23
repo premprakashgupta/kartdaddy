@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kartdaddy/api/product_api.dart';
 import 'package:kartdaddy/controllers/wishlist_controller.dart';
-import 'package:kartdaddy/data/demo_data.dart';
 import 'package:http/http.dart' as http;
 import 'package:kartdaddy/models/cart_model.dart';
 import 'package:kartdaddy/models/product_model.dart';

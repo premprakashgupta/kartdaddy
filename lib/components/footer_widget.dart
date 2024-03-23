@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -29,13 +27,13 @@ class FooterWidget extends StatelessWidget {
                   height: 40,
                 )
               : SvgPicture.network(
-              key: Key("webiste footer logo"),
+              key: const Key("webiste footer logo"),
               "https://kartdaddy.in/${_websiteInfoController.websiteInfo.value!.headerLogo}",
               semanticsLabel: 'webiste footer logo'),
         ),
         const Gap(30),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -47,7 +45,7 @@ class FooterWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  NormalText(
+                  const NormalText(
                     text: "Got questions? Call us 24/7!",
                     size: 15,
                   ),

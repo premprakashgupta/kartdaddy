@@ -19,12 +19,12 @@ class EmptyScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Heading(text: title),
-            Gap(20),
+            const Gap(20),
             CustomButton(
                 onPressed: () {
                   Get.back();
                 },
-                child: NormalText(text: "Go back"))
+                child: const NormalText(text: "Go back"))
           ],
         ),
       ),

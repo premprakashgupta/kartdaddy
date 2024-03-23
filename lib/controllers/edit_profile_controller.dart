@@ -9,8 +9,6 @@ import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/auth/login_controller.dart';
 import 'package:http/http.dart' as http;
-import 'package:kartdaddy/designs/colors.dart';
-import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:kartdaddy/utility/custom_snackbar.dart';
 
 class EditProfileController extends GetxController {
@@ -42,78 +40,21 @@ class EditProfileController extends GetxController {
   void updateName() async {
     try {
       String url = AuthApi.updateName;
-      var unique_secret = box.read('unique_secret');
-      var response = await http.post(Uri.parse(url),
-          headers: {'Authorization': 'Bearer $_token'},
-          body: {'otp': otpController.text, 'unique_secret': unique_secret});
 
-      if (response.statusCode == 200) {
-        var jsonData = await json.decode(response.body) as Map<String, dynamic>;
+      print("hii");
 
-        box.remove('unique_secret');
-        CustomSnackbar.showSnackbar(
-            title: 'Profile Edit', message: jsonData['message']);
-
-        otpController.clear();
-        isNotNameEditable.value = true;
-        loginController.setName(nameController.text);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void editName() async {
-    try {
-      String url = AuthApi.editName;
-      var response = await http.post(Uri.parse(url),
+      var response = await http.put(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
           body: {'name': nameController.text});
-
+      print(response.body);
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
-        print(jsonData['data']);
-        box.write('unique_secret', jsonData['data']['unique_secret']);
+
         CustomSnackbar.showSnackbar(
             title: 'Profile Edit', message: jsonData['message']);
 
-        Get.dialog(
-          AlertDialog(
-            title: Heading(text: "OTP Verification"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: NormalText(text: "Fill correct otp here"),
-                ),
-                Gap(20),
-                TextFormField(
-                  controller: otpController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "OTP",
-                  ),
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text("CLOSE"),
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-              TextButton(
-                child: Text("UPDATE"),
-                onPressed: () {
-                  updateName();
-                  Get.back();
-                },
-              )
-            ],
-          ),
-        );
+        isNotNameEditable.value = true;
+        loginController.setName(nameController.text);
       }
     } catch (e) {
       print(e);
@@ -123,10 +64,10 @@ class EditProfileController extends GetxController {
   void updateEmail() async {
     try {
       String url = AuthApi.updateEmail;
-      var unique_secret = box.read('unique_secret');
+      var uniqueSecret = box.read('unique_secret');
       var response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
-          body: {'otp': otpController.text, 'unique_secret': unique_secret});
+          body: {'otp': otpController.text, 'unique_secret': uniqueSecret});
 
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
@@ -160,19 +101,19 @@ class EditProfileController extends GetxController {
 
         Get.dialog(
           AlertDialog(
-            title: Heading(text: "OTP Verification"),
+            title: const Heading(text: "OTP Verification"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Align(
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: NormalText(text: "Fill correct otp here"),
                 ),
-                Gap(20),
+                const Gap(20),
                 TextFormField(
                   controller: otpController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "OTP",
                   ),
                 ),
@@ -180,13 +121,13 @@ class EditProfileController extends GetxController {
             ),
             actions: <Widget>[
               TextButton(
-                child: Text("CLOSE"),
+                child: const Text("CLOSE"),
                 onPressed: () {
                   Get.back();
                 },
               ),
               TextButton(
-                child: Text("UPDATE"),
+                child: const Text("UPDATE"),
                 onPressed: () {
                   updateEmail();
                   Get.back();
@@ -204,10 +145,10 @@ class EditProfileController extends GetxController {
   void updateMobile() async {
     try {
       String url = AuthApi.updateMobile;
-      var unique_secret = box.read('unique_secret');
+      var uniqueSecret = box.read('unique_secret');
       var response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
-          body: {'otp': otpController.text, 'unique_secret': unique_secret});
+          body: {'otp': otpController.text, 'unique_secret': uniqueSecret});
 
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
@@ -241,18 +182,18 @@ class EditProfileController extends GetxController {
 
         Get.dialog(
           AlertDialog(
-            title: Heading(text: "OTP Verification"),
+            title: const Heading(text: "OTP Verification"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Align(
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: NormalText(text: "Fill correct otp here"),
                 ),
                 TextFormField(
                   controller: otpController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "OTP",
                   ),
                 ),
@@ -260,13 +201,13 @@ class EditProfileController extends GetxController {
             ),
             actions: <Widget>[
               TextButton(
-                child: Text("CLOSE"),
+                child: const Text("CLOSE"),
                 onPressed: () {
                   Get.back();
                 },
               ),
               TextButton(
-                child: Text("UPDATE"),
+                child: const Text("UPDATE"),
                 onPressed: () {
                   updateMobile();
                   Get.back();

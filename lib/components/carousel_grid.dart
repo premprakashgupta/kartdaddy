@@ -7,7 +7,7 @@ import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
-import 'package:kartdaddy/screens/preview_screen.dart';
+import 'package:kartdaddy/screens/product/preview_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -107,7 +107,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                         ],
                       ),
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
 
               Positioned(
                 top: 0,
@@ -155,7 +155,7 @@ class _CarouselGridState extends State<CarouselGrid> {
                                   ? CustomColors.redColor.toColor()
                                   : CustomColors.greyColor.toColor())),
                     )
-                  : SizedBox()
+                  : const SizedBox()
             ],
           ),
           const Gap(10),

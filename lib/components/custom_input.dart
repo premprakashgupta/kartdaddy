@@ -12,7 +12,7 @@ class CustomInput extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? sufixIcon;
   final TextInputType? keyboardType;
-  final bool obsecureText;
+  final bool obscureText;
   const CustomInput(
       {super.key,
       this.controller,
@@ -20,7 +20,7 @@ class CustomInput extends StatelessWidget {
       required this.label,
       this.prefixIcon,
       this.keyboardType,
-      this.obsecureText = false,
+      this.obscureText = false,
       this.uniqueKey,
       this.validator,
       this.sufixIcon});
@@ -30,7 +30,7 @@ class CustomInput extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      obscureText: obsecureText,
+      obscureText: obscureText,
       validator: validator,
       key: uniqueKey,
       decoration: InputDecoration(

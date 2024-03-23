@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gap/gap.dart';
-import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
-import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/address_controller.dart';
 
 class AddAddressScreen extends StatelessWidget {
-  AddAddressScreen({Key? key}) : super(key: key);
+  AddAddressScreen({super.key});
 
   final AddressController _addressController = Get.find();
 
@@ -15,7 +13,7 @@ class AddAddressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Heading(text: "Add New Address"),
+        title: const Heading(text: "Add New Address"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -29,13 +27,13 @@ class AddAddressScreen extends StatelessWidget {
                     decoration:
                         InputDecoration(labelText: controllerData['label']),
                   ),
-                Gap(20),
+                const Gap(20),
                 ElevatedButton(
                   onPressed: () {
                     // Access data from controllers
                     _addressController.addAddress();
                   },
-                  child: Text("Submit"),
+                  child: const Text("Submit"),
                 ),
               ],
             ),

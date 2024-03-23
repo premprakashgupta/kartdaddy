@@ -108,10 +108,10 @@ class AddressController extends GetxController {
         var jsonData = await json.decode(response.body);
         
         addressList.add(AddressModel.fromMap(jsonData['address']));
-        inputControllers.forEach((controllerData) {
+        for (var controllerData in inputControllers) {
           TextEditingController controller = controllerData['controller'];
           controller.clear();
-        });
+        }
         CustomSnackbar.showSnackbar(
             title: "Address", message: jsonData['message']);
         Get.back();
@@ -124,10 +124,10 @@ class AddressController extends GetxController {
   void preFillingEditScreenInput({required int id}) {
     var existingAddress =
         addressList.firstWhere((element) => element.id == id).toMap();
-    inputControllers.forEach((controllerData) {
+    for (var controllerData in inputControllers) {
       TextEditingController controller = controllerData['controller'];
       controller.text = existingAddress[controllerData['field']];
-    });
+    }
   }
 
   void updateAddress({required int id}) async {
@@ -204,10 +204,10 @@ class AddressController extends GetxController {
   @override
   void onClose() {
     // TODO: implement onClose
-    inputControllers.forEach((controllerData) {
+    for (var controllerData in inputControllers) {
       TextEditingController controller = controllerData['controller'];
       controller.dispose();
-    });
+    }
 
     super.onClose();
   }

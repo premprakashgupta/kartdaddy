@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/data/demo_data.dart';
 
-import '../components/normal_text_widget.dart';
+import '../../components/normal_text_widget.dart';
 
 class ReviewScreen extends StatelessWidget {
   const ReviewScreen({super.key});
@@ -11,11 +11,11 @@ class ReviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 5, // Replace with the actual number of reviews
-        itemBuilder: (context, index) {
-          return buildReviewItem(); // Implement a function to build each review item
-        },
-      );
+      itemCount: 5, // Replace with the actual number of reviews
+      itemBuilder: (context, index) {
+        return buildReviewItem(); // Implement a function to build each review item
+      },
+    );
   }
 
   Widget buildReviewItem() {
@@ -33,27 +33,29 @@ class ReviewScreen extends StatelessWidget {
                   backgroundImage: NetworkImage(DemoData.slideImage[0]),
                   // Replace 'URL_TO_PROFILE_PICTURE' with the actual URL to the profile picture
                 ),
-                const Gap( 8),
+                const Gap(8),
                 const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    NormalText(text:'User Name'),
+                    NormalText(text: 'User Name'),
                     Row(
                       children: [
                         Icon(Icons.star, color: Colors.yellow),
-                        Gap( 4),
-                        NormalText(text:'4.5'), // Replace with the actual rating
+                        Gap(4),
+                        NormalText(
+                            text: '4.5'), // Replace with the actual rating
                       ],
                     ),
                   ],
                 ),
               ],
             ),
-            const Gap( 8),
-            const NormalText(text:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget tincidunt dui.',
+            const Gap(8),
+            const NormalText(
+              text:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget tincidunt dui.',
             ), // Replace with the actual review text
-            const Gap( 8),
+            const Gap(8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -65,7 +67,8 @@ class ReviewScreen extends StatelessWidget {
                         // Handle like button click
                       },
                     ),
-                    const NormalText(text:'15'), // Replace with the actual number of likes
+                    const NormalText(
+                        text: '15'), // Replace with the actual number of likes
                   ],
                 ),
                 Row(
@@ -76,12 +79,14 @@ class ReviewScreen extends StatelessWidget {
                         // Handle dislike button click
                       },
                     ),
-                    const NormalText(text:'3'), // Replace with the actual number of dislikes
+                    const NormalText(
+                        text:
+                            '3'), // Replace with the actual number of dislikes
                   ],
                 ),
               ],
             ),
-            const Gap( 8),
+            const Gap(8),
             buildMediaRow(), // Implement a function to build the media row
           ],
         ),
@@ -94,9 +99,15 @@ class ReviewScreen extends StatelessWidget {
     // This can be a Row with a list of Image or VideoThumbnail widgets
     return Row(
       children: [
-        Image.network(DemoData.slideImage[0],height: 60,), // Replace with actual URL to the first thumbnail
-        const Gap( 8),
-        Image.network(DemoData.slideImage[1],height: 60,), // Replace with actual URL to the second thumbnail
+        Image.network(
+          DemoData.slideImage[0],
+          height: 60,
+        ), // Replace with actual URL to the first thumbnail
+        const Gap(8),
+        Image.network(
+          DemoData.slideImage[1],
+          height: 60,
+        ), // Replace with actual URL to the second thumbnail
         // Add more thumbnails as needed
       ],
     );
