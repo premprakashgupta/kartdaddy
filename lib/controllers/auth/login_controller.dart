@@ -45,7 +45,7 @@ class LoginController extends GetxController {
       {required String login_id, required String password}) async {
     try {
       disabled.value = true;
-      var response = await http.post(
+      http.Response response = await http.post(
         Uri.parse(AuthApi.login),
         body: {'login_id': login_id, 'password': password},
       );

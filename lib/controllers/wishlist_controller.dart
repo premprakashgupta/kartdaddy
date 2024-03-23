@@ -12,7 +12,7 @@ import 'package:kartdaddy/utility/custom_snackbar.dart';
 
 class WishListController extends GetxController {
   final CartController _cartController = Get.find();
-  var box = GetStorage();
+  GetStorage box = GetStorage();
   final loading = true.obs;
   final wishlists = <ProductModel>[].obs;
   String token = '';
@@ -27,7 +27,7 @@ class WishListController extends GetxController {
   void fetchData() async {
     try {
       String url = ProductApi.getWishList;
-      var response = await http.get(Uri.parse(url), headers: {
+      http.Response response = await http.get(Uri.parse(url), headers: {
         "Authorization": "Bearer $token",
       });
       if (response.statusCode == 200) {
@@ -48,7 +48,7 @@ class WishListController extends GetxController {
   void addWishList({required ProductModel product}) async {
     try {
       String url = ProductApi.addWishList;
-      var response = await http.post(Uri.parse(url), headers: {
+      http.Response response = await http.post(Uri.parse(url), headers: {
         "Authorization": "Bearer $token",
       }, body: {
         'productId': product.id.toString()
@@ -77,7 +77,7 @@ class WishListController extends GetxController {
   void removeWishList({required ProductModel product}) async {
     try {
       String url = ProductApi.addWishList;
-      var response = await http.post(Uri.parse(url), headers: {
+      http.Response response = await http.post(Uri.parse(url), headers: {
         "Authorization": "Bearer $token",
       }, body: {
         'productId': product.id.toString()
@@ -106,7 +106,7 @@ class WishListController extends GetxController {
     try {
       
       String url = ProductApi.moveToCart;
-      var response = await http.post(Uri.parse(url), headers: {
+      http.Response response = await http.post(Uri.parse(url), headers: {
         "Authorization": "Bearer $token",
       }, body: {
         'product_id': product_id.toString(),

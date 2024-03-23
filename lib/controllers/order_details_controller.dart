@@ -14,7 +14,7 @@ class OrderDetailsController extends GetxController {
     required this.orderId,
   });
 
-  var box = GetStorage();
+  GetStorage box = GetStorage();
   Rx<OrderDetailsModel?> orderDetails = Rx<OrderDetailsModel?>(null);
   final loading = true.obs;
   var _token = '';
@@ -30,7 +30,7 @@ class OrderDetailsController extends GetxController {
   void fetchData() async {
     try {
       String url = ProductApi.orderDetail(orderId);
-      var response = await http
+      http.Response response = await http
           .get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
       if (response.statusCode == 200) {
         print(response.body);

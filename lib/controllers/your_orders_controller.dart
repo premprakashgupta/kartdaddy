@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:kartdaddy/models/your_orders_model.dart';
 
 class YourOrdersController extends GetxController {
-  var box = GetStorage();
+  GetStorage box = GetStorage();
   RxList<YourOrdersModel> orderList = RxList<YourOrdersModel>();
   final loading = true.obs;
   var _token = '';
@@ -22,7 +22,7 @@ class YourOrdersController extends GetxController {
   void fetchData() async {
     try {
       String url = ProductApi.yourOrders;
-      var response = await http
+      http.Response response = await http
           .get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
       if (response.statusCode == 200) {
         print(response.body);

@@ -27,7 +27,7 @@ class LandingController extends GetxController {
 
   void checkTokenExpiry() async {
     try {
-      var response = await http.get(
+      http.Response response = await http.get(
         Uri.parse(AuthApi.me),
         headers: {
           "Authorization": "Bearer $_token",

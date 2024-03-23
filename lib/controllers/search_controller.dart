@@ -91,7 +91,7 @@ class SearchScreenController extends GetxController {
   void fetchMasterCategory() async {
     try {
       String url = SearchApi.masterCategory;
-      var response = await http.get(Uri.parse(url));
+      http.Response response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
 
@@ -120,7 +120,7 @@ class SearchScreenController extends GetxController {
           productName: searchController.text,
           page: page.toString());
 
-      var response = await http.get(Uri.parse(url));
+      http.Response response = await http.get(Uri.parse(url));
       
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;

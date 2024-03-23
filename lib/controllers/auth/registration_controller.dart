@@ -28,7 +28,7 @@ class RegisterController extends GetxController {
       required String referralCode}) async {
     try {
       disabled.value = true;
-      var response = await http.post(
+      http.Response response = await http.post(
         Uri.parse(AuthApi.register),
         body: {
           'name': name,

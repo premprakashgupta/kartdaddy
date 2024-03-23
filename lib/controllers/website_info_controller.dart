@@ -20,7 +20,7 @@ class WebsiteInfoController extends GetxController {
   void fetchWebsiteData() async {
     try {
       String url = GeneralApis.websiteInfo;
-      var response = await http.get(Uri.parse(url));
+      http.Response response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
@@ -38,7 +38,7 @@ class WebsiteInfoController extends GetxController {
   void fetchCategories() async {
     try {
       String url = GeneralApis.categories;
-      var response = await http.get(Uri.parse(url));
+      http.Response response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;

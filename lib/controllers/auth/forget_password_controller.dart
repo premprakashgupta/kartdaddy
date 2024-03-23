@@ -7,11 +7,11 @@ import 'package:kartdaddy/api/auth.dart';
 import 'package:kartdaddy/screens/landing_screen.dart';
 
 class ForgetPasswordController extends GetxController {
-  var box = GetStorage();
+  GetStorage box = GetStorage();
   void sendOtp({required String identifier}) async {
     try {
       String url = AuthApi.forgetPassword;
-      var response =
+      http.Response response =
           await http.post(Uri.parse(url), body: {"identifier": identifier});
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
@@ -27,7 +27,7 @@ class ForgetPasswordController extends GetxController {
     var token = box.read('token');
     try {
       String url = AuthApi.resetPassword(token: token);
-      var response = await http.post(Uri.parse(url), body: {
+      http.Response response = await http.post(Uri.parse(url), body: {
         "password": password,
         "password_confirmation": password_confirmation
       });

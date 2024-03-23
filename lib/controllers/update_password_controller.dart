@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:kartdaddy/api/auth.dart';
 
 class UpdatePasswordController extends GetxController {
-  var box = GetStorage();
+  GetStorage box = GetStorage();
   var _token = '';
   final oldPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();

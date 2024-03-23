@@ -27,7 +27,7 @@ class SearchScreen extends StatelessWidget {
               backgroundColor: const MaterialStatePropertyAll(Colors.white),
               leading: CustomIcons.search(),
               trailing: [buildMasterCat()],
-              autoFocus: true,
+              
               hintText: AppLocalizations.of(context)!.search,
               controller: _searchScreenController.searchController,
               onChanged: (value) {

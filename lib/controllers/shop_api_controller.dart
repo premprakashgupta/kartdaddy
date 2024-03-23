@@ -26,7 +26,7 @@ class ShopApiController extends GetxController {
   void fetchData() async {
     try {
       String url = GeneralApis.shopApi(subCategorySlug: slug);
-      var response = await http.get(Uri.parse(url));
+      http.Response response = await http.get(Uri.parse(url));
       
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;

@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:kartdaddy/utility/custom_snackbar.dart';
 
 class EditProfileController extends GetxController {
-  var box = GetStorage();
+  GetStorage box = GetStorage();
   final isNotEmailEditable = true.obs;
   final isNotMobileEditable = true.obs;
   final isNotNameEditable = true.obs;
@@ -43,7 +43,7 @@ class EditProfileController extends GetxController {
 
       print("hii");
 
-      var response = await http.put(Uri.parse(url),
+      http.Response response = await http.put(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
           body: {'name': nameController.text});
       print(response.body);
@@ -65,7 +65,7 @@ class EditProfileController extends GetxController {
     try {
       String url = AuthApi.updateEmail;
       var uniqueSecret = box.read('unique_secret');
-      var response = await http.post(Uri.parse(url),
+      http.Response response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
           body: {'otp': otpController.text, 'unique_secret': uniqueSecret});
 
@@ -88,7 +88,7 @@ class EditProfileController extends GetxController {
   void editEmail() async {
     try {
       String url = AuthApi.editEmail;
-      var response = await http.post(Uri.parse(url),
+      http.Response response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
           body: {'email': emailController.text});
 
@@ -146,7 +146,7 @@ class EditProfileController extends GetxController {
     try {
       String url = AuthApi.updateMobile;
       var uniqueSecret = box.read('unique_secret');
-      var response = await http.post(Uri.parse(url),
+      http.Response response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
           body: {'otp': otpController.text, 'unique_secret': uniqueSecret});
 
@@ -169,7 +169,7 @@ class EditProfileController extends GetxController {
   void editMobile() async {
     try {
       String url = AuthApi.editMobile;
-      var response = await http.post(Uri.parse(url),
+      http.Response response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
           body: {'mobile': mobileController.text});
 

@@ -30,7 +30,7 @@ class OtpVerificationController extends GetxController {
       try {
         String url = AuthApi.verifyOtp;
 
-        var response = await http.post(Uri.parse(url),
+        http.Response response = await http.post(Uri.parse(url),
             body: {'otp': newOtp.value, 'unique_secret': uniqueSecret});
 
         if (response.statusCode == 201) {
@@ -61,7 +61,7 @@ class OtpVerificationController extends GetxController {
     var uniqueSecret = box.read('unique_secret');
     try {
       String url = AuthApi.veryfyOtpForgetPassword;
-      var response = await http.post(Uri.parse(url),
+      http.Response response = await http.post(Uri.parse(url),
           body: {"otp": newOtp.value, "unique_secret": uniqueSecret});
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;

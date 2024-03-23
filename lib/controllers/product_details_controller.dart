@@ -32,7 +32,7 @@ class ProductDetailsController extends GetxController {
 
       String url = "${ProductApi.productDetail}/$timestamp/$slug";
      
-      var response = await http.get(Uri.parse(url));
+      http.Response response = await http.get(Uri.parse(url));
     
       if (response.statusCode == 200) {
        

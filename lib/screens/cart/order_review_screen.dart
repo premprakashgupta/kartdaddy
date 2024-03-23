@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
+import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/components/subheading_widget.dart';
 import 'package:kartdaddy/controllers/order_review_controller.dart';
@@ -24,6 +25,9 @@ class OrderReviewScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Obx(() {
+          if (_orderReviewController.loading.value == true) {
+            return CustomCircularProgress();
+          }
           OrderReviewModel data = _orderReviewController.reviewOrderData.value!;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -122,7 +126,7 @@ class OrderReviewScreen extends StatelessWidget {
               // Proceed Button
               CustomButton(
                 onPressed: () {
-                  Get.to(() => const PaymentMethodScreen());
+                  Get.to(() => PaymentMethodScreen());
                 },
                 child: Text(AppLocalizations.of(context)!.proceed),
               ),

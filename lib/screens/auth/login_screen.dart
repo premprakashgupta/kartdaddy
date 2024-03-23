@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _loginController.dispose();
+    _loginIdController.dispose();
     _passwordController.dispose();
     super.dispose();
   }

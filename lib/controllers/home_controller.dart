@@ -27,7 +27,7 @@ class HomeController extends GetxController {
 
   void fetchData() async {
     try {
-      var response = await http.get(
+      http.Response response = await http.get(
         Uri.parse(AuthApi.home),
       );
       if (response.statusCode == 200) {

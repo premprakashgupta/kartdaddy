@@ -7,7 +7,7 @@ import 'package:kartdaddy/models/order_review_model.dart';
 import 'package:http/http.dart' as http;
 
 class OrderReviewController extends GetxController {
-  var box = GetStorage();
+  GetStorage box = GetStorage();
   final Rx<OrderReviewModel?> reviewOrderData = Rx<OrderReviewModel?>(null);
   final loading = true.obs;
   String _token = '';
@@ -23,7 +23,7 @@ class OrderReviewController extends GetxController {
   void fetchData() async {
     try {
       String url = ProductApi.orderReview;
-      var response = await http.get(
+      http.Response response = await http.get(
         Uri.parse(url),
         headers: {'Authorization': 'Bearer $_token'},
       );
@@ -34,6 +34,8 @@ class OrderReviewController extends GetxController {
       }
     } catch (e) {
       print(e);
+    } finally {
+      loading.value = false;
     }
   }
 }

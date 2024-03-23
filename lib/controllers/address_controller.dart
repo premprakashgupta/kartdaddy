@@ -62,7 +62,7 @@ class AddressController extends GetxController {
     },
   ];
 
-  var box = GetStorage();
+  GetStorage box = GetStorage();
   final addressList = <AddressModel>[].obs;
   String _token = '';
 
@@ -77,7 +77,7 @@ class AddressController extends GetxController {
   void fetchData() async {
     try {
       String url = ProductApi.getAddress;
-      var response = await http
+      http.Response response = await http
           .get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
@@ -101,7 +101,7 @@ class AddressController extends GetxController {
      
 
       String url = ProductApi.addAddress;
-      var response = await http.post(Uri.parse(url),
+      http.Response response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'}, body: addressData);
      
       if (response.statusCode == 200) {
@@ -140,7 +140,7 @@ class AddressController extends GetxController {
       
 
       String url = ProductApi.updateAddress(id);
-      var response = await http.put(Uri.parse(url),
+      http.Response response = await http.put(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'}, body: newAddressData);
       
       if (response.statusCode == 200) {
@@ -161,7 +161,7 @@ class AddressController extends GetxController {
   void removeAddress({required int id}) async {
     try {
       String url = ProductApi.removeAddress(id);
-      var response = await http.delete(
+      http.Response response = await http.delete(
         Uri.parse(url),
         headers: {'Authorization': 'Bearer $_token'},
       );
@@ -181,7 +181,7 @@ class AddressController extends GetxController {
   void setDefault({required int id}) async {
     try {
       String url = ProductApi.setDefault(id);
-      var response = await http.put(
+      http.Response response = await http.put(
         Uri.parse(url),
         headers: {'Authorization': 'Bearer $_token'},
       );

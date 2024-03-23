@@ -19,7 +19,7 @@ class CartController extends GetxController {
   //   return _wishListController;
   // }
 
-  var box = GetStorage();
+  GetStorage box = GetStorage();
   String _token = '';
   RxList<CartModel> cart = RxList<CartModel>();
   final total = 0.obs;
@@ -37,7 +37,7 @@ class CartController extends GetxController {
     // api
     try {
       String url = ProductApi.getCartList;
-      var response = await http
+      http.Response response = await http
           .get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
       if (response.statusCode == 200) {
         var jsonData = await json.decode(response.body) as Map<String, dynamic>;
@@ -64,7 +64,7 @@ class CartController extends GetxController {
      
       String url = ProductApi.addToCart;
       
-      var response = await http.post(Uri.parse(url), headers: {
+      http.Response response = await http.post(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token'
       }, body: {
         'product_id': cartitem.product_id.toString(),
@@ -91,7 +91,7 @@ class CartController extends GetxController {
     try {
       loading.value = true;
       String url = ProductApi.removeFromCart;
-      var response = await http.post(Uri.parse(url),
+      http.Response response = await http.post(Uri.parse(url),
           headers: {'Authorization': 'Bearer $_token'},
           body: {'product_id': productId});
      
@@ -124,7 +124,7 @@ class CartController extends GetxController {
   void increaseQuantity({required String product_id}) async {
     try {
       String url = ProductApi.increamentQuantity;
-      var response = await http.post(
+      http.Response response = await http.post(
         Uri.parse(url),
         headers: {'Authorization': 'Bearer $_token'},
         body: {
@@ -149,7 +149,7 @@ class CartController extends GetxController {
   void decreamentQuantity({required String product_id}) async {
     try {
       String url = ProductApi.decreamentQuantity;
-      var response = await http.post(
+      http.Response response = await http.post(
         Uri.parse(url),
         headers: {'Authorization': 'Bearer $_token'},
         body: {
@@ -174,7 +174,7 @@ class CartController extends GetxController {
     try {
      
       String url = ProductApi.saveForLater;
-      var response = await http.post(Uri.parse(url), headers: {
+      http.Response response = await http.post(Uri.parse(url), headers: {
         "Authorization": "Bearer $_token",
       }, body: {
         'productId': productId.toString(),

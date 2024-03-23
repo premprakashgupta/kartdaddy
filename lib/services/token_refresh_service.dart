@@ -23,7 +23,7 @@ class TokenRefreshService extends GetxService {
   Future<void> refreshToken() async {
     try {
       var accessToken = box.read('access_token');
-      var response = await http.post(
+      http.Response response = await http.post(
         Uri.parse(AuthApi.me),
         headers: {
           "Authorization": "Bearer $accessToken",

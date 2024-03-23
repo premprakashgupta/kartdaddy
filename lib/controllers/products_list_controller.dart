@@ -21,7 +21,7 @@ class ProductsListController extends GetxController {
   Future<void> fetchData({required String slug}) async {
     try {
       final uri = Uri.parse('https://kartdaddy.in/api/section/$slug');
-      var response = await http.get(uri);
+      http.Response response = await http.get(uri);
     
 
       if (response.statusCode == 200) {
