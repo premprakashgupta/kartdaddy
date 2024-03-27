@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kartdaddy/components/box_border_container.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
@@ -126,9 +127,12 @@ class OrderReviewScreen extends StatelessWidget {
               // Proceed Button
               CustomButton(
                 onPressed: () {
+                  // this Storage and box will remove in future when data manage from backend
+                  var box = GetStorage();
+                  box.write('addressId', addressId);
                   Get.to(() => PaymentMethodScreen());
                 },
-                child: Text(AppLocalizations.of(context)!.proceed),
+                child: NormalText(text: AppLocalizations.of(context)!.proceed),
               ),
             ],
           );

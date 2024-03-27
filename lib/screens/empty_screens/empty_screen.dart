@@ -24,6 +24,7 @@ class EmptyScreen extends StatelessWidget {
                 onPressed: () {
                   Get.back();
                 },
+                size: Size.fromWidth(Get.size.width * .5),
                 child: const NormalText(text: "Go back"))
           ],
         ),

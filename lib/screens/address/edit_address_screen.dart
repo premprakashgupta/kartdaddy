@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gap/gap.dart';
+import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
+import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/address_controller.dart';
 
 class EditAddressScreen extends StatelessWidget {
@@ -29,12 +31,12 @@ class EditAddressScreen extends StatelessWidget {
                         InputDecoration(labelText: controllerData['label']),
                   ),
                 const Gap(20),
-                ElevatedButton(
+                CustomButton(
                   onPressed: () {
                     // Access data from controllers
                     _addressController.updateAddress(id: id);
                   },
-                  child: const Text("Update"),
+                  child: const NormalText(text: "Update"),
                 ),
               ],
             ),

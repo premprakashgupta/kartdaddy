@@ -341,7 +341,8 @@ class CartScreen extends StatelessWidget {
                                   ));
                               print('Checkout button pressed!');
                             },
-                      child: Text(AppLocalizations.of(context)!.checkout),
+                      child: NormalText(
+                          text: AppLocalizations.of(context)!.checkout),
                     ),
                   ),
                 ],

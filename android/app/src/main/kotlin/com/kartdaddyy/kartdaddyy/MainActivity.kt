@@ -1,4 +1,4 @@
-package com.example.kartdaddy
+package com.kartdaddyy.kartdaddyy
 
 import io.flutter.embedding.android.FlutterActivity
 
