@@ -364,6 +364,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       const Gap(16),
                       CustomButton(
+                        size: Size.fromWidth(Get.size.width * .4),
                         onPressed: _cartController.cart.any((element) =>
                                 element.product_id ==
                                 _productDetailsController

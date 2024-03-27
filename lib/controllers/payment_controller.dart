@@ -27,9 +27,20 @@ class PaymentController extends GetxController {
     super.onInit();
   }
 
-  void verifyPayment(String orderId) {
+  void verifyPayment(String orderId) async {
     // Here you might want to update your UI or perform any necessary actions
-    Get.offAll(() => ThankYouScreen());
+    try {
+      String url = PaymentApi.verifyPayment;
+      var response = await http.post(Uri.parse(url),
+          headers: {'Authorization': 'Bearer $_token'},
+          body: {'orderId': orderId});
+      if (response.statusCode == 200) {
+        Get.offAll(() => ThankYouScreen());
+      }
+    } catch (e) {
+      print("Payment Error: $e");
+      throw e; // Rethrow the exception to be handled elsewhere if necessary
+    }
 
     print("Payment Verified for Order ID: $orderId");
   }

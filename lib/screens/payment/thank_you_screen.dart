@@ -28,6 +28,7 @@ class ThankYouScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             CustomButton(
+              size: Size.fromWidth(Get.size.width * .4),
               onPressed: () {
                 Get.offAll(() => const BottomNavigationScreen());
               },

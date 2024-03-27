@@ -191,4 +191,19 @@ class CustomIcons {
       size: size,
     );
   }
+  static Icon remove({double size = 20.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.remove,
+      color: color,
+      size: size,
+    );
+  }
+
+  static Icon add({double size = 20.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.add,
+      color: color,
+      size: size,
+    );
+  }
 }

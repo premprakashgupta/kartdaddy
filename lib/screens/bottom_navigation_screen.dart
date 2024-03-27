@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
+import 'package:kartdaddy/controllers/search_controller.dart';
 import 'package:kartdaddy/controllers/wishlist_controller.dart';
 import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
@@ -21,6 +22,7 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final CartController _cartController = Get.put(CartController());
   final WishListController _temp = Get.put(WishListController());
+  final SearchScreenController _searchScreenController = Get.find();
   int stackIndex = 0;
   List<Widget> screens = [
     HomeScreen(),
@@ -66,6 +68,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 visitedIndexes.add(index); // Add index to visited indexes list
               }
               stackIndex = index;
+              if (index != 2) {
+                _searchScreenController.searchController.clear();
+                _searchScreenController.filteredProducts.clear();
+              }
             });
           },
           items: [
@@ -79,7 +85,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 activeIcon: CustomIcons.person(
                     color: CustomColors.themeColor.toColor()),
                 label: 'Profile'),
-            const BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.search), label: 'Search'),
             BottomNavigationBarItem(
                 icon: badges.Badge(
                   showBadge: true,

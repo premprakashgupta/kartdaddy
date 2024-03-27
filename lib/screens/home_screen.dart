@@ -287,18 +287,18 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                       const Gap(20),
                                       CustomButton(
+                                        size:
+                                            Size.fromWidth(Get.size.width * .4),
                                         onPressed: () {
                                           Get.to(() => ProductsListScreen(
                                                 slug: section.slug,
                                                 title: section.title,
                                               ));
                                         },
-                                        child: const Text(
+                                        child: const NormalText(
+                                          text:
                                           "View All",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                          ),
+                                         
                                         ),
                                       ),
                                     ],
@@ -449,6 +449,8 @@ class HomeScreen extends StatelessWidget {
                                   bottom: 10,
                                   right: 30,
                                   child: CustomButton(
+                                      size:
+                                          Size.fromWidth(Get.size.width * .35),
                                       child: const Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,

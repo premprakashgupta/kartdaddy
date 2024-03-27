@@ -8,6 +8,7 @@ import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
 import 'package:kartdaddy/controllers/cartController.dart';
 import 'package:kartdaddy/designs/colors.dart';
+import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/models/cart_model.dart';
 import 'package:kartdaddy/screens/address/address_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -132,10 +133,9 @@ class CartScreen extends StatelessWidget {
                                                                 .product_id,
                                                           );
                                                         },
-                                                        child: const Icon(
-                                                            Icons
-                                                                .minimize_outlined,
-                                                            size: 19),
+                                                        child:
+                                                            CustomIcons.remove(
+                                                                size: 19),
                                                       ),
                                               ),
                                             ),
@@ -189,8 +189,8 @@ class CartScreen extends StatelessWidget {
                                                           cartItem.product_id,
                                                     );
                                                   },
-                                                  child: const Icon(Icons.add,
-                                                      size: 19),
+                                                  child:
+                                                      CustomIcons.add(size: 19),
                                                 ),
                                               ),
                                             ),
