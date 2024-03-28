@@ -73,9 +73,7 @@ class HomeScreen extends StatelessWidget {
               )
             : Column(
                 children: [
-                  GreyBgBox(
-                    child: SizedBox(),
-                  ),
+                  
                   _homeController.bannerData.isNotEmpty
                       ? CarouselSlider(
                     options: CarouselOptions(

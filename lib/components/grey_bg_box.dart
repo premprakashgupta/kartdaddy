@@ -6,22 +6,26 @@ import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
 
 class GreyBgBox extends StatelessWidget {
-  final Widget child;
+  final Map<String, dynamic> data;
   final double borderRadius;
   final EdgeInsetsGeometry? margin;
   final double? width;
+  final bool? offer;
+  final bool? title;
   const GreyBgBox(
       {super.key,
-      required this.child,
+      required this.data,
       this.borderRadius = 0,
       this.margin,
-      this.width});
+      this.width,
+      this.offer = true,
+      this.title = true});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width ?? double.infinity,
-      margin: EdgeInsets.all(3),
+      margin: margin ?? EdgeInsets.all(3),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(borderRadius),
@@ -29,7 +33,7 @@ class GreyBgBox extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 160,
+           
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: CustomColors.greyColor.toColor(),
@@ -41,7 +45,13 @@ class GreyBgBox extends StatelessWidget {
             ),
           ),
           Gap(10),
-          Row(
+          title == true
+              ? Align(
+                  alignment: Alignment.centerLeft,
+                  child: NormalText(text: "Love story"))
+              : SizedBox(),
+          offer == true
+              ? Row(
             children: [
               Container(
                 width: 50,
@@ -62,7 +72,8 @@ class GreyBgBox extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               )
             ],
-          )
+                )
+              : SizedBox()
         ],
       ),
     );

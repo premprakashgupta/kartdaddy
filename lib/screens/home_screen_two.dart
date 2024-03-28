@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kartdaddy/components/grey_bg_box.dart';
@@ -149,15 +151,7 @@ class HomeScreenTwo extends StatelessWidget {
                     child: Container(
                       height: 270,
                       width: Get.size.width,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 5),
-                            color: Colors.white,
-                            blurRadius: 15,
-                          )
-                        ],
-                      ),
+                      
                       child: Column(
                         children: [
                           Padding(
@@ -171,7 +165,7 @@ class HomeScreenTwo extends StatelessWidget {
                                         width: 10,
                                         margin: EdgeInsets.all(3),
                                         decoration: BoxDecoration(
-                                            color: Colors.blue,
+                                            color: Colors.white,
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
@@ -266,22 +260,168 @@ class HomeScreenTwo extends StatelessWidget {
               children: [
                 GreyBgBox(
                   width: Get.size.width * .48,
-                  child: Text("data"),
+                  data: {},
+                  title: false,
                 ),
                 GreyBgBox(
                   width: Get.size.width * .48,
-                  child: Text("data"),
+                  data: {},
+                  title: false,
                 ),
                 GreyBgBox(
                   width: Get.size.width * .48,
-                  child: Text("data"),
+                  data: {},
+                  title: false,
                 ),
                 GreyBgBox(
                   width: Get.size.width * .48,
-                  child: Text("data"),
+                  data: {},
+                  title: false,
                 ),
               ],
-            )
+            ),
+            Gap(10),
+            TextButton(
+              onPressed: () {},
+              child: NormalText(
+                text: "see more deal",
+              ),
+            ),
+            Divider(),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Heading(
+                  text: "Up to 40% off | Pet supplies | International brands",
+                  maxLines: 2,
+                ),
+              ),
+            ),
+            Gap(10),
+            Container(
+              padding: EdgeInsets.all(8),
+              width: double.infinity,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                children: [
+                  GreyBgBox(
+                      width: Get.size.width * .2,
+                      offer: false,
+                      title: false,
+                      data: {}),
+                  GreyBgBox(
+                      width: Get.size.width * .2,
+                      offer: false,
+                      title: false,
+                      data: {}),
+                  GreyBgBox(
+                      width: Get.size.width * .2,
+                      offer: false,
+                      title: false,
+                      data: {}),
+                  GreyBgBox(
+                      width: Get.size.width * .2,
+                      offer: false,
+                      title: false,
+                      data: {}),
+                ],
+              ),
+            ),
+            Gap(10),
+            TextButton(
+              onPressed: () {},
+              child: NormalText(
+                text: "see more deal",
+              ),
+            ),
+            Gap(10),
+            Wrap(
+              children: [
+                GreyBgBox(
+                  width: Get.size.width * .48,
+                  data: {},
+                  offer: false,
+                ),
+                GreyBgBox(
+                  width: Get.size.width * .48,
+                  data: {},
+                  offer: false,
+                ),
+                GreyBgBox(
+                  width: Get.size.width * .48,
+                  data: {},
+                  offer: false,
+                ),
+                GreyBgBox(
+                  width: Get.size.width * .48,
+                  data: {},
+                  offer: false,
+                ),
+              ],
+            ),
+            Gap(10),
+            TextButton(
+              onPressed: () {},
+              child: NormalText(
+                text: "see more deal",
+              ),
+            ),
+            Gap(10),
+            Container(
+              height: 299,
+              color: Color.fromARGB(255, 246, 176, 111),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Heading(text: "Curated for you this week"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, bottom: 8),
+                    child: NormalText(
+                        text: "Latest picks in topical & seasonal products"),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: ListView.builder(
+                          itemCount: 3,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              width: 155,
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.only(right: 8),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Center(
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      width: 110,
+                                      imageUrl:
+                                          "https://m.media-amazon.com/images/I/41GsqdiCvOL._AC_SY200_.jpg",
+                                    ),
+                                  ),
+                                  Gap(10),
+                                  SubHeading(
+                                    text:
+                                        "Keep shopping for Audio & cideo remotes",
+                                    maxLines: 2,
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Gap(20)
           ],
         ),
       ),
