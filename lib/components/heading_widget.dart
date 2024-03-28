@@ -26,7 +26,7 @@ class Heading extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               fontSize: size,
               color: color ?? CustomColors.textColor.toColor(),
-              fontWeight: FontWeight.w500)),
+              fontWeight: FontWeight.w600)),
     );
   }
 }

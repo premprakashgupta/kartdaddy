@@ -76,6 +76,21 @@ class CustomIcons {
       size: size,
     );
   }
+  static Icon downArrow({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.keyboard_arrow_down_outlined,
+      color: color,
+      size: size,
+    );
+  }
+
+  static Icon playOutline({double size = 27.0, Color color = Colors.black}) {
+    return Icon(
+      Icons.play_circle_outline,
+      color: color,
+      size: size,
+    );
+  }
 
   static Icon phone({double size = 27.0, Color color = Colors.black}) {
     return Icon(

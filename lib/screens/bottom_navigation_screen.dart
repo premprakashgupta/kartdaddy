@@ -7,6 +7,7 @@ import 'package:kartdaddy/designs/colors.dart';
 import 'package:kartdaddy/designs/custom_icons.dart';
 import 'package:kartdaddy/screens/cart/cart_screen.dart';
 import 'package:kartdaddy/screens/home_screen.dart';
+import 'package:kartdaddy/screens/home_screen_two.dart';
 import 'package:kartdaddy/screens/profile/profile_screen.dart';
 import 'package:kartdaddy/screens/search/search_screen.dart';
 import 'package:kartdaddy/utility/color_converter.dart';
@@ -22,14 +23,16 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final CartController _cartController = Get.put(CartController());
   final WishListController _temp = Get.put(WishListController());
-  final SearchScreenController _searchScreenController = Get.find();
+  final SearchScreenController _searchScreenController =
+      Get.put(SearchScreenController());
   int stackIndex = 0;
   List<Widget> screens = [
-    HomeScreen(),
+    HomeScreenTwo(),
     ProfileScreen(),
     SearchScreen(),
     CartScreen()
   ];
+
   List<int> visitedIndexes = [0]; // Keep track of visited indexes
   bool wantBack = false;
   @override

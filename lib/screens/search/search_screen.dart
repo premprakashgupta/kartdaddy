@@ -10,7 +10,7 @@ import '../../controllers/search_controller.dart';
 
 class SearchScreen extends StatelessWidget {
   final SearchScreenController _searchScreenController =
-      Get.put(SearchScreenController());
+      Get.find();
 
   SearchScreen({super.key});
 

@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:kartdaddy/components/custom_button.dart';
 import 'package:kartdaddy/components/custom_circular_progress_indicator.dart';
 import 'package:kartdaddy/components/footer_widget.dart';
+import 'package:kartdaddy/components/grey_bg_box.dart';
 import 'package:kartdaddy/components/heading_widget.dart';
 import 'package:kartdaddy/components/newsletter_widget.dart';
 import 'package:kartdaddy/components/normal_text_widget.dart';
@@ -72,6 +73,9 @@ class HomeScreen extends StatelessWidget {
               )
             : Column(
                 children: [
+                  GreyBgBox(
+                    child: SizedBox(),
+                  ),
                   _homeController.bannerData.isNotEmpty
                       ? CarouselSlider(
                     options: CarouselOptions(
